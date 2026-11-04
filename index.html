@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#171D35" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Life OS">
+<title>Life OS Prime</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1F6; --surface:#FFFFFF; --surface2:#F5F7FB; --ink:#1B2340; --muted:#56607C; --line:#DCE1EC;
+  --dawn:#C47510; --dawn-soft:#FBEBD2;
+  --grow:#1F7A69; --grow-soft:#D7EEE9;
+  --mind:#6C4A9A; --mind-soft:#E9E1F4;
+  --people:#3A68A8; --people-soft:#DDE7F5;
+  --meal:#8F99B0; --meal-soft:#ECEFF5;
+  --danger:#B93A27; --danger-soft:#F8E1DC;
+  --on-dawn:#1B1305;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",Roboto,system-ui,sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1328; --surface:#171D35; --surface2:#1E2541; --ink:#E8EBF5; --muted:#A3AAC2; --line:#2A3252;
+    --dawn:#F0A84A; --dawn-soft:#3A2C17;
+    --grow:#4CC2AA; --grow-soft:#15302B;
+    --mind:#B597E3; --mind-soft:#2A2142;
+    --people:#7BA6E6; --people-soft:#1B2945;
+    --meal:#6B7491; --meal-soft:#222944;
+    --danger:#EF7A66; --danger-soft:#3A1E1A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1328; --surface:#171D35; --surface2:#1E2541; --ink:#E8EBF5; --muted:#A3AAC2; --line:#2A3252;
+  --dawn:#F0A84A; --dawn-soft:#3A2C17;
+  --grow:#4CC2AA; --grow-soft:#15302B;
+  --mind:#B597E3; --mind-soft:#2A2142;
+  --people:#7BA6E6; --people-soft:#1B2945;
+  --meal:#6B7491; --meal-soft:#222944;
+  --danger:#EF7A66; --danger-soft:#3A1E1A;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%;padding-bottom:84px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+a{color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--dawn);outline-offset:2px;border-radius:8px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.15}
+p{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+[hidden]{display:none !important}
+
+/* top bar */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:56px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:1.1rem;letter-spacing:-0.01em}
+.brand svg{width:28px;height:28px}
+.sync{font-size:0.8rem;color:var(--muted);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.sync i{width:8px;height:8px;border-radius:50%;background:var(--meal);display:inline-block}
+.sync.ok i{background:var(--grow)}
+.sync.busy i{background:var(--dawn)}
+.sync.err i{background:var(--danger)}
+
+/* bottom tabs */
+nav.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabbar .row{max-width:620px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px 8px;text-decoration:none;font-size:0.74rem;color:var(--muted)}
+nav.tabbar a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+nav.tabbar a[aria-current="page"]{color:var(--dawn);font-weight:700}
+nav.tabbar a.checkin span.dot{display:block;width:5px;height:5px;border-radius:50%;background:var(--danger);margin-top:-2px}
+
+.view{padding:18px 0 28px}
+.sec{font-size:1.2rem;font-weight:800;letter-spacing:-0.01em;margin:30px 0 12px}
+.sub{color:var(--muted);font-size:0.92rem;margin:-6px 0 14px;max-width:62ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:10px 18px;font-weight:700;cursor:pointer;text-decoration:none;font-size:0.95rem}
+.btn.primary{background:var(--dawn);border-color:var(--dawn);color:var(--on-dawn)}
+.btn.quiet{background:transparent}
+.btn:disabled{opacity:0.55;cursor:default}
+.btn.small{padding:7px 14px;font-size:0.88rem}
+
+/* home hero */
+.hello h1{font-size:clamp(1.6rem,6vw,2.2rem);font-weight:800;letter-spacing:-0.025em}
+.hello p{color:var(--muted);margin-top:4px}
+.hero{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px}
+@media (max-width:460px){.hero{grid-template-columns:1fr;justify-items:center;text-align:center}.hero .mini{justify-content:center}.mini div small{display:block;max-width:12ch;margin:0 auto}}
+.ring{width:172px;height:172px;display:block}
+.ring .track{stroke:var(--line)}
+.ring .num{font-family:var(--display);font-weight:800;font-size:46px;fill:var(--ink)}
+.ring .of{font-size:12px;fill:var(--muted)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px;font-size:0.84rem;font-weight:700;background:var(--dawn-soft);color:var(--ink)}
+.chip.reset{background:var(--grow-soft)}
+.hero-msg{margin:10px 0 14px;font-size:1rem;max-width:44ch}
+.mini{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;gap:18px;margin-top:16px}
+.mini div b{display:block;font-family:var(--display);font-size:1.35rem;font-weight:800;line-height:1.1}
+.mini div small{color:var(--muted);font-size:0.8rem}
+
+/* right now */
+.now{margin-top:14px;display:grid;grid-template-columns:6px 1fr auto;gap:14px;align-items:center}
+.now .bar6{align-self:stretch;border-radius:4px;background:var(--dawn)}
+.now .lbl{font-size:0.82rem;color:var(--muted)}
+.now h3{font-size:1.15rem;margin:2px 0}
+.now .next{font-size:0.88rem;color:var(--muted)}
+.now .left{font-family:var(--display);font-weight:800;font-size:1.3rem;text-align:right}
+.now .left small{display:block;font-family:var(--body);font-weight:400;font-size:0.78rem;color:var(--muted)}
+.now .prog{grid-column:2 / -1;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.now .prog i{display:block;height:100%;background:var(--dawn)}
+.rules{list-style:none;margin:6px 0 0;padding:0;grid-column:2 / -1}
+.rules li{display:flex;gap:8px;align-items:center;font-size:0.93rem;padding:3px 0}
+.rules li i{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto}
+.rules li.ok i{background:var(--grow);border-color:var(--grow)}
+.rules li.no i{background:var(--danger-soft);border-color:var(--danger)}
+.start-reset{margin-top:14px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;background:var(--grow-soft);border-color:transparent}
+
+/* kpis */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+.kpi .lab{font-size:0.84rem;color:var(--muted)}
+.kpi .num{font-family:var(--display);font-size:1.65rem;font-weight:800;letter-spacing:-0.02em;line-height:1.1}
+.kpi .tgt{font-size:0.8rem;color:var(--muted)}
+.kpi .mbar{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:6px}
+.kpi .mbar i{display:block;height:100%;border-radius:99px}
+.c-good{background:var(--grow)} .c-warn{background:var(--dawn)} .c-bad{background:var(--danger)} .c-none{background:var(--meal)}
+.t-good{color:var(--grow)} .t-warn{color:var(--dawn)} .t-bad{color:var(--danger)}
+
+/* charts */
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.chart h3{font-size:1rem;margin-bottom:2px}
+.chart p{font-size:0.82rem;color:var(--muted);margin-bottom:8px}
+.chart svg{width:100%;height:auto;display:block}
+.chart svg text{font-family:var(--body);font-size:10px;fill:var(--muted)}
+.chart svg .v{font-size:10px;fill:var(--ink);font-weight:700}
+.chart svg .grid{stroke:var(--line);stroke-width:1}
+.chart svg .goal{stroke:var(--dawn);stroke-width:1.5;stroke-dasharray:4 3}
+
+/* insights */
+.ins{display:grid;gap:8px}
+.in{display:grid;grid-template-columns:5px 1fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px 12px 12px}
+.in .st{border-radius:3px}
+.in b{display:block;font-family:var(--display);font-size:1rem}
+.in b small{font-family:var(--body);font-weight:700;font-size:0.75rem;margin-left:6px;padding:1px 8px;border-radius:99px}
+.in.bad .st{background:var(--danger)} .in.bad b small{background:var(--danger-soft);color:var(--danger)}
+.in.watch .st{background:var(--dawn)} .in.watch b small{background:var(--dawn-soft);color:var(--dawn)}
+.in.good .st{background:var(--grow)} .in.good b small{background:var(--grow-soft);color:var(--grow)}
+.in.info .st{background:var(--people)} .in.info b small{background:var(--people-soft);color:var(--people)}
+.in p{font-size:0.93rem;color:var(--muted)}
+.empty{color:var(--muted);font-size:0.95rem}
+
+/* heatmap */
+.heat{display:grid;grid-template-columns:minmax(92px,120px) repeat(28,minmax(5px,1fr));gap:3px;align-items:center}
+.heat .hl{font-size:0.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:6px}
+.heat .hc{aspect-ratio:1;border-radius:3px;background:var(--line);opacity:0.45}
+.heat .hc.y{background:var(--grow);opacity:1}
+.heat .hc.n{background:var(--danger);opacity:0.55}
+.heat .hc.today{outline:2px solid var(--dawn);outline-offset:1px}
+.heat .hd{font-size:0.66rem;color:var(--muted);text-align:center}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:0.8rem;color:var(--muted);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+/* coach */
+.coach-out{white-space:pre-wrap;font-size:0.95rem;margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--surface2);border:1px solid var(--line)}
+.coach-out:empty{display:none}
+
+/* check-in form */
+.form{display:grid;gap:14px}
+.group{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+.group h3{font-size:1.05rem;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.group h3 i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.field label{display:block;font-size:0.86rem;color:var(--muted);margin-bottom:5px}
+.field input[type=time],.field input[type=number],.field input[type=date],.field textarea,.field input[type=text]{width:100%;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px}
+.field textarea{min-height:64px;resize:vertical}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.step{display:grid;grid-template-columns:44px 1fr 44px;gap:6px}
+.step button{border:1px solid var(--line);background:var(--surface2);border-radius:10px;font-size:1.2rem;cursor:pointer}
+.step input{text-align:center}
+.switches{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 16px;margin-top:12px}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+.sw input{appearance:none;-webkit-appearance:none;width:46px;height:28px;border-radius:99px;background:var(--line);position:relative;cursor:pointer;flex:0 0 auto;margin:0;transition:background .2s}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--surface);transition:transform .2s}
+.sw input:checked{background:var(--grow)}
+.sw input:checked::after{transform:translateX(18px)}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.scale button{border:1px solid var(--line);background:var(--surface2);border-radius:10px;padding:8px 0;cursor:pointer;font-size:1.1rem}
+.scale button[aria-pressed="true"]{background:var(--dawn);border-color:var(--dawn);color:var(--on-dawn);font-weight:700}
+.savebar{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 12px}
+.savebar span{font-size:0.88rem;color:var(--muted)}
+
+/* routine */
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface)}
+.seg button{border:0;background:transparent;color:var(--muted);padding:7px 14px;border-radius:999px;cursor:pointer;font-size:0.9rem}
+.seg button[aria-pressed="true"]{background:var(--dawn);color:var(--on-dawn);font-weight:700}
+.dial-wrap{display:grid;grid-template-columns:minmax(0,340px) 1fr;gap:20px;align-items:start;margin-top:14px}
+@media (max-width:680px){.dial-wrap{grid-template-columns:1fr}}
+.dial{width:100%;max-width:340px;margin:0 auto;display:block}
+.dial path{cursor:pointer;stroke:var(--surface);stroke-width:2;transition:opacity .2s}
+.dial.focused path:not(.on){opacity:0.35}
+.dial text{font-family:var(--body);fill:var(--muted);font-size:11px}
+.dial .c1{font-family:var(--display);font-weight:700;font-size:16px;fill:var(--ink)}
+.dial .c2{font-size:12px;fill:var(--muted)}
+.dial .hand{stroke:var(--ink);stroke-width:2.5;stroke-linecap:round}
+.sched{list-style:none;margin:0;padding:0;font-size:0.94rem}
+.sched li{display:grid;grid-template-columns:78px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.sched li .t{color:var(--muted);font-variant-numeric:tabular-nums}
+.sched li.deep{font-weight:700}
+.sched li.cur{background:var(--dawn-soft);border-radius:8px;padding-left:6px;margin-left:-6px}
+.sched li small{display:block;font-weight:400;color:var(--muted)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:0.92rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-family:var(--display);font-weight:700}
+tr:last-child td{border-bottom:0}
+tr.curlvl td{background:var(--dawn-soft);font-weight:700}
+.fixes{display:grid;gap:8px}
+.fix{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+@media (max-width:560px){.fix{grid-template-columns:1fr}}
+.fix .p{font-weight:700}
+.fix .s{border-left:3px solid var(--grow);padding-left:12px;color:var(--ink)}
+@media (max-width:560px){.fix .s{border-left:0;border-top:2px solid var(--grow);padding:8px 0 0}}
+
+/* goals */
+.goal-top{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.goal-top .ring{width:120px;height:120px}
+.goal-top .ring .num{font-size:30px}
+details.goal{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+details.goal summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center}
+details.goal summary::-webkit-details-marker{display:none}
+details.goal summary h3{font-size:1.05rem}
+details.goal summary .pct{font-family:var(--display);font-weight:800}
+details.goal summary .gbar{grid-column:1 / -1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+details.goal summary .gbar i{display:block;height:100%;border-radius:99px}
+details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85rem}
+.gbody{padding:0 16px 16px}
+.gbody h4{font-family:var(--display);font-size:0.95rem;margin:14px 0 4px}
+.gbody ul.plan{margin:0;padding-left:18px;font-size:0.93rem}
+.gbody ul.plan li{margin-bottom:4px}
+.ms{list-style:none;margin:0;padding:0}
+.ms li{border-top:1px solid var(--line)}
+.ms label{display:flex;gap:12px;align-items:flex-start;padding:10px 2px;cursor:pointer}
+.ms input{width:20px;height:20px;accent-color:var(--grow);margin:2px 0 0;flex:0 0 auto}
+.ms input:checked + span{color:var(--muted);text-decoration:line-through}
+
+/* review */
+.score-tbl td.d{font-weight:700;white-space:nowrap}
+.cons{display:grid;gap:8px}
+.cons .r{display:grid;grid-template-columns:130px 1fr 44px;gap:10px;align-items:center;font-size:0.9rem}
+.cons .r .b{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.cons .r .b i{display:block;height:100%;border-radius:99px}
+.cons .r span:last-child{text-align:right;font-family:var(--display);font-weight:700}
+.settings{display:grid;gap:14px}
+.settings .row2{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.note{font-size:0.86rem;color:var(--muted)}
+
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;font-size:0.92rem;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:20;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="none" stroke="var(--line)" stroke-width="4"/><path d="M16 3 A13 13 0 0 1 28.4 20" fill="none" stroke="var(--dawn)" stroke-width="4" stroke-linecap="round"/><circle cx="16" cy="16" r="4" fill="var(--grow)"/></svg>
+      <span>Life OS Prime</span>
+    </div>
+    <div class="sync" id="sync" role="status"><i></i><span>Saved on this device</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= HOME ================= -->
+<section class="view" id="v-home" aria-labelledby="hello">
+  <div class="hello"><h1 id="hello">Hello, Yash</h1><p id="todayLine"></p></div>
+
+  <div class="hero">
+    <svg class="ring" id="scoreRing" viewBox="0 0 172 172" role="img" aria-label="Today’s day score"></svg>
+    <div>
+      <span class="chip" id="modeChip"></span>
+      <p class="hero-msg" id="heroMsg"></p>
+      <a class="btn primary" href="#checkin" id="heroBtn">Check in for today</a>
+      <div class="mini">
+        <div><b id="stStreak">0</b><small>day check-in streak</small></div>
+        <div><b id="stBest">0</b><small>best streak</small></div>
+        <div><b id="stStrong">0</b><small>strong days (70+)</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card now" id="nowCard"></div>
+
+  <div class="card start-reset" id="startResetCard" hidden>
+    <div><h3>Festival over?</h3><p class="note">Start Reset mode. Week 1 targets begin today, at home or in the PG.</p></div>
+    <button class="btn primary small" id="startResetBtn" type="button">Start Reset mode</button>
+  </div>
+
+  <h2 class="sec">Today’s numbers</h2>
+  <div class="kpis" id="kpis"></div>
+
+  <h2 class="sec">Last 7 days</h2>
+  <div class="charts">
+    <div class="card chart"><h3>Study hours</h3><p>Dashed line is your target.</p><svg id="chStudy" viewBox="0 0 340 170"></svg></div>
+    <div class="card chart"><h3>Phone screen time</h3><p>Dashed line is your cap. Bars should go below it.</p><svg id="chScreen" viewBox="0 0 340 170"></svg></div>
+    <div class="card chart"><h3>Sleep window</h3><p>From falling asleep to waking up. Dashed lines are targets.</p><svg id="chSleep" viewBox="0 0 340 200"></svg></div>
+    <div class="card chart"><h3>Day score, last 14 days</h3><p>70 or more is a strong day.</p><svg id="chScore" viewBox="0 0 340 170"></svg></div>
+  </div>
+
+  <h2 class="sec">Pattern scan</h2>
+  <p class="sub">Bottlenecks and leaks found in your last 7 days of check-ins.</p>
+  <div class="ins" id="insights"></div>
+
+  <h2 class="sec">Habit map, last 28 days</h2>
+  <div class="card">
+    <div class="heat" id="heat"></div>
+    <div class="legend"><span><i style="background:var(--grow)"></i>Done</span><span><i style="background:var(--danger);opacity:.55"></i>Missed</span><span><i style="background:var(--line);opacity:.45"></i>No check-in</span></div>
+  </div>
+
+  <h2 class="sec">AI coach</h2>
+  <div class="card" id="coachDay">
+    <p class="note" id="coachDayNote">Reads your last 7 days and tells you the hard truth, the biggest leak, and a plan for tomorrow.</p>
+    <div style="margin-top:12px"><button class="btn primary small" type="button" id="coachDayBtn">Get today’s report</button></div>
+    <div class="coach-out" id="coachDayOut" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ================= CHECK-IN ================= -->
+<section class="view" id="v-checkin" aria-labelledby="ciTitle" hidden>
+  <div class="hello"><h1 id="ciTitle">Daily check-in</h1><p>Do this at night, before your brain dump. Real numbers only.</p></div>
+  <form class="form" id="ciForm" style="margin-top:16px" novalidate>
+    <div class="group">
+      <div class="fields">
+        <div class="field"><label for="fDate">Day</label><input type="date" id="fDate"></div>
+      </div>
+      <p class="note" id="fDateNote" style="margin-top:8px"></p>
+    </div>
+
+    <div class="group">
+      <h3><i style="background:var(--mind)"></i>Sleep</h3>
+      <div class="fields">
+        <div class="field"><label for="fAsleep">Fell asleep last night at</label><input type="time" id="fAsleep"></div>
+        <div class="field"><label for="fWake">Woke up today at</label><input type="time" id="fWake"></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3><i style="background:var(--dawn)"></i>Work</h3>
+      <div class="fields">
+        <div class="field"><label for="fStudy">Study hours</label><div class="step"><button type="button" data-step="fStudy" data-by="-0.25" aria-label="Less">−</button><input type="number" id="fStudy" min="0" max="16" step="0.25" inputmode="decimal" value="0"><button type="button" data-step="fStudy" data-by="0.25" aria-label="More">+</button></div></div>
+        <div class="field"><label for="fFocus">Focus blocks finished</label><div class="step"><button type="button" data-step="fFocus" data-by="-1" aria-label="Less">−</button><input type="number" id="fFocus" min="0" max="20" step="1" inputmode="numeric" value="0"><button type="button" data-step="fFocus" data-by="1" aria-label="More">+</button></div></div>
+        <div class="field"><label for="fApps">Job applications sent</label><div class="step"><button type="button" data-step="fApps" data-by="-1" aria-label="Less">−</button><input type="number" id="fApps" min="0" max="50" step="1" inputmode="numeric" value="0"><button type="button" data-step="fApps" data-by="1" aria-label="More">+</button></div></div>
+      </div>
+      <div class="switches">
+        <label class="sw"><span>2-minute talk practice done</span><input type="checkbox" id="fTalk"></label>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3><i style="background:var(--danger)"></i>Phone</h3>
+      <div class="fields">
+        <div class="field"><label>Total screen time (from Digital Wellbeing)</label><div class="pair"><input type="number" id="fScrH" min="0" max="24" placeholder="Hours" aria-label="Screen time hours" inputmode="numeric"><input type="number" id="fScrM" min="0" max="59" placeholder="Minutes" aria-label="Screen time minutes" inputmode="numeric"></div></div>
+        <div class="field"><label for="fInsta">Instagram minutes (0 if deleted)</label><input type="number" id="fInsta" min="0" max="1440" inputmode="numeric"></div>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3><i style="background:var(--grow)"></i>Body</h3>
+      <div class="fields">
+        <div class="field"><label for="fSteps">Steps</label><input type="number" id="fSteps" min="0" max="60000" step="100" inputmode="numeric"></div>
+      </div>
+      <div class="switches">
+        <label class="sw"><span>30-minute walk done</span><input type="checkbox" id="fWalk"></label>
+        <label class="sw"><span>Workout done</span><input type="checkbox" id="fWorkout"></label>
+        <label class="sw"><span>Protein in every meal</span><input type="checkbox" id="fProtein"></label>
+        <label class="sw"><span>No chai after 5:30 pm</span><input type="checkbox" id="fNoChai"></label>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3><i style="background:var(--mind)"></i>Mind</h3>
+      <div class="fields">
+        <div class="field"><label id="lMood">Mood</label><div class="scale" id="sMood" role="group" aria-labelledby="lMood"></div></div>
+        <div class="field"><label id="lEnergy">Energy</label><div class="scale" id="sEnergy" role="group" aria-labelledby="lEnergy"></div></div>
+      </div>
+      <div class="switches">
+        <label class="sw"><span>Brain dump written</span><input type="checkbox" id="fDump"></label>
+        <label class="sw"><span>Phone away from the bed tonight</span><input type="checkbox" id="fPhoneOff"></label>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3><i style="background:var(--people)"></i>Reflection</h3>
+      <div class="fields" style="grid-template-columns:1fr">
+        <div class="field"><label for="fGoal">Main goal today</label><input type="text" id="fGoal" maxlength="200"></div>
+        <div class="field"><label for="fDistract">Biggest distraction</label><input type="text" id="fDistract" maxlength="200"></div>
+        <div class="field"><label for="fWin">Win today</label><textarea id="fWin" maxlength="500"></textarea></div>
+        <div class="field"><label for="fFail">What went wrong</label><textarea id="fFail" maxlength="500"></textarea></div>
+        <div class="field"><label for="fTop3">Tomorrow’s top 3</label><textarea id="fTop3" maxlength="500"></textarea></div>
+      </div>
+    </div>
+
+    <div class="savebar"><span id="livePreview">Day score: 0</span><button class="btn primary" type="submit">Save check-in</button></div>
+  </form>
+</section>
+
+<!-- ================= ROUTINE ================= -->
+<section class="view" id="v-routine" aria-labelledby="rtTitle" hidden>
+  <div class="hello"><h1 id="rtTitle">Your routine</h1><p id="rtSub"></p></div>
+  <div style="margin-top:14px"><div class="seg" role="group" aria-label="Routine mode"><button type="button" data-rmode="diwali" aria-pressed="false">Diwali mode</button><button type="button" data-rmode="reset" aria-pressed="true">Reset mode</button></div></div>
+  <div id="rtDiwali" class="card" style="margin-top:14px" hidden>
+    <h3>Four rules for festival days</h3>
+    <ul class="sched" id="diwaliRules" style="margin-top:10px"></ul>
+    <p class="note" style="margin-top:10px">4 of 4 is a full day. After Bhai Dooj, switch to Reset mode, even while you’re still at home.</p>
+  </div>
+  <div id="rtReset">
+    <div class="dial-wrap">
+      <svg class="dial" id="dial" viewBox="0 0 320 320" role="img" aria-label="24-hour clock of the routine. The line shows the time now."></svg>
+      <ul class="sched" id="schedList"></ul>
+    </div>
+  </div>
+  <h2 class="sec">Targets by level</h2>
+  <p class="sub">You move up a level only after a week with 5 or more strong days (score 70+). If not, you repeat the level. Repeating isn’t failing.</p>
+  <div class="tbl"><table><thead><tr><th>Level</th><th>Study</th><th>Steps</th><th>Wake by</th><th>Asleep by</th><th>Phone cap</th><th>Focus block</th></tr></thead><tbody id="lvlBody"></tbody></table></div>
+  <h2 class="sec">When something breaks</h2>
+  <div class="fixes" id="fixList"></div>
+</section>
+
+<!-- ================= GOALS ================= -->
+<section class="view" id="v-goals" aria-labelledby="glTitle" hidden>
+  <div class="hello"><h1 id="glTitle">Goals</h1><p>Tick a milestone when it’s truly done. Priority order runs top to bottom.</p></div>
+  <div class="card goal-top" style="margin-top:16px">
+    <svg class="ring" id="goalRing" viewBox="0 0 172 172" role="img" aria-label="Overall milestone completion"></svg>
+    <div><h3>Milestones completed</h3><p class="note" id="goalSum"></p></div>
+  </div>
+  <div id="goalList" style="margin-top:14px"></div>
+</section>
+
+<!-- ================= REVIEW ================= -->
+<section class="view" id="v-review" aria-labelledby="rvTitle" hidden>
+  <div class="hello"><h1 id="rvTitle">Weekly review</h1><p>Every Sunday evening. This is the only time the plan is allowed to change.</p></div>
+
+  <div class="card" style="margin-top:16px" id="lvlCard"></div>
+
+  <h2 class="sec">Scorecard</h2>
+  <p class="sub">Last 7 days compared with the 7 days before.</p>
+  <div class="tbl"><table class="score-tbl"><thead><tr><th>Metric</th><th>Last 7 days</th><th>7 days before</th><th>Change</th></tr></thead><tbody id="scoreBody"></tbody></table></div>
+
+  <h2 class="sec">Habit consistency</h2>
+  <div class="card"><div class="cons" id="cons"></div></div>
+
+  <h2 class="sec">AI weekly review</h2>
+  <div class="card" id="coachWeek">
+    <p class="note" id="coachWeekNote">Compares your two weeks, names the bottleneck, and gives one fix for next week.</p>
+    <div style="margin-top:12px"><button class="btn primary small" type="button" id="coachWeekBtn">Run weekly review</button></div>
+    <div class="coach-out" id="coachWeekOut" aria-live="polite"></div>
+  </div>
+
+  <h2 class="sec">Data and settings</h2>
+  <div class="card settings">
+    <div>
+      <h3 style="font-size:1rem">Reset mode start date</h3>
+      <div class="row2" style="margin-top:8px">
+        <div class="field" style="min-width:170px"><input type="date" id="resetDate" aria-label="Reset mode start date"></div>
+        <button class="btn small" type="button" id="saveResetDate">Save date</button>
+        <button class="btn small quiet" type="button" id="clearReset">Back to Diwali mode</button>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1rem">Backup</h3>
+      <div class="row2" style="margin-top:8px">
+        <button class="btn small" type="button" id="exportBtn">Export backup</button>
+        <label class="btn small" for="importFile" style="cursor:pointer">Import backup</label>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+      </div>
+    </div>
+    <p class="note" id="syncNote"></p>
+  </div>
+</section>
+</main>
+
+<nav class="tabbar" aria-label="Main">
+  <div class="row">
+    <a href="#home" data-tab="home"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Dashboard</a>
+    <a href="#checkin" data-tab="checkin" class="checkin"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.6 2.6L16 9.5"/></svg>Check-in<span class="dot" id="ciDot" hidden></span></a>
+    <a href="#routine" data-tab="routine"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Routine</a>
+    <a href="#goals" data-tab="goals"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>Goals</a>
+    <a href="#review" data-tab="review"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Review</a>
+  </div>
+</nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+/* ============ utilities ============ */
+var $=function(id){return document.getElementById(id)};
+function pad(n){return String(n).padStart(2,"0")}
+function ymd(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+function parseYmd(s){var p=s.split("-").map(Number);return new Date(p[0],p[1]-1,p[2])}
+function today(){return ymd(new Date())}
+function addDays(s,n){var d=parseYmd(s);d.setDate(d.getDate()+n);return ymd(d)}
+function diffDays(a,b){return Math.round((parseYmd(b)-parseYmd(a))/86400000)}
+function lastN(n,end){var out=[];end=end||today();for(var i=n-1;i>=0;i--)out.push(addDays(end,-i));return out}
+function tmin(t){if(!t||typeof t!=="string"||t.indexOf(":")<0)return null;var p=t.split(":").map(Number);if(isNaN(p[0])||isNaN(p[1]))return null;return p[0]*60+p[1]}
+function night(t){var v=tmin(t);return v==null?null:(v-1200+1440)%1440} /* minutes after 8:00 pm */
+function clock(min){min=Math.round(((min%1440)+1440)%1440);var h=Math.floor(min/60),m=min%60;var ap=h<12?"am":"pm";var h12=h%12===0?12:h%12;return h12+":"+pad(m)+" "+ap}
+function nightClock(n){return clock(n+1200)}
+function fmtH(h){if(h==null||isNaN(h))return "—";var r=Math.round(h*10)/10;return (r%1===0?r.toFixed(0):r.toFixed(1))+" h"}
+function fmtMin(m){if(m==null||isNaN(m))return "—";m=Math.round(m);var h=Math.floor(m/60),mm=m%60;return h?(h+"h "+pad(mm)+"m"):(mm+"m")}
+function num(v){var n=parseFloat(v);return isNaN(n)?null:n}
+function avg(a){a=a.filter(function(x){return x!=null&&!isNaN(x)});return a.length?a.reduce(function(s,x){return s+x},0)/a.length:null}
+function sum(a){return a.reduce(function(s,x){return s+(x||0)},0)}
+function dayName(s){return parseYmd(s).toLocaleDateString("en-IN",{weekday:"short"})}
+function longDate(s){return parseYmd(s).toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long"})}
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function clone(o){return JSON.parse(JSON.stringify(o))}
+var toastTimer;
+function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove("show")},2600)}
+
+/* ============ data ============ */
+var KEY="lifeos-prime-v1";
+function seed(){
+  var now=Date.now();
+  return {
+    days:{"2026-11-03":{baseline:true,wake:"11:15",asleep:"",study:0,focus:0,apps:0,talk:false,screenMin:598,insta:266,steps:1500,walk:false,workout:false,protein:false,noChai:false,brainDump:false,phoneOff:false,mood:null,energy:null,goal:"",distraction:"Instagram, Shorts, movies",win:"",fail:"No productive work. Slept at 4:30 am.",top3:"",updatedAt:1}},
+    state:{resetStart:null,milestones:{},updatedAt:1}
+  };
+}
+function normalize(d){
+  if(!d||typeof d!=="object")return seed();
+  if(!d.days||typeof d.days!=="object")d.days={};
+  if(!d.state||typeof d.state!=="object")d.state={resetStart:null,milestones:{},updatedAt:1};
+  if(!d.state.milestones)d.state.milestones={};
+  return d;
+}
+function loadLocal(){try{var v=localStorage.getItem(KEY);if(v)return normalize(JSON.parse(v))}catch(e){}return seed()}
+function saveLocal(){try{localStorage.setItem(KEY,JSON.stringify(S.data))}catch(e){}}
+var S={data:loadLocal(),db:null,uid:null,sample:null,dl:null};
+saveLocal();
+
+/* ============ targets and scoring ============ */
+var LEVELS=[null,
+  {study:3,steps:5000,wake:540,bed:300,screen:360,focus:25},
+  {study:4.5,steps:7000,wake:510,bed:270,screen:240,focus:40},
+  {study:6,steps:8000,wake:480,bed:240,screen:180,focus:50}];
+var DIWALI={study:50/60,steps:4000,wake:570,bed:300,screen:360,focus:50};
+function lvlTargets(l){var t=clone(LEVELS[l]);t.mode="reset";t.level=l;return t}
+function diwaliTargets(){var t=clone(DIWALI);t.mode="diwali";t.level=0;return t}
+function screenMin(e){return (e&&typeof e.screenMin==="number")?e.screenMin:null}
+function scoreEntry(e,t){
+  if(!e)return null;
+  var s=0,w=tmin(e.wake),b=night(e.asleep),sc=screenMin(e),st=num(e.study)||0,steps=num(e.steps)||0;
+  if(t.mode==="diwali"){
+    if(w!=null&&w<=t.wake)s+=25;
+    if(e.walk||steps>=t.steps)s+=25;
+    if(st>=t.study-0.001)s+=25;
+    if(e.phoneOff)s+=25;
+    return s;
+  }
+  s+=30*Math.min(st/t.study,1);
+  if(w!=null){if(w<=t.wake+15)s+=10;else if(w<=t.wake+60)s+=5}
+  if(b!=null){if(b<=t.bed)s+=10;else if(b<=t.bed+60)s+=5}
+  if(sc!=null)s+=sc<=t.screen?15:Math.max(0,15*(1-(sc-t.screen)/t.screen));
+  s+=10*Math.min(steps/t.steps,1);
+  if(e.brainDump)s+=5;if(e.phoneOff)s+=5;if(e.noChai)s+=5;if(e.talk)s+=5;
+  s+=5*Math.min((num(e.apps)||0)/3,1);
+  return Math.round(s);
+}
+var levelCache={};
+function levelFor(date){
+  var rs=S.data.state.resetStart;
+  var w=Math.floor(diffDays(rs,date)/7),key=rs+"|"+w;
+  if(levelCache[key])return levelCache[key];
+  var level=1;
+  for(var i=0;i<w;i++){
+    var strong=0,t=lvlTargets(level);
+    for(var k=0;k<7;k++){var d=addDays(rs,i*7+k),e=S.data.days[d];if(e&&scoreEntry(e,t)>=70)strong++}
+    if(strong>=5)level=Math.min(3,level+1);
+  }
+  levelCache[key]=level;return level;
+}
+function targetsFor(date){
+  var rs=S.data.state.resetStart;
+  if(rs&&date>=rs)return lvlTargets(levelFor(date));
+  return diwaliTargets();
+}
+function dayScore(date){var e=S.data.days[date];return e?scoreEntry(e,targetsFor(date)):null}
+function sleepHours(e){var b=night(e&&e.asleep),w=tmin(e&&e.wake);if(b==null||w==null)return null;var wn=(w-1200+1440)%1440;var d=wn-b;if(d<=0)d+=1440;return d>1080?null:d/60}
+
+var HABITS=[
+  {id:"in",n:"Checked in",f:function(e){return !!e}},
+  {id:"wake",n:"Woke on time",f:function(e,t){var w=tmin(e.wake);return w==null?false:w<=t.wake+(t.mode==="reset"?15:0)}},
+  {id:"study",n:"Study target",f:function(e,t){return (num(e.study)||0)>=t.study-0.001}},
+  {id:"screen",n:"Phone under cap",f:function(e,t){var s=screenMin(e);return s!=null&&s<=t.screen}},
+  {id:"steps",n:"Steps or walk",f:function(e,t){return (num(e.steps)||0)>=t.steps||!!e.walk}},
+  {id:"sleep",n:"Asleep on time",f:function(e,t){var b=night(e.asleep);return b!=null&&b<=t.bed}},
+  {id:"dump",n:"Brain dump",f:function(e){return !!e.brainDump}},
+  {id:"phone",n:"Phone off bed",f:function(e){return !!e.phoneOff}},
+  {id:"chai",n:"No late chai",f:function(e){return !!e.noChai}},
+  {id:"work",n:"Workout",f:function(e){return !!e.workout}}
+];
+
+/* ============ routine data ============ */
+var BLOCKS=[
+  [0.5,9,"Sleep","mind",""],
+  [9,9.25,"Wake up","meal","Phone stays across the room. Water, then out of bed."],
+  [9.25,9.75,"Walk","grow","Outside, in morning light."],
+  [9.75,10.5,"Bath and breakfast","meal","Protein in it."],
+  [10.5,11.5,"Deep work 1: programming logic","dawn","Hardest task first. Phone in another room."],
+  [11.5,11.75,"Break","people",""],
+  [11.75,12.75,"Deep work 2: AI engineering","dawn","Concepts and notes."],
+  [12.75,14,"Free time","people","Phone allowed."],
+  [14,14.5,"Lunch","meal",""],
+  [14.5,15.5,"Rest (energy crash)","grow","No deep work. 20-min nap at most, or a short walk."],
+  [15.5,16,"Free time","people",""],
+  [16,17,"Deep work 3: build a project","dawn","Code that goes on GitHub."],
+  [17,17.5,"Last chai","meal","No chai after this."],
+  [17.5,19,"Free, family or girlfriend","people",""],
+  [19,19.75,"Apply + 2-min talk practice","dawn","3–5 applications, then explain one concept out loud."],
+  [19.75,20.5,"Free, family or girlfriend","people",""],
+  [20.5,21,"Dinner","meal","Fixed time."],
+  [21,23.5,"Relax, family, girlfriend","people",""],
+  [23.5,23.75,"Brain dump + check-in","mind","Log today here, then write every worry on paper."],
+  [23.75,24.5,"Wind down","mind","Phone out of reach. Lights off by 12:30."]
+];
+var DIWALI_RULES=[
+  ["Out of bed by 9:30 am","However late you slept.",function(e){var w=tmin(e&&e.wake);return w==null?null:w<=570}],
+  ["30-minute walk before noon","Steps, sunlight, a calmer mind.",function(e){return e?(!!e.walk||(num(e.steps)||0)>=4000):null}],
+  ["One 50-minute study block","Phone in another room.",function(e){return e?(num(e.study)||0)>=0.83:null}],
+  ["Phone away from the bed by 1:00 am","Breaks the 4:30 am pattern.",function(e){return e?!!e.phoneOff:null}]
+];
+var FIXES=[
+  ["“Kal se karunga.”","That’s the old pattern talking. Do 25 minutes right now. Decide about tomorrow later."],
+  ["Woke up late","Do the next block anyway. A late start is not a lost day."],
+  ["Can’t start studying","Open the problem and write the first line. Then start a 25-minute timer."],
+  ["Lost an hour to the phone","Phone goes to another room, or to someone you trust, for the next block."],
+  ["Overthinking at night","Brain dump on paper. Not asleep after 20 minutes? Get up and read on paper. Never scroll."],
+  ["Missed a whole day","Never miss twice. The next day, do at least the four Diwali rules."],
+  ["Afternoon energy crash","No deep work from 2:30 to 3:30. A 10-minute walk and water."],
+  ["Bad PG food","Room stock: roasted chana, peanuts, curd, fruit."],
+  ["Want to make a new roadmap","Not allowed for 30 days. Write the idea down and bring it to the Sunday review."],
+  ["Argument during a study block","Pause it kindly and fix a time to talk the same evening."]
+];
+
+/* ============ goals data ============ */
+var GOALS=[
+  {id:"mind",t:"Mind and sleep",c:"mind",why:"Fixed wake time and a nightly brain dump calm the overthinking and pull sleep earlier.",
+   plan:["Week 1: wake 9:00 every day, brain dump at 11:30 pm, no chai after 5:30.","Week 2: wake 8:30. Not asleep in 20 minutes? Get up and read on paper.","Week 3+: wake 8:00, lights off by midnight.","Still overthinking most nights after 2 weeks? Talk to a doctor or counsellor. It’s treatable."],
+   ms:["7 days in a row with the wake target","Brain dump on 14 nights","Asleep by 12:30 am for 7 days","Wake at 8:00 am for 7 days"]},
+  {id:"phone",t:"Phone and focus",c:"danger",why:"Instagram and WhatsApp took 8.5 hours a day. Distance beats willpower.",
+   plan:["Day 1: delete Instagram for 30 days. WhatsApp notifications off except family and your girlfriend.","Week 1: 25-minute focus blocks, phone in another spot. Cap 6 h.","Week 2: 40-minute blocks. Cap 4 h.","Week 3+: 50-minute blocks. Cap 3 h."],
+   ms:["Instagram deleted from phone","WhatsApp notifications off","Screen time under 6 h for 7 days","Under 4 h for 7 days","Under 3 h for 7 days"]},
+  {id:"career",t:"Career: AI Engineer",c:"dawn",why:"The main goal. Projects you can show and explain beat certificates.",
+   plan:["Weeks 1–2: 2 easy logic problems a day, core Python, resume and LinkedIn, 3–5 applications a day.","Weeks 3–4: problem patterns, LLM basics, a command-line chatbot with an LLM API.","Weeks 5–6: RAG app with FastAPI and a simple UI, on GitHub.","Weeks 7–8: agent project, evaluation, both projects on your resume.","Weeks 9–12: weekly mock interviews, project walkthroughs, FDE applications."],
+   ms:["Resume and LinkedIn updated","First 10 applications sent","30 logic problems solved","Core Python revised","40 pattern problems solved","LLM API chatbot built","RAG project live on GitHub","Agent project live on GitHub","Projects added to resume","4 mock interviews done","First interview call","Offer letter"]},
+  {id:"talk",t:"Speaking clearly",c:"people",why:"Point-to-point answers come from one structure, practiced daily: Point, Reason, Example, Point.",
+   plan:["Daily: explain one concept out loud in 2 minutes and record it.","Weekly: listen to one recording, count the “umm”s and side tracks, beat that count next week."],
+   ms:["First recording made","6 recordings in one week","30 recordings in total"]},
+  {id:"fit",t:"Fitness and cholesterol",c:"grow",why:"Fat loss and steady activity first. Muscle-building after the offer.",
+   plan:["Week 1: 30-minute walk daily, 5,000 steps. Ask your doctor for a lipid test and if workouts are okay.","Weeks 2–4: 7,000 steps. 20-minute home workout 2–3× a week after the doctor’s okay.","Weeks 5–12: 8,000–10,000 steps, more reps each week, gym if possible.","Protein every meal: dal, curd, soya chunks, sprouts, milk, chana, peanuts, eggs on your egg days. Paneer in moderation.","Chest pain, dizziness or unusual breathlessness: stop and see your doctor."],
+   ms:["Doctor check and lipid test done","5,000 steps for 7 days","First home workout","3 workouts in one week","8,000 steps for 7 days","3 floors of stairs without breathing hard"]},
+  {id:"rel",t:"Relationship",c:"people",why:"Fixed, protected time together turns her into your biggest help, not a distraction.",
+   plan:["Day 1: show her your deep work times and ask her to help protect them.","Daily: protected evening time, part of it with both phones down.","Weekly: one plan together. A walk, an outing, or cooking something."],
+   ms:["Shared deep work times with her","Protected evening time for 7 days","One plan together this week"]},
+  {id:"money",t:"Money",c:"meal",why:"One strong income comes before many small ones. Parked until the offer letter.",
+   plan:["Now: know your monthly spending and how many months your savings last.","After the offer: settle in for about 3 months, then build one side income from your AI skills."],
+   ms:["Monthly spend and runway known","Offer letter received","One side income started"]}
+];
+
+/* ============ sync ============ */
+function setSync(state){
+  var s=$("sync");s.className="sync"+(state==="ok"?" ok":state==="busy"?" busy":state==="err"?" err":"");
+  s.querySelector("span").textContent=state==="ok"?"Synced to your Claude account":state==="busy"?"Syncing…":state==="err"?"Sync paused, saved on device":"Saved on this device";
+  $("syncNote").textContent=S.db?"Your check-ins save on this device and sync to your Claude account, so your phone and tablet match and Claude can read them for your weekly review. Use Export backup once a week anyway.":"Your check-ins save only in this browser on this device. Use Export backup once a week, and Import backup to move data to another device. Never upload backup files to your GitHub repo: it’s public.";
+}
+var pushQueue=Promise.resolve();
+function pushDoc(id,body){
+  if(!S.db)return;
+  pushQueue=pushQueue.then(function(){
+    setSync("busy");
+    return S.db.collection("data/users/"+S.uid).doc(id).set(clone(body)).then(function(){setSync("ok")},function(){setSync("err")});
+  });
+}
+function initCapabilities(){
+  if(!window.claude||typeof window.claude.use!=="function"){setSync("local");return}
+  window.claude.use("sample").then(function(s){S.sample=s;renderCoachAvail()},function(){});
+  window.claude.use("downloads").then(function(d){S.dl=d},function(){});
+  Promise.all([window.claude.use("db"),window.claude.use("user")]).then(function(r){
+    var db=r[0],user=r[1];
+    if(!db||!user){setSync("local");return}
+    return user.id().then(function(uid){
+      if(!uid){setSync("local");return}
+      S.db=db;S.uid=uid;setSync("busy");
+      return db.collection("data/users/"+uid).get().then(function(snap){
+        var remote={};snap.docs.forEach(function(d){if(d.exists)remote[d.id]=d.data()});
+        var changed=false,toPush=[];
+        Object.keys(remote).forEach(function(id){
+          if(id.indexOf("day-")!==0)return;
+          var date=id.slice(4),r=remote[id],l=S.data.days[date];
+          if(!l||(r.updatedAt||0)>(l.updatedAt||0)){S.data.days[date]=clone(r);changed=true}
+        });
+        Object.keys(S.data.days).forEach(function(date){
+          var r=remote["day-"+date],l=S.data.days[date];
+          if(!r||(l.updatedAt||0)>(r.updatedAt||0))toPush.push(["day-"+date,l]);
+        });
+        var rs=remote.state,ls=S.data.state;
+        if(rs&&(rs.updatedAt||0)>(ls.updatedAt||0)){S.data.state=normalize({days:{},state:clone(rs)}).state;changed=true}
+        else if(!rs||(ls.updatedAt||0)>(rs.updatedAt||0))toPush.push(["state",ls]);
+        if(changed){levelCache={};saveLocal();renderAll()}
+        toPush.forEach(function(p){pushDoc(p[0],p[1])});
+        if(!toPush.length)setSync("ok");
+      });
+    });
+  }).catch(function(){S.db=null;setSync("local")});
+}
+
+/* ============ rendering: home ============ */
+function ringSVG(svg,pct,label,sub,color){
+  var r=70,c=2*Math.PI*r,v=pct==null?0:Math.max(0,Math.min(100,pct));
+  svg.innerHTML='<circle class="track" cx="86" cy="86" r="'+r+'" fill="none" stroke-width="14"/>'+
+    (v>0?'<circle cx="86" cy="86" r="'+r+'" fill="none" stroke="'+color+'" stroke-width="14" stroke-linecap="round" stroke-dasharray="'+(c*v/100)+' '+c+'" transform="rotate(-90 86 86)"/>':'')+
+    '<text class="num" x="86" y="92" text-anchor="middle"></text><text class="of" x="86" y="114" text-anchor="middle"></text>';
+  svg.querySelector(".num").textContent=label;svg.querySelector(".of").textContent=sub;
+}
+function statusClass(ratio){return ratio==null?"none":ratio>=1?"good":ratio>=0.6?"warn":"bad"}
+function streaks(){
+  var dates=Object.keys(S.data.days).sort(),best=0,run=0,prev=null;
+  dates.forEach(function(d){run=(prev&&diffDays(prev,d)===1)?run+1:1;best=Math.max(best,run);prev=d});
+  var cur=0,d=S.data.days[today()]?today():addDays(today(),-1);
+  while(S.data.days[d]){cur++;d=addDays(d,-1)}
+  var strong=dates.filter(function(x){var s=dayScore(x);return s!=null&&s>=70}).length;
+  return {cur:cur,best:best,strong:strong};
+}
+function greet(){var h=new Date().getHours();return h<5?"Late night, Yash":h<12?"Good morning, Yash":h<17?"Good afternoon, Yash":"Good evening, Yash"}
+function modeLabel(t,date){
+  if(t.mode==="diwali")return "Diwali mode";
+  var day=diffDays(S.data.state.resetStart,date)+1;
+  return "Reset mode, level "+t.level+", day "+day;
+}
+function renderHome(){
+  var d=today(),t=targetsFor(d),e=S.data.days[d],sc=e?scoreEntry(e,t):null;
+  $("hello").textContent=greet();
+  $("todayLine").textContent=longDate(d);
+  var chip=$("modeChip");chip.textContent=modeLabel(t,d);chip.className="chip"+(t.mode==="reset"?" reset":"");
+  ringSVG($("scoreRing"),sc,sc==null?"—":String(sc),sc==null?"not logged yet":"day score of 100",sc==null?"var(--meal)":sc>=70?"var(--grow)":sc>=40?"var(--dawn)":"var(--danger)");
+  var msg;
+  if(sc==null)msg=new Date().getHours()>=21?"Today isn’t logged yet. A day you don’t log usually is a day that went wrong. Log it now, even if it’s bad.":"Not logged yet. Follow the routine, then check in tonight before your brain dump.";
+  else if(sc>=70)msg="Strong day. The goal now is to repeat it tomorrow, not to raise the bar.";
+  else if(sc>=40)msg="Half a day. Find the one thing that cost the most points and fix only that tomorrow.";
+  else msg="Weak day. Don’t write the week off: tomorrow, do the minimum and never miss twice.";
+  $("heroMsg").textContent=msg;
+  $("heroBtn").textContent=e?"Edit today’s check-in":"Check in for today";
+  var st=streaks();$("stStreak").textContent=st.cur;$("stBest").textContent=st.best;$("stStrong").textContent=st.strong;
+  $("ciDot").hidden=!!e;
+  $("startResetCard").hidden=!!S.data.state.resetStart;
+  renderNow();renderKpis(d,t,e);renderCharts();renderInsights();renderHeat();
+}
+function currentBlock(){
+  var n=new Date(),h=n.getHours()+n.getMinutes()/60;
+  for(var i=0;i<BLOCKS.length;i++){var b=BLOCKS[i];if((h>=b[0]&&h<b[1])||(h+24>=b[0]&&h+24<b[1]))return {i:i,h:(h>=b[0]&&h<b[1])?h:h+24}}
+  return {i:0,h:h};
+}
+function renderNow(){
+  var box=$("nowCard");box.innerHTML="";
+  var d=today(),t=targetsFor(d),e=S.data.days[d];
+  if(t.mode==="diwali"){
+    box.appendChild(el("span","bar6"));
+    var mid=el("div");mid.appendChild(el("div","lbl","Diwali mode, today’s four rules"));mid.appendChild(el("h3",null,"Four rules make a full day"));
+    box.appendChild(mid);
+    var done=DIWALI_RULES.filter(function(r){return r[2](e)===true}).length;
+    var left=el("div","left",done+"/4");left.appendChild(el("small",null,e?"from check-in":"check in tonight"));box.appendChild(left);
+    var ul=el("ul","rules");
+    DIWALI_RULES.forEach(function(r){var v=r[2](e),li=el("li",v===true?"ok":v===false?"no":"");li.appendChild(el("i"));li.appendChild(el("span",null,r[0]));ul.appendChild(li)});
+    box.appendChild(ul);return;
+  }
+  var cb=currentBlock(),b=BLOCKS[cb.i],nx=BLOCKS[(cb.i+1)%BLOCKS.length];
+  var bar=el("span","bar6");bar.style.background="var(--"+b[3]+")";box.appendChild(bar);
+  var mid2=el("div");mid2.appendChild(el("div","lbl","Right now"));mid2.appendChild(el("h3",null,b[2]));
+  mid2.appendChild(el("div","next",(b[4]?b[4]+" ":"")+"Next: "+nx[2]+" at "+clock(nx[0]*60)+"."));box.appendChild(mid2);
+  var remain=Math.max(0,Math.round((b[1]-cb.h)*60));
+  var left2=el("div","left",fmtMin(remain));left2.appendChild(el("small",null,"left in block"));box.appendChild(left2);
+  var prog=el("div","prog"),pi=el("i");pi.style.width=Math.round((cb.h-b[0])/(b[1]-b[0])*100)+"%";pi.style.background="var(--"+b[3]+")";prog.appendChild(pi);box.appendChild(prog);
+}
+function kpi(lab,val,tgt,ratio,lowerBetter){
+  var k=el("div","kpi");k.appendChild(el("span","lab",lab));
+  var n=el("span","num",val);k.appendChild(n);k.appendChild(el("span","tgt",tgt));
+  var cls=statusClass(ratio);
+  var mb=el("div","mbar"),i=el("i","c-"+cls);i.style.width=(ratio==null?0:Math.max(4,Math.min(100,ratio*100)))+"%";mb.appendChild(i);k.appendChild(mb);
+  return k;
+}
+function renderKpis(d,t,e){
+  var box=$("kpis");box.innerHTML="";
+  var st=e?num(e.study)||0:null;
+  box.appendChild(kpi("Study",e?fmtH(st):"—","target "+fmtH(t.study),e?st/t.study:null));
+  var sc=screenMin(e);
+  box.appendChild(kpi("Phone",sc==null?"—":fmtMin(sc),"cap "+fmtMin(t.screen),sc==null?null:Math.min(1,t.screen/Math.max(sc,1))));
+  var sh=e?sleepHours(e):null;
+  box.appendChild(kpi("Sleep",sh==null?"—":fmtH(sh),e&&e.asleep?"asleep "+clock(tmin(e.asleep)):"target 7–8 h",sh==null?null:Math.min(1,sh/7.5)));
+  var w=e?tmin(e.wake):null;
+  box.appendChild(kpi("Woke up",w==null?"—":clock(w),"target "+clock(t.wake),w==null?null:(w<=t.wake+15?1:w<=t.wake+60?0.7:0.3)));
+  var steps=e?num(e.steps):null;
+  box.appendChild(kpi("Steps",steps==null?"—":steps.toLocaleString("en-IN"),"target "+t.steps.toLocaleString("en-IN"),steps==null?null:steps/t.steps));
+  var wk=lastN(7).map(function(x){return S.data.days[x]}).filter(Boolean);
+  var studyWeek=sum(wk.map(function(x){return num(x.study)}));
+  box.appendChild(kpi("Study this week",fmtH(studyWeek),"target "+fmtH(t.study*7),studyWeek/(t.study*7)));
+}
+
+/* ============ charts ============ */
+function barChart(svg,dates,vals,opt){
+  var W=340,H=170,L=34,R=8,T=16,B=26,iw=W-L-R,ih=H-T-B;
+  var maxV=Math.max(opt.max,opt.goal*1.25,Math.max.apply(null,vals.map(function(v){return v||0})))||1;
+  var y=function(v){return T+ih-(v/maxV)*ih};
+  var out="";
+  [0,0.5,1].forEach(function(f){var v=maxV*f,yy=y(v);out+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+yy+'" y2="'+yy+'"/><text x="'+(L-6)+'" y="'+(yy+3)+'" text-anchor="end">'+opt.axis(v)+'</text>'});
+  var bw=iw/dates.length;
+  dates.forEach(function(d,i){
+    var v=vals[i],x=L+i*bw+bw*0.18,w=bw*0.64;
+    if(v==null){out+='<rect x="'+x+'" y="'+(T+ih-2)+'" width="'+w+'" height="2" rx="1" fill="var(--line)"/>'}
+    else{var yy=y(v),hh=Math.max(2,T+ih-yy);out+='<rect x="'+x+'" y="'+(T+ih-hh)+'" width="'+w+'" height="'+hh+'" rx="4" fill="'+opt.color(v)+'"/><text class="v" x="'+(x+w/2)+'" y="'+(T+ih-hh-4)+'" text-anchor="middle">'+opt.label(v)+'</text>'}
+    out+='<text x="'+(x+w/2)+'" y="'+(H-8)+'" text-anchor="middle">'+(d===today()?"Today":dayName(d))+'</text>';
+  });
+  var gy=y(opt.goal);out+='<line class="goal" x1="'+L+'" x2="'+(W-R)+'" y1="'+gy+'" y2="'+gy+'"/>';
+  svg.innerHTML=out;
+}
+function renderCharts(){
+  var dates=lastN(7),t=targetsFor(today());
+  barChart($("chStudy"),dates,dates.map(function(d){var e=S.data.days[d];return e?(num(e.study)||0):null}),{
+    max:1,goal:t.study,axis:function(v){return Math.round(v)+"h"},label:function(v){return (Math.round(v*10)/10)+""},
+    color:function(v){return v>=t.study?"var(--grow)":v>=t.study*0.6?"var(--dawn)":"var(--danger)"}});
+  barChart($("chScreen"),dates,dates.map(function(d){var s=screenMin(S.data.days[d]);return s==null?null:s/60}),{
+    max:1,goal:t.screen/60,axis:function(v){return Math.round(v)+"h"},label:function(v){return (Math.round(v*10)/10)+""},
+    color:function(v){return v<=t.screen/60?"var(--grow)":v<=t.screen/60*1.5?"var(--dawn)":"var(--danger)"}});
+  /* sleep window: x from 8pm to 2pm (1080 min) */
+  var W=340,H=200,L=40,R=10,T=18,B=22,iw=W-L-R,ih=H-T-B,out="",x=function(n){return L+(n/1080)*iw};
+  [[240,"12a"],[480,"4a"],[720,"8a"],[960,"12p"]].forEach(function(g){out+='<line class="grid" x1="'+x(g[0])+'" x2="'+x(g[0])+'" y1="'+T+'" y2="'+(H-B)+'"/><text x="'+x(g[0])+'" y="'+(H-6)+'" text-anchor="middle">'+g[1]+'</text>'});
+  var rh=ih/7;
+  dates.forEach(function(d,i){
+    var e=S.data.days[d],yy=T+i*rh,tt=targetsFor(d);
+    out+='<text x="'+(L-6)+'" y="'+(yy+rh/2+3)+'" text-anchor="end">'+(d===today()?"Today":dayName(d))+'</text>';
+    if(!e)return;
+    var b=night(e.asleep),w=tmin(e.wake),wn=w==null?null:(w-1200+1440)%1440;
+    if(b!=null&&wn!=null&&wn>b){out+='<rect x="'+x(b)+'" y="'+(yy+rh*0.2)+'" width="'+Math.max(3,x(wn)-x(b))+'" height="'+(rh*0.6)+'" rx="5" fill="'+(b<=tt.bed&&w<=tt.wake+15?"var(--mind)":"var(--danger)")+'"/>'}
+    else if(wn!=null){out+='<circle cx="'+x(wn)+'" cy="'+(yy+rh/2)+'" r="4" fill="var(--mind)"/>'}
+  });
+  out+='<line class="goal" x1="'+x(t.bed)+'" x2="'+x(t.bed)+'" y1="'+T+'" y2="'+(H-B)+'"/><line class="goal" x1="'+x((t.wake-1200+1440)%1440)+'" x2="'+x((t.wake-1200+1440)%1440)+'" y1="'+T+'" y2="'+(H-B)+'"/>';
+  $("chSleep").innerHTML=out;
+  /* score line, 14 days */
+  var d14=lastN(14),vals=d14.map(dayScore),W2=340,H2=170,L2=30,R2=10,T2=14,B2=24,iw2=W2-L2-R2,ih2=H2-T2-B2,o="";
+  var xs=function(i){return L2+i*(iw2/13)},ys=function(v){return T2+ih2-(v/100)*ih2};
+  [0,70,100].forEach(function(v){o+='<line class="'+(v===70?"goal":"grid")+'" x1="'+L2+'" x2="'+(W2-R2)+'" y1="'+ys(v)+'" y2="'+ys(v)+'"/><text x="'+(L2-6)+'" y="'+(ys(v)+3)+'" text-anchor="end">'+v+'</text>'});
+  var path="",started=false;
+  vals.forEach(function(v,i){if(v==null){started=false;return}path+=(started?"L":"M")+xs(i)+" "+ys(v)+" ";started=true});
+  o+='<path d="'+path+'" fill="none" stroke="var(--dawn)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>';
+  vals.forEach(function(v,i){if(v!=null)o+='<circle cx="'+xs(i)+'" cy="'+ys(v)+'" r="4" fill="'+(v>=70?"var(--grow)":v>=40?"var(--dawn)":"var(--danger)")+'" stroke="var(--surface)" stroke-width="1.5"/>'});
+  [0,6,13].forEach(function(i){o+='<text x="'+xs(i)+'" y="'+(H2-6)+'" text-anchor="'+(i===0?"start":i===13?"end":"middle")+'">'+(i===13?"Today":parseYmd(d14[i]).toLocaleDateString("en-IN",{day:"numeric",month:"short"}))+'</text>'});
+  $("chScore").innerHTML=o;
+}
+
+/* ============ insights ============ */
+function renderInsights(){
+  var box=$("insights");box.innerHTML="";
+  var dates=lastN(7).filter(function(d){return S.data.days[d]});
+  if(dates.length<3){box.appendChild(el("p","empty","Log 3 days to unlock the pattern scan. You have "+dates.length+" in the last 7 days."));return}
+  var list=[],t=targetsFor(today()),es=dates.map(function(d){return {d:d,e:S.data.days[d],t:targetsFor(d),s:dayScore(d)}});
+  var scr=es.map(function(x){return screenMin(x.e)}),a=avg(scr);
+  if(a!=null){
+    if(a>t.screen)list.push(["bad","Critical","Time leak: phone","Phone averaged "+fmtMin(a)+" a day, "+fmtMin(a-t.screen)+" over your cap. That gap is about "+Math.max(1,Math.round((a-t.screen)/50))+(Math.max(1,Math.round((a-t.screen)/50))===1?" study block":" study blocks")+" a day."]);
+    else list.push(["good","Good","Phone under control","Phone averaged "+fmtMin(a)+", under your "+fmtMin(t.screen)+" cap. Lower the cap only at the weekly review."]);
+  }
+  var as=avg(es.map(function(x){return num(x.e.study)||0}));
+  if(as<t.study*0.5)list.push(["bad","Critical","Study bottleneck","Study averaged "+fmtH(as)+" a day against "+fmtH(t.study)+". Protect Deep work 1 first. One finished block beats three planned ones."]);
+  else if(as<t.study)list.push(["watch","Watch","Study below target","Study averaged "+fmtH(as)+" against "+fmtH(t.study)+". Close the gap with one more 25-minute block, not a longer plan."]);
+  else list.push(["good","Good","Study on target","Study averaged "+fmtH(as)+" a day. This is the habit everything else protects."]);
+  var bed=avg(es.map(function(x){return night(x.e.asleep)}));
+  if(bed!=null&&bed>t.bed+30)list.push(["bad","Critical","Sleep drift","You fell asleep around "+nightClock(bed)+" on average. Target: "+nightClock(t.bed)+". Keep the wake time fixed anyway. It pulls bedtime earlier."]);
+  var sh=avg(es.map(function(x){return sleepHours(x.e)})),en=avg(es.map(function(x){return x.e.energy}));
+  if(sh!=null&&sh<6.5)list.push([en!=null&&en<=2?"bad":"watch",en!=null&&en<=2?"Critical":"Watch",en!=null&&en<=2?"Burnout risk":"Short sleep","Sleep averaged "+fmtH(sh)+(en!=null?" and energy "+(Math.round(en*10)/10)+" of 5":"")+". Short sleep makes the afternoon crash worse and focus shorter."]);
+  if(dates.length<5)list.push(["watch","Watch","Missing check-ins","Only "+dates.length+" of the last 7 days are logged. The days you skip are usually the days that went wrong."]);
+  var under=es.filter(function(x){var s=screenMin(x.e);return s!=null&&s<=x.t.screen}),over=es.filter(function(x){var s=screenMin(x.e);return s!=null&&s>x.t.screen});
+  if(under.length>=2&&over.length>=2){
+    var su=avg(under.map(function(x){return num(x.e.study)||0})),so=avg(over.map(function(x){return num(x.e.study)||0}));
+    list.push(["info","Pattern","Phone vs study","On days the phone stayed under the cap you studied "+fmtH(su)+". On the other days, "+fmtH(so)+"."]);
+  }
+  var chaiRate=es.filter(function(x){return x.e.noChai}).length/es.length;
+  if(chaiRate<0.5&&bed!=null&&bed>t.bed)list.push(["watch","Watch","Late chai","No-chai-after-5:30 held on only "+Math.round(chaiRate*100)+"% of days, and bedtime is late. Cut the evening chai first."]);
+  var best=es.filter(function(x){return x.s!=null}).sort(function(p,q){return q.s-p.s})[0];
+  if(best&&best.s>=60)list.push(["good","Best day","Copy this day","Your best day was "+dayName(best.d)+" with a score of "+best.s+". Repeat what you did that day."]);
+  var order={bad:0,watch:1,info:2,good:3};
+  list.sort(function(p,q){return order[p[0]]-order[q[0]]});
+  list.forEach(function(it){
+    var d=el("div","in "+it[0]);d.appendChild(el("span","st"));
+    var c=el("div"),b=el("b",null,it[2]),sm=el("small",null,it[1]);b.appendChild(sm);c.appendChild(b);c.appendChild(el("p",null,it[3]));d.appendChild(c);box.appendChild(d);
+  });
+}
+
+/* ============ heatmap ============ */
+function renderHeat(){
+  var box=$("heat");box.innerHTML="";var dates=lastN(28);
+  HABITS.forEach(function(h){
+    box.appendChild(el("div","hl",h.n));
+    dates.forEach(function(d){
+      var e=S.data.days[d],c=el("div","hc");
+      if(e){c.classList.add(h.f(e,targetsFor(d))?"y":"n")}
+      if(d===today())c.classList.add("today");
+      c.title=dayName(d)+" "+parseYmd(d).getDate()+": "+h.n+(e?(c.classList.contains("y")?" done":" missed"):" no check-in");
+      box.appendChild(c);
+    });
+  });
+  box.appendChild(el("div"));
+  dates.forEach(function(d,i){box.appendChild(el("div","hd",(i%7===0||i===27)?String(parseYmd(d).getDate()):""))});
+}
+
+/* ============ check-in form ============ */
+var MOODS=["😞","😕","😐","🙂","😄"];
+var formState={mood:null,energy:null};
+function buildScales(){
+  [["sMood","mood",MOODS],["sEnergy","energy",["1","2","3","4","5"]]].forEach(function(cfg){
+    var box=$(cfg[0]);box.innerHTML="";
+    cfg[2].forEach(function(lab,i){
+      var b=el("button",null,lab);b.type="button";b.setAttribute("aria-pressed","false");b.setAttribute("aria-label",cfg[1]+" "+(i+1)+" of 5");
+      b.addEventListener("click",function(){formState[cfg[1]]=(formState[cfg[1]]===i+1)?null:i+1;paintScales();preview()});
+      box.appendChild(b);
+    });
+  });
+}
+function paintScales(){
+  [["sMood","mood"],["sEnergy","energy"]].forEach(function(cfg){
+    Array.prototype.forEach.call($(cfg[0]).children,function(b,i){b.setAttribute("aria-pressed",formState[cfg[1]]===i+1?"true":"false")});
+  });
+}
+var F={asleep:"fAsleep",wake:"fWake",study:"fStudy",focus:"fFocus",apps:"fApps",insta:"fInsta",steps:"fSteps",goal:"fGoal",distraction:"fDistract",win:"fWin",fail:"fFail",top3:"fTop3"};
+var B={talk:"fTalk",walk:"fWalk",workout:"fWorkout",protein:"fProtein",noChai:"fNoChai",brainDump:"fDump",phoneOff:"fPhoneOff"};
+function fillForm(date){
+  var e=S.data.days[date]||{};
+  Object.keys(F).forEach(function(k){var v=e[k];$(F[k]).value=(v==null?"":v)});
+  if(!S.data.days[date]){$("fStudy").value=0;$("fFocus").value=0;$("fApps").value=0}
+  Object.keys(B).forEach(function(k){$(B[k]).checked=!!e[k]});
+  var sm=screenMin(e);$("fScrH").value=sm==null?"":Math.floor(sm/60);$("fScrM").value=sm==null?"":sm%60;
+  formState.mood=e.mood||null;formState.energy=e.energy||null;paintScales();
+  var t=targetsFor(date);
+  $("fDateNote").textContent=(S.data.days[date]?"Editing the saved check-in. ":"New check-in. ")+modeLabel(t,date)+(e.baseline?". This day is your starting baseline.":".");
+  preview();
+}
+function readForm(){
+  var e={};
+  Object.keys(F).forEach(function(k){var v=$(F[k]).value;e[k]=v});
+  ["study","focus","apps","insta","steps"].forEach(function(k){e[k]=num(e[k]);if(e[k]!=null&&e[k]<0)e[k]=0});
+  Object.keys(B).forEach(function(k){e[k]=$(B[k]).checked});
+  var h=num($("fScrH").value),m=num($("fScrM").value);
+  e.screenMin=(h==null&&m==null)?null:Math.max(0,Math.round((h||0)*60+(m||0)));
+  e.mood=formState.mood;e.energy=formState.energy;
+  return e;
+}
+function preview(){var d=$("fDate").value||today();$("livePreview").textContent="Day score: "+scoreEntry(readForm(),targetsFor(d))+" of 100"}
+function initForm(){
+  buildScales();
+  var di=$("fDate");di.max=today();di.value=today();
+  di.addEventListener("change",function(){if(!di.value)di.value=today();if(di.value>today())di.value=today();fillForm(di.value)});
+  document.querySelectorAll("[data-step]").forEach(function(b){b.addEventListener("click",function(){
+    var inp=$(b.dataset.step),v=(num(inp.value)||0)+parseFloat(b.dataset.by);inp.value=Math.max(0,Math.round(v*100)/100);preview();
+  })});
+  $("ciForm").addEventListener("input",preview);
+  $("ciForm").addEventListener("change",preview);
+  $("ciForm").addEventListener("submit",function(ev){
+    ev.preventDefault();
+    var d=$("fDate").value||today(),e=readForm(),old=S.data.days[d];
+    if(old&&old.baseline)e.baseline=true;
+    e.updatedAt=Date.now();
+    S.data.days[d]=e;levelCache={};saveLocal();pushDoc("day-"+d,e);
+    var s=scoreEntry(e,targetsFor(d));
+    toast("Check-in saved. Day score "+s+".");
+    renderAll();location.hash="#home";
+  });
+  fillForm(today());
+}
+
+/* ============ routine ============ */
+var routineMode=null;
+function fmtHour(h){return clock(Math.round(h*60))}
+function renderRoutine(){
+  var t=targetsFor(today());
+  if(!routineMode)routineMode=t.mode;
+  document.querySelectorAll("[data-rmode]").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.rmode===routineMode?"true":"false")});
+  $("rtDiwali").hidden=routineMode!=="diwali";$("rtReset").hidden=routineMode!=="reset";
+  $("rtSub").textContent=t.mode==="diwali"?"You’re in Diwali mode. The full day below starts when you switch to Reset mode.":"Level "+t.level+" targets: study "+fmtH(t.study)+", wake by "+clock(t.wake)+", phone under "+fmtMin(t.screen)+".";
+  var dr=$("diwaliRules");dr.innerHTML="";
+  DIWALI_RULES.forEach(function(r,i){var li=el("li","deep");li.appendChild(el("span","t","Rule "+(i+1)));var x=el("span",null,r[0]);x.appendChild(el("small",null,r[1]));li.appendChild(x);dr.appendChild(li)});
+  var lb=$("lvlBody");lb.innerHTML="";
+  [1,2,3].forEach(function(l){var L=LEVELS[l],tr=el("tr",t.mode==="reset"&&t.level===l?"curlvl":"");
+    [("Level "+l+(l===3?"+":"")),fmtH(L.study),L.steps.toLocaleString("en-IN"),clock(L.wake),nightClock(L.bed),fmtMin(L.screen),L.focus+" min"].forEach(function(v){tr.appendChild(el("td",null,v))});lb.appendChild(tr)});
+  drawDial();
+}
+var dialPicked=null;
+function drawDial(){
+  var svg=$("dial"),NS="http://www.w3.org/2000/svg",C=160,RO=150,RI=100;svg.innerHTML="";
+  function pt(r,h){var a=(h/24)*2*Math.PI-Math.PI/2;return [C+r*Math.cos(a),C+r*Math.sin(a)]}
+  function arc(h0,h1){var large=(h1-h0)>12?1:0,p1=pt(RO,h0),p2=pt(RO,h1),p3=pt(RI,h1),p4=pt(RI,h0);
+    return "M"+p1[0]+" "+p1[1]+" A"+RO+" "+RO+" 0 "+large+" 1 "+p2[0]+" "+p2[1]+" L"+p3[0]+" "+p3[1]+" A"+RI+" "+RI+" 0 "+large+" 0 "+p4[0]+" "+p4[1]+" Z"}
+  var c1=document.createElementNS(NS,"text"),c2=document.createElementNS(NS,"text");
+  c1.setAttribute("class","c1");c2.setAttribute("class","c2");[c1,c2].forEach(function(x){x.setAttribute("text-anchor","middle");x.setAttribute("x",C)});
+  c1.setAttribute("y",C+2);c2.setAttribute("y",C+22);
+  var cur=currentBlock(),paths=[];
+  function shortName(x){x=x.split(":")[0].split(" (")[0];return x.length>16?x.slice(0,x.lastIndexOf(" ",16))+"…":x}
+  function show(i){var b=BLOCKS[i];c1.textContent=shortName(b[2]);c2.textContent=fmtHour(b[0])+" – "+fmtHour(b[1])}
+  BLOCKS.forEach(function(b,i){
+    var p=document.createElementNS(NS,"path");p.setAttribute("d",arc(b[0],b[1]));p.setAttribute("fill","var(--"+b[3]+")");
+    p.setAttribute("tabindex","0");p.setAttribute("role","button");p.setAttribute("aria-label",b[2]+", "+fmtHour(b[0])+" to "+fmtHour(b[1]));
+    function pick(){dialPicked=i;paths.forEach(function(q){q.classList.remove("on")});p.classList.add("on");svg.classList.add("focused");show(i)}
+    p.addEventListener("click",pick);p.addEventListener("focus",pick);paths.push(p);svg.appendChild(p);
+  });
+  [[0,"12 am"],[6,"6 am"],[12,"12 pm"],[18,"6 pm"]].forEach(function(tk){var q=pt(86,tk[0]),tx=document.createElementNS(NS,"text");tx.setAttribute("x",q[0]);tx.setAttribute("y",q[1]+4);tx.setAttribute("text-anchor","middle");tx.textContent=tk[1];svg.appendChild(tx)});
+  var n=new Date(),hn=n.getHours()+n.getMinutes()/60,hp0=pt(RI-8,hn),hp=pt(RO+7,hn),hand=document.createElementNS(NS,"line");
+  hand.setAttribute("class","hand");hand.setAttribute("x1",hp0[0]);hand.setAttribute("y1",hp0[1]);hand.setAttribute("x2",hp[0]);hand.setAttribute("y2",hp[1]);svg.appendChild(hand);
+  var dp=pt(RI-14,hn),dot=document.createElementNS(NS,"circle");dot.setAttribute("cx",dp[0]);dot.setAttribute("cy",dp[1]);dot.setAttribute("r",4);dot.setAttribute("fill","var(--ink)");svg.appendChild(dot);
+  svg.appendChild(c1);svg.appendChild(c2);
+  if(dialPicked!=null){paths[dialPicked].classList.add("on");svg.classList.add("focused");show(dialPicked)}else{svg.classList.remove("focused");c1.textContent=shortName(BLOCKS[cur.i][2]);c2.textContent="Now. Tap a block for details"}
+  var sl=$("schedList");sl.innerHTML="";
+  BLOCKS.forEach(function(b,i){
+    if(b[2]==="Free time"||b[2]==="Break")return;
+    var li=el("li",(b[3]==="dawn"?"deep":"")+(i===cur.i?" cur":""));
+    li.appendChild(el("span","t",fmtHour(b[0])));var x=el("span",null,b[2]);if(b[4])x.appendChild(el("small",null,b[4]));li.appendChild(x);sl.appendChild(li);
+  });
+}
+function renderFixes(){var box=$("fixList");box.innerHTML="";FIXES.forEach(function(f){var d=el("div","fix");d.appendChild(el("div","p",f[0]));d.appendChild(el("div","s",f[1]));box.appendChild(d)})}
+
+/* ============ goals ============ */
+function renderGoals(){
+  var ms=S.data.state.milestones,total=0,done=0,box=$("goalList"),openIds={};
+  box.querySelectorAll("details[open]").forEach(function(d){openIds[d.dataset.g]=true});
+  box.innerHTML="";
+  GOALS.forEach(function(g,gi){
+    var gd=g.ms.filter(function(m,i){return ms[g.id+":"+i]}).length;total+=g.ms.length;done+=gd;
+    var pct=Math.round(gd/g.ms.length*100);
+    var det=el("details","goal");det.dataset.g=g.id;if(openIds[g.id])det.open=true;
+    var su=el("summary");var h=el("h3",null,(gi+1)+". "+g.t);su.appendChild(h);su.appendChild(el("span","pct",pct+"%"));
+    var gb=el("div","gbar"),gi2=el("i");gi2.style.width=Math.max(pct,2)+"%";gi2.style.background="var(--"+g.c+")";gb.appendChild(gi2);su.appendChild(gb);
+    su.appendChild(el("small",null,gd+" of "+g.ms.length+" milestones. "+g.why));det.appendChild(su);
+    var body=el("div","gbody");body.appendChild(el("h4",null,"Milestones"));
+    var ul=el("ul","ms");
+    g.ms.forEach(function(m,i){var li=el("li"),lab=el("label"),cb=el("input");cb.type="checkbox";cb.checked=!!ms[g.id+":"+i];
+      cb.addEventListener("change",function(){if(cb.checked)ms[g.id+":"+i]=true;else delete ms[g.id+":"+i];S.data.state.updatedAt=Date.now();saveLocal();pushDoc("state",S.data.state);renderGoals();if(cb.checked)toast("Milestone done: "+m)});
+      lab.appendChild(cb);lab.appendChild(el("span",null,m));li.appendChild(lab);ul.appendChild(li)});
+    body.appendChild(ul);body.appendChild(el("h4",null,"The plan"));
+    var pl=el("ul","plan");g.plan.forEach(function(p){pl.appendChild(el("li",null,p))});body.appendChild(pl);
+    det.appendChild(body);box.appendChild(det);
+  });
+  var pct=Math.round(done/total*100);
+  ringSVG($("goalRing"),pct,pct+"%",done+" of "+total,"var(--grow)");
+  $("goalSum").textContent=done+" of "+total+" milestones done across 7 goals. Career milestones matter most right now.";
+}
+
+/* ============ review ============ */
+function windowStats(dates){
+  var es=dates.map(function(d){return S.data.days[d]}).filter(Boolean);
+  return {
+    n:es.length,
+    score:avg(dates.map(dayScore)),
+    study:avg(es.map(function(e){return num(e.study)||0})),
+    studyTot:sum(es.map(function(e){return num(e.study)})),
+    screen:avg(es.map(screenMin)),
+    bed:avg(es.map(function(e){return night(e.asleep)})),
+    wake:avg(es.map(function(e){return tmin(e.wake)})),
+    steps:avg(es.map(function(e){return num(e.steps)})),
+    workouts:es.filter(function(e){return e.workout}).length,
+    apps:sum(es.map(function(e){return num(e.apps)})),
+    talk:es.filter(function(e){return e.talk}).length
+  };
+}
+function renderReview(){
+  var a=windowStats(lastN(7)),b=windowStats(lastN(7,addDays(today(),-7))),body=$("scoreBody");body.innerHTML="";
+  var rows=[
+    ["Average day score","score",function(v){return v==null?"—":Math.round(v)+""},1],
+    ["Days checked in","n",function(v){return v+" of 7"},1],
+    ["Study per day","study",fmtH,1],
+    ["Total study","studyTot",fmtH,1],
+    ["Phone per day","screen",fmtMin,-1],
+    ["Fell asleep (average)","bed",function(v){return v==null?"—":nightClock(v)},-1],
+    ["Woke up (average)","wake",function(v){return v==null?"—":clock(v)},-1],
+    ["Steps per day","steps",function(v){return v==null?"—":Math.round(v).toLocaleString("en-IN")},1],
+    ["Workouts","workouts",String,1],
+    ["Applications sent","apps",String,1],
+    ["Talk practice days","talk",String,1]
+  ];
+  rows.forEach(function(r){
+    var tr=el("tr"),va=a[r[1]],vb=b[r[1]];
+    tr.appendChild(el("td","d",r[0]));tr.appendChild(el("td",null,r[2](va)));tr.appendChild(el("td",null,r[2](vb)));
+    var ch="—",cls="";
+    if(va!=null&&vb!=null&&!(b.n===0&&r[1]!=="n")){
+      var diff=va-vb;
+      if(Math.abs(diff)<0.01)ch="Same";
+      else{var better=diff*r[3]>0;cls=better?"t-good":"t-bad";ch=(diff>0?"▲ ":"▼ ")+(better?"Better":"Worse")}
+    }
+    var td=el("td",cls,ch);td.style.fontWeight="700";tr.appendChild(td);body.appendChild(tr);
+  });
+  /* consistency */
+  var cons=$("cons");cons.innerHTML="";var d7=lastN(7);
+  HABITS.slice(1).forEach(function(h){
+    var cnt=d7.filter(function(d){var e=S.data.days[d];return e&&h.f(e,targetsFor(d))}).length,pct=Math.round(cnt/7*100);
+    var r=el("div","r");r.appendChild(el("span",null,h.n));var bb=el("div","b"),i=el("i","c-"+(pct>=70?"good":pct>=40?"warn":"bad"));i.style.width=Math.max(pct,2)+"%";bb.appendChild(i);r.appendChild(bb);r.appendChild(el("span",null,pct+"%"));cons.appendChild(r);
+  });
+  /* level card */
+  var lc=$("lvlCard");lc.innerHTML="";var t=targetsFor(today()),rs=S.data.state.resetStart;
+  if(t.mode==="diwali"){
+    lc.appendChild(el("h3",null,"Diwali mode"));
+    lc.appendChild(el("p","note",rs?"Reset mode is set to start on "+longDate(rs)+".":"Reset mode hasn’t started. Start it the day after Bhai Dooj from the dashboard, or set the date below."));
+  }else{
+    var dayIn=diffDays(rs,today())%7,blockStart=addDays(today(),-dayIn),strong=0;
+    for(var k=0;k<=dayIn;k++){var s=dayScore(addDays(blockStart,k));if(s!=null&&s>=70)strong++}
+    lc.appendChild(el("h3",null,"Level "+t.level+", day "+(dayIn+1)+" of 7 in this block"));
+    lc.appendChild(el("p","note",t.level===3?"Top level reached. Hold it: strong days "+strong+" so far this block.":"Strong days (70+) this block: "+strong+". You need 5 by day 7 to move up to level "+(t.level+1)+"."));
+    var mb=el("div","mbar");mb.style.cssText="height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:10px";var mi=el("i");mi.style.cssText="display:block;height:100%;border-radius:99px;background:var(--grow);width:"+Math.min(100,strong/5*100)+"%";mb.appendChild(mi);lc.appendChild(mb);
+  }
+  $("resetDate").value=rs||"";
+}
+
+/* ============ AI coach ============ */
+function compactDays(dates){
+  return dates.filter(function(d){return S.data.days[d]}).map(function(d){
+    var e=S.data.days[d],t=targetsFor(d);
+    return {date:d,day:dayName(d),score:dayScore(d),mode:t.mode,level:t.level,asleep:e.asleep||null,wake:e.wake||null,sleepHours:sleepHours(e),study:num(e.study),focusBlocks:num(e.focus),screenMin:screenMin(e),instagramMin:num(e.insta),steps:num(e.steps),walk:!!e.walk,workout:!!e.workout,protein:!!e.protein,noLateChai:!!e.noChai,brainDump:!!e.brainDump,phoneOffBed:!!e.phoneOff,applications:num(e.apps),talkPractice:!!e.talk,mood:e.mood||null,energy:e.energy||null,mainGoal:e.goal||"",distraction:e.distraction||"",win:e.win||"",wentWrong:e.fail||"",tomorrowTop3:e.top3||""};
+  });
+}
+var COACH_RULES="You are Yash's blunt performance advisor inside his Life OS app. Rules: Your first sentence states the most uncomfortable truth in the data. Tag each claim [Certain] if it is directly in the data, [Likely] if it is a strong inference, [Guessing] if you are filling gaps. No praise words, no warm-up, never say 'great' or 'absolutely'. Never invent numbers that are not in the data. Use simple English. Plain text only: no markdown, no asterisks, no hash signs. Context: Yash is 26, left his data scientist job, and is preparing for AI Engineer roles. He struggles with overthinking, late sleep, and about 10 hours a day of phone time at the start. Goals in priority order: sleep and phone control, AI Engineer job, fitness (fat loss first, walking), a steady relationship. His routine: wake, 30-min walk, deep work 10:30-11:30 and 11:45-12:45, rest 2:30-3:30, deep work 4-5, applications and 2-minute talk practice 7-7:45 pm, brain dump 11:30 pm.";
+function targetsText(){var t=targetsFor(today());return t.mode==="diwali"?"Current mode: Diwali mode, 4 rules (out of bed by 9:30, 30-min walk, one 50-min study block, phone away from bed by 1 am).":"Current mode: Reset level "+t.level+". Targets: study "+t.study+" h, steps "+t.steps+", wake by "+clock(t.wake)+", asleep by "+nightClock(t.bed)+", phone under "+fmtMin(t.screen)+"."}
+function runCoach(kind){
+  var btn=$(kind==="day"?"coachDayBtn":"coachWeekBtn"),out=$(kind==="day"?"coachDayOut":"coachWeekOut");
+  var data=compactDays(lastN(kind==="day"?7:14));
+  if(!data.length){out.textContent="No check-ins yet. Log at least one day first.";return}
+  var task=kind==="day"
+    ?"Write today's report in under 170 words, in these sections, each starting on a new line with its name and a colon. Today: two lines on what today's numbers say compared with targets. Leak: the single biggest time or energy leak in the last 7 days. Tomorrow: three concrete actions with clock times that fit his routine. Question: one question that exposes a gap in his thinking."
+    :"Write the weekly review in under 230 words, in these sections, each starting on a new line with its name and a colon. Verdict: one line, the uncomfortable truth about this week. Better: what improved versus the week before, with numbers. Worse: what got worse, with numbers. Bottleneck: the one thing holding everything back. Fix: one change for next week, only one. Level: whether he should move up a level (needs 5 days scoring 70+ in the week) or repeat it.";
+  var prompt=COACH_RULES+"\n\n"+targetsText()+"\nToday's date: "+today()+".\n\nCheck-in data (JSON, oldest first):\n"+JSON.stringify(data)+"\n\n"+task;
+  if(!S.sample){copyText(prompt).then(function(ok){out.textContent=ok?"Copied. Open Claude, paste it into a chat, and send.":"Couldn’t copy automatically. Use Export backup and share the file with Claude instead.";if(ok)toast("Prompt copied")});return}
+  btn.disabled=true;out.textContent="Reading your check-ins…";
+  S.sample(prompt,{modelTier:"default",cache:false,onText:function(r){if(r&&r.text)out.textContent=r.text}}).then(function(r){
+    out.textContent=(r&&r.text)||"No answer came back. Try again.";btn.disabled=false;
+  },function(err){
+    var c=err&&err.code;
+    out.textContent=c==="rate_limited"?"Too many requests right now. Try again in a minute.":c==="not_granted"?"The coach needs permission to ask Claude. Allow it when asked, or from this page’s permissions.":"The coach couldn’t answer right now. Try again later.";
+    btn.disabled=false;
+  });
+}
+function renderCoachAvail(){
+  var on=!!S.sample;
+  $("coachDayBtn").textContent=on?"Get today’s report":"Copy today’s report prompt";
+  $("coachWeekBtn").textContent=on?"Run weekly review":"Copy weekly review prompt";
+  if(!on){$("coachDayNote").textContent="Copies your last 7 days with the coach instructions. Paste it into a Claude chat to get the hard truth, the biggest leak, and a plan for tomorrow.";$("coachWeekNote").textContent="Copies your last 14 days with the review instructions. Paste it into a Claude chat every Sunday."}
+  else{$("coachDayNote").textContent="Reads your last 7 days and tells you the hard truth, the biggest leak, and a plan for tomorrow.";$("coachWeekNote").textContent="Compares your two weeks, names the bottleneck, and gives one fix for next week."}
+}
+
+/* ============ data actions ============ */
+function startReset(date){
+  S.data.state.resetStart=date;S.data.state.updatedAt=Date.now();levelCache={};routineMode=null;saveLocal();pushDoc("state",S.data.state);renderAll();
+}
+function exportData(){
+  var json=JSON.stringify({app:"life-os-prime",version:1,exportedAt:new Date().toISOString(),data:S.data},null,2),name="life-os-backup-"+today()+".json";
+  if(S.dl){S.dl.save({filename:name,data:json}).then(function(r){if(r&&r.status==="saved")toast("Backup saved")},function(e){if(!(e&&e.code==="cancelled"))toast("Backup couldn’t be saved here")});return}
+  try{var blob=new Blob([json],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(url);a.remove()},500);toast("Backup saved")}catch(e){toast("Backup couldn’t be saved here")}
+}
+function importData(file){
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var j=JSON.parse(r.result),inc=normalize(j&&j.data?j.data:j),added=0;
+      Object.keys(inc.days).forEach(function(d){
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(d))return;
+        var l=S.data.days[d],x=inc.days[d];
+        if(!l||(x.updatedAt||0)>(l.updatedAt||0)){S.data.days[d]=x;added++;pushDoc("day-"+d,x)}
+      });
+      if((inc.state.updatedAt||0)>(S.data.state.updatedAt||0)){S.data.state=inc.state;pushDoc("state",S.data.state)}
+      levelCache={};saveLocal();renderAll();toast("Backup imported: "+added+" days updated");
+    }catch(e){toast("That file isn’t a Life OS backup")}
+  };
+  r.readAsText(file);
+}
+
+/* ============ routing ============ */
+var VIEWS=["home","checkin","routine","goals","review"];
+function route(){
+  var h=(location.hash||"").replace("#","");if(VIEWS.indexOf(h)<0)h="home";
+  VIEWS.forEach(function(v){$("v-"+v).hidden=v!==h});
+  document.querySelectorAll("nav.tabbar a").forEach(function(a){if(a.dataset.tab===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  if(h==="checkin"){var di=$("fDate");di.max=today();if(!di.value)di.value=today();fillForm(di.value)}
+  window.scrollTo(0,0);
+}
+function renderAll(){renderHome();renderRoutine();renderGoals();renderReview()}
+
+/* ============ init ============ */
+initForm();renderFixes();renderAll();renderCoachAvail();setSync("local");route();
+window.addEventListener("hashchange",route);
+$("startResetBtn").addEventListener("click",function(){startReset(today());toast("Reset mode started. Level 1, day 1.")});
+$("saveResetDate").addEventListener("click",function(){var v=$("resetDate").value;if(!v){toast("Pick a date first");return}startReset(v);toast("Reset start date saved")});
+$("clearReset").addEventListener("click",function(){S.data.state.resetStart=null;S.data.state.updatedAt=Date.now();levelCache={};routineMode=null;saveLocal();pushDoc("state",S.data.state);renderAll();toast("Back to Diwali mode")});
+$("exportBtn").addEventListener("click",exportData);
+$("importFile").addEventListener("change",function(){if(this.files&&this.files[0])importData(this.files[0]);this.value=""});
+$("coachDayBtn").addEventListener("click",function(){runCoach("day")});
+$("coachWeekBtn").addEventListener("click",function(){runCoach("week")});
+document.querySelectorAll("[data-rmode]").forEach(function(b){b.addEventListener("click",function(){routineMode=b.dataset.rmode;renderRoutine()})});
+setInterval(function(){renderNow();if(!$("v-routine").hidden)drawDial()},60000);
+initCapabilities();
+function copyText(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t).then(function(){return true},function(){return legacyCopy(t)});
+  return Promise.resolve(legacyCopy(t));
+}
+function legacyCopy(t){try{var ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.select();var ok=document.execCommand("copy");ta.remove();return ok}catch(e){return false}}
+/* installable, offline app when hosted outside Claude (GitHub Pages) */
+if(!window.claude&&/^https?:$/.test(location.protocol)){
+  [["manifest","manifest.json"],["apple-touch-icon","icons/apple-touch-icon.png"]].forEach(function(l){var x=document.createElement("link");x.rel=l[0];x.href=l[1];document.head.appendChild(x)});
+  if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
+}
+})();
+</script>
+</body>
+</html>
