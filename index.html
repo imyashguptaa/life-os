@@ -704,9 +704,14 @@ var GOALS=[
   {id:"phone",t:"Phone and focus",c:"danger",why:"Instagram and WhatsApp took 8.5 hours a day. Distance beats willpower.",
    plan:["Day 1: delete Instagram for 30 days. WhatsApp notifications off except family and your girlfriend.","Week 1: 25-minute focus blocks, phone in another spot. Cap 6 h.","Week 2: 40-minute blocks. Cap 4 h.","Week 3+: 50-minute blocks. Cap 3 h."],
    ms:["Instagram deleted from phone","WhatsApp notifications off","Screen time under 6 h for 7 days","Under 4 h for 7 days","Under 3 h for 7 days"]},
-  {id:"career",t:"Career: AI Engineer",c:"dawn",why:"The main goal. Projects you can show and explain beat certificates.",
-   plan:["Weeks 1–2: 2 easy logic problems a day, core Python, resume and LinkedIn, 3–5 applications a day.","Weeks 3–4: problem patterns, LLM basics, a command-line chatbot with an LLM API.","Weeks 5–6: RAG app with FastAPI and a simple UI, on GitHub.","Weeks 7–8: agent project, evaluation, both projects on your resume.","Weeks 9–12: weekly mock interviews, project walkthroughs, FDE applications."],
-   ms:["Resume and LinkedIn updated","First 10 applications sent","30 logic problems solved","Core Python revised","40 pattern problems solved","LLM API chatbot built","RAG project live on GitHub","Agent project live on GitHub","Projects added to resume","4 mock interviews done","First interview call","Offer letter"]},
+  /* Ticks are saved by goal id and position ("career:0"), so the new list uses a new id.
+     Old "career:N" ticks stay in the data and never land on these new items. */
+  {id:"career2",t:"Career: AI Engineer",c:"dawn",why:"The main goal. Projects you can show and explain beat certificates.",
+   plan:["6 to 25 Nov: Python, SQL, logic ladder, P0, RAG project.","30 Nov to 20 Dec: text-to-SQL, evals, system design, mocks.","4 to 17 Jan: application surge, decision on 15 Jan.","Roz 5 applications. Padhai kaato, applications nahi."],
+   ms:["Defense notes written for every resume bullet (cut or reword what can’t be explained)","Both resume versions + LinkedIn and Naukri live","Logic ladder level 1 checkpoint","Logic ladder level 2 checkpoint","P0 on GitHub, CI green","Python notes sections 1 to 9 done","Gate 15 Nov: about 30 applications sent","LeetCode SQL 50 done","Logic ladder 60 done","P3 hybrid RAG: first recall@5 number","Gate 25 Nov: P3 golden set, ablation table, Docker, CI, README","About 70 applications, 2 recruiter calls","P5 text-to-SQL with benchmark (6 Dec)","P6 eval harness in CI (13 Dec)","4 system design case studies answered aloud","Gate 20 Dec: 3+ live interview processes","Offer decision on 15 Jan"]},
+  {id:"exit",t:"Old job exit checklist",c:"meal",why:"Paperwork you’ll need for PF, background checks and the next offer. Get it in writing now.",
+   plan:["Ask HR in writing for anything still pending, with a date.","Keep copies in your own Drive, never in this repo."],
+   ms:["Relieving and experience letters","Last 3 payslips and Form 16","Full and final settlement amount and date in writing","UAN for PF transfer","Handover email sent, laptop and ID returned","1 to 2 references","Own-words notes of what you built (never company code or documents)"]},
   {id:"talk",t:"Speaking clearly",c:"people",why:"Point-to-point answers come from one structure, practiced daily: Point, Reason, Example, Point.",
    plan:["Daily: explain one concept out loud in 2 minutes and record it.","Weekly: listen to one recording, count the “umm”s and side tracks, beat that count next week."],
    ms:["First recording made","6 recordings in one week","30 recordings in total"]},
@@ -1141,7 +1146,7 @@ function renderGoals(){
   });
   var pct=Math.round(done/total*100);
   ringSVG($("goalRing"),pct,pct+"%",done+" of "+total,"var(--grow)");
-  $("goalSum").textContent=done+" of "+total+" milestones done across 7 goals. Career milestones matter most right now.";
+  $("goalSum").textContent=done+" of "+total+" milestones done across "+GOALS.length+" goals. Career milestones matter most right now.";
 }
 
 /* ============ review ============ */
