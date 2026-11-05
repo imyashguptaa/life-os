@@ -108,6 +108,14 @@ nav.tabbar a.checkin span.dot{display:block;width:5px;height:5px;border-radius:5
 .mini div b{display:block;font-family:var(--display);font-size:1.35rem;font-weight:800;line-height:1.1}
 .mini div small{color:var(--muted);font-size:0.8rem}
 
+/* aaj ka card */
+.tcard{margin-top:16px;border-left:4px solid var(--dawn)}
+.tcard h3{font-size:1.05rem;margin-bottom:6px}
+.tcard .txt{white-space:pre-wrap;font-size:1rem}
+.tcard .txt + .note{margin-top:8px}
+.tcard .field{margin-top:10px}
+.tc-row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px}
+
 /* right now */
 .now{margin-top:14px;display:grid;grid-template-columns:6px 1fr auto;gap:14px;align-items:center}
 .now .bar6{align-self:stretch;border-radius:4px;background:var(--dawn)}
@@ -292,6 +300,8 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
 <!-- ================= HOME ================= -->
 <section class="view" id="v-home" aria-labelledby="hello">
   <div class="hello"><h1 id="hello">Hello, Yash</h1><p id="todayLine"></p></div>
+
+  <div class="card tcard" id="todayCard"></div>
 
   <div class="hero">
     <svg class="ring" id="scoreRing" viewBox="0 0 172 172" role="img" aria-label="Today’s day score"></svg>
@@ -797,7 +807,35 @@ function renderHome(){
   var st=streaks();$("stStreak").textContent=st.cur;$("stBest").textContent=st.best;$("stStrong").textContent=st.strong;
   $("ciDot").hidden=!!e;
   $("startResetCard").hidden=!!S.data.state.resetStart;
-  renderNow();renderKpis(d,t,e);renderCharts();renderInsights();renderHeat();
+  renderTodayCard();renderNow();renderKpis(d,t,e);renderCharts();renderInsights();renderHeat();
+}
+/* Today's card: yesterday night's "Tomorrow's top 3". If that is empty, Yash writes
+   today's 3 tasks right here. They go to state.todayCard, not to a check-in, so no
+   empty day gets created and no score changes. */
+var cardEditing=false;
+function renderTodayCard(){
+  var box=$("todayCard"),draft=$("tcText")?$("tcText").value:null;box.innerHTML="";
+  var d=today(),y=S.data.days[addDays(d,-1)],fromNight=(y&&typeof y.top3==="string")?y.top3.trim():"";
+  var tc=S.data.state.todayCard,own=(tc&&tc.date===d&&typeof tc.text==="string")?tc.text.trim():"";
+  box.appendChild(el("h3",null,"Aaj ka card"));
+  if(fromNight){box.appendChild(el("p","txt",fromNight));box.appendChild(el("p","note","Kal raat ke check-in se."));return}
+  if(own&&!cardEditing){
+    box.appendChild(el("p","txt",own));
+    var row=el("div","tc-row"),eb=el("button","btn small quiet","Edit");eb.type="button";
+    eb.addEventListener("click",function(){cardEditing=true;renderTodayCard();$("tcText").focus()});
+    row.appendChild(el("span","note","Aaj yahin likha."));row.appendChild(eb);box.appendChild(row);return;
+  }
+  box.appendChild(el("p",null,"Kal raat card nahi likha. Abhi 2 minute mein aaj ke 3 kaam likho."));
+  var f=el("div","field"),ta=el("textarea");ta.id="tcText";ta.maxLength=500;ta.rows=3;ta.placeholder="1.\n2.\n3.";
+  ta.setAttribute("aria-label","Aaj ke 3 kaam");ta.value=draft!=null?draft:own;f.appendChild(ta);box.appendChild(f);
+  var row2=el("div","tc-row"),sb=el("button","btn primary small","Save card");sb.type="button";
+  sb.addEventListener("click",function(){
+    var v=ta.value.trim();if(!v){toast("Pehle aaj ke 3 kaam likho");ta.focus();return}
+    S.data.state.todayCard={date:today(),text:v};S.data.state.updatedAt=Date.now();saveLocal();pushDoc("state",S.data.state);
+    cardEditing=false;ta.value="";renderTodayCard();toast("Aaj ka card saved");
+  });
+  var a=el("a","note","Kal ka card: raat ko check-in mein likho");a.href="#checkin";
+  row2.appendChild(sb);row2.appendChild(a);box.appendChild(row2);
 }
 function currentBlock(blocks){
   var n=new Date(),h=n.getHours()+n.getMinutes()/60;
