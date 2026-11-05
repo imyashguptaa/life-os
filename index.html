@@ -206,6 +206,9 @@ nav.tabbar a.checkin span.dot{display:block;width:5px;height:5px;border-radius:5
 .scale button{border:1px solid var(--line);background:var(--surface2);border-radius:10px;padding:8px 0;cursor:pointer;font-size:1.1rem}
 .scale button[aria-pressed="true"]{background:var(--dawn);border-color:var(--dawn);color:var(--on-dawn);font-weight:700}
 .scale.s6{grid-template-columns:repeat(6,1fr)}
+.scale.s11{grid-template-columns:repeat(11,1fr);gap:4px}
+@media (max-width:440px){.scale.s11{grid-template-columns:repeat(6,1fr);gap:6px}}
+.belief-q{font-family:var(--display);font-weight:700;font-size:1.1rem;margin-bottom:12px}
 .field.wide{grid-column:1 / -1}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chips button{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:7px 12px;min-height:38px;cursor:pointer;font-size:0.88rem}
@@ -482,6 +485,17 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
 
   <h2 class="sec">Habit consistency</h2>
   <div class="card"><div class="cons" id="cons"></div></div>
+
+  <h2 class="sec">Belief check</h2>
+  <p class="sub">How true does this feel this week? 0 is not true at all, 10 is completely true. Rate it once a week.</p>
+  <div class="card chart belief">
+    <div class="belief-q">“Main consistent padh nahi sakta”</div>
+    <div class="scale s11" id="sBelief" role="group" aria-label="How true it feels this week, 0 to 10"></div>
+    <p id="beliefNote" style="margin-top:8px"></p>
+    <h3 style="margin-top:14px">Last 8 weeks</h3>
+    <p>Lower is better. Each bar is one week, Monday to Sunday.</p>
+    <svg id="chBelief" viewBox="0 0 340 150" role="img" aria-label="Belief rating for the last 8 weeks"></svg>
+  </div>
 
   <h2 class="sec">AI weekly review</h2>
   <div class="card" id="coachWeek">
@@ -1231,6 +1245,36 @@ function renderReview(){
     var mb=el("div","mbar");mb.style.cssText="height:10px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:10px";var mi=el("i");mi.style.cssText="display:block;height:100%;border-radius:99px;background:var(--grow);width:"+Math.min(100,strong/5*100)+"%";mb.appendChild(mi);lc.appendChild(mb);
   }
   $("resetDate").value=rs||"";
+  renderBelief();
+}
+
+/* ============ belief check ============ */
+/* state.beliefs = {"<Monday of the week, YYYY-MM-DD>": 0..10} */
+function weekStart(s){return addDays(s,-((parseYmd(s).getDay()+6)%7))}
+function shortDate(s){return parseYmd(s).toLocaleDateString("en-IN",{day:"numeric",month:"short"})}
+function renderBelief(){
+  var bs=S.data.state.beliefs||{},wk=weekStart(today()),cur=typeof bs[wk]==="number"?bs[wk]:null,box=$("sBelief");
+  box.innerHTML="";
+  for(var i=0;i<=10;i++)(function(v){
+    var b=el("button",null,String(v));b.type="button";b.setAttribute("aria-pressed",cur===v?"true":"false");b.setAttribute("aria-label",v+" of 10");
+    b.addEventListener("click",function(){
+      var all=S.data.state.beliefs||(S.data.state.beliefs={});
+      if(all[wk]===v)delete all[wk];else all[wk]=v;
+      S.data.state.updatedAt=Date.now();saveLocal();pushDoc("state",S.data.state);renderBelief();
+    });
+    box.appendChild(b);
+  })(i);
+  $("beliefNote").textContent=cur==null?"Not rated yet for the week of "+shortDate(wk)+".":"Week of "+shortDate(wk)+": "+cur+" of 10.";
+  var weeks=[];for(var k=7;k>=0;k--)weeks.push(addDays(wk,-7*k));
+  var W=340,H=150,L=26,R=8,T=16,B=24,iw=W-L-R,ih=H-T-B,bw=iw/8,out="",y=function(v){return T+ih-(v/10)*ih};
+  [0,5,10].forEach(function(v){out+='<line class="grid" x1="'+L+'" x2="'+(W-R)+'" y1="'+y(v)+'" y2="'+y(v)+'"/><text x="'+(L-6)+'" y="'+(y(v)+3)+'" text-anchor="end">'+v+'</text>'});
+  weeks.forEach(function(w,i){
+    var v=typeof bs[w]==="number"?bs[w]:null,x=L+i*bw+bw*0.2,bwid=bw*0.6;
+    if(v==null)out+='<rect x="'+x+'" y="'+(T+ih-2)+'" width="'+bwid+'" height="2" rx="1" fill="var(--line)"/>';
+    else{var hh=Math.max(2,T+ih-y(v));out+='<rect x="'+x+'" y="'+(T+ih-hh)+'" width="'+bwid+'" height="'+hh+'" rx="4" fill="'+(v<=3?"var(--grow)":v<=6?"var(--dawn)":"var(--danger)")+'"/><text class="v" x="'+(x+bwid/2)+'" y="'+(T+ih-hh-4)+'" text-anchor="middle">'+v+'</text>'}
+    out+='<text x="'+(x+bwid/2)+'" y="'+(H-8)+'" text-anchor="middle">'+(w===wk?"This wk":shortDate(w))+'</text>';
+  });
+  $("chBelief").innerHTML=out;
 }
 
 /* ============ AI coach ============ */
