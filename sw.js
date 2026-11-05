@@ -1,6 +1,6 @@
 /* Life OS Prime: offline cache.
    When you push a new version, change VERSION (v1 -> v2) so phones pick it up. */
-const VERSION = "life-os-v1";
+const VERSION = "life-os-v2";
 const FONT_CACHE = "life-os-fonts";
 const SHELL = [
   "./",
