@@ -116,6 +116,13 @@ nav.tabbar a.checkin span.dot{display:block;width:5px;height:5px;border-radius:5
 .tcard .field{margin-top:10px}
 .tc-row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px}
 
+/* aaj ka plan */
+.dayplan{margin-top:14px}
+.dayplan h3{font-size:1.05rem}
+.dayplan .note{margin-top:2px}
+.dayplan .sched{margin-top:10px}
+.dayplan summary{cursor:pointer;font-weight:700;color:var(--dawn);margin-top:10px}
+
 /* right now */
 .now{margin-top:14px;display:grid;grid-template-columns:6px 1fr auto;gap:14px;align-items:center}
 .now .bar6{align-self:stretch;border-radius:4px;background:var(--dawn)}
@@ -323,6 +330,10 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
 
   <div class="card tcard" id="todayCard"></div>
 
+  <div class="card now" id="nowCard"></div>
+
+  <div class="card dayplan" id="dayPlan"></div>
+
   <div class="hero">
     <svg class="ring" id="scoreRing" viewBox="0 0 172 172" role="img" aria-label="Today’s day score"></svg>
     <div>
@@ -337,10 +348,8 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
     </div>
   </div>
 
-  <div class="card now" id="nowCard"></div>
-
   <div class="card start-reset" id="startResetCard" hidden>
-    <div><h3>Festival over?</h3><p class="note">Start Reset mode. Week 1 targets begin today, at home or in the PG.</p></div>
+    <div><h3>Bhai Dooj ho gaya?</h3><p class="note">Start Reset mode. Level 1 ka poora din aaj se shuru, ghar pe ya PG mein.</p></div>
     <button class="btn primary small" id="startResetBtn" type="button">Start Reset mode</button>
   </div>
 
@@ -890,7 +899,7 @@ function renderHome(){
   var st=streaks();$("stStreak").textContent=st.cur;$("stBest").textContent=st.best;$("stStrong").textContent=st.strong;
   $("ciDot").hidden=!!e;
   $("startResetCard").hidden=!!S.data.state.resetStart;
-  renderTodayCard();renderNow();renderKpis(d,t,e);renderCharts();renderInsights();renderHeat();
+  renderTodayCard();renderNow();renderDayPlan();renderKpis(d,t,e);renderCharts();renderInsights();renderHeat();
 }
 /* Today's card: yesterday night's "Tomorrow's top 3". If that is empty, Yash writes
    today's 3 tasks right here. They go to state.todayCard, not to a check-in, so no
@@ -930,7 +939,7 @@ function renderNow(){
   var d=today(),t=targetsFor(d),e=S.data.days[d];
   if(t.mode==="diwali"){
     box.appendChild(el("span","bar6"));
-    var mid=el("div");mid.appendChild(el("div","lbl","Diwali mode, today’s four rules"));mid.appendChild(el("h3",null,"Four rules make a full day"));
+    var mid=el("div");mid.appendChild(el("div","lbl","Aaj ka plan: Diwali mode"));mid.appendChild(el("h3",null,"Bas ye 4 rules follow karo"));
     box.appendChild(mid);
     var done=DIWALI_RULES.filter(function(r){return r[2](e)===true}).length;
     var left=el("div","left",done+"/4");left.appendChild(el("small",null,e?"from check-in":"check in tonight"));box.appendChild(left);
@@ -945,6 +954,25 @@ function renderNow(){
   var remain=Math.max(0,Math.round((b[1]-cb.h)*60));
   var left2=el("div","left",fmtMin(remain));left2.appendChild(el("small",null,"left in block"));box.appendChild(left2);
   var prog=el("div","prog"),pi=el("i");pi.style.width=Math.round((cb.h-b[0])/(b[1]-b[0])*100)+"%";pi.style.background="var(--"+b[3]+")";prog.appendChild(pi);box.appendChild(prog);
+}
+/* Aaj ka plan: today's full day in Reset mode. In Diwali mode the 4 rules above are
+   today's plan, and the Reset day is only a folded preview for after Bhai Dooj. */
+var planOpen=false;
+function renderDayPlan(){
+  var box=$("dayPlan"),d=today(),t=targetsFor(d),rs=S.data.state.resetStart;box.innerHTML="";
+  if(t.mode==="reset"){
+    var blocks=dayBlocks(t,d),ul=el("ul","sched");
+    box.appendChild(el("h3",null,"Aaj ka plan"));
+    box.appendChild(el("p","note","Level "+t.level+": wake by "+clock(t.wake)+", study "+fmtH(t.study)+". Breaks and free time are not listed."));
+    fillSched(ul,blocks,currentBlock(blocks).i);box.appendChild(ul);
+    return;
+  }
+  box.appendChild(el("h3",null,"Bhai Dooj ke baad ye plan shuru"));
+  box.appendChild(el("p","note",rs?"Tab tak sirf upar ke 4 rules. Reset mode "+longDate(rs)+" se shuru hoga.":"Tab tak sirf upar ke 4 rules. Bhai Dooj ke baad neeche “Start Reset mode” dabao."));
+  var det=el("details"),ul2=el("ul","sched");det.open=planOpen;
+  det.addEventListener("toggle",function(){planOpen=det.open});
+  det.appendChild(el("summary",null,"Poora din dekho (Level 1)"));
+  fillSched(ul2,dayBlocks(lvlTargets(1),d),-1);det.appendChild(ul2);box.appendChild(det);
 }
 function kpi(lab,val,tgt,ratio,lowerBetter){
   var k=el("div","kpi");k.appendChild(el("span","lab",lab));
@@ -1192,11 +1220,15 @@ function drawDial(){
   var dp=pt(RI-14,hn),dot=document.createElementNS(NS,"circle");dot.setAttribute("cx",dp[0]);dot.setAttribute("cy",dp[1]);dot.setAttribute("r",4);dot.setAttribute("fill","var(--ink)");svg.appendChild(dot);
   svg.appendChild(c1);svg.appendChild(c2);
   if(dialPicked!=null){paths[dialPicked].classList.add("on");svg.classList.add("focused");show(dialPicked)}else{svg.classList.remove("focused");c1.textContent=shortName(blocks[cur.i][2]);c2.textContent="Now. Tap a block for details"}
-  var sl=$("schedList");sl.innerHTML="";
+  fillSched($("schedList"),blocks,cur.i);
+}
+/* Timeline list without breaks and free time; curI is the block happening now (-1 for none) */
+function fillSched(ul,blocks,curI){
+  ul.innerHTML="";
   blocks.forEach(function(b,i){
     if(b[2]==="Free time"||b[2]==="Break")return;
-    var li=el("li",(b[3]==="dawn"?"deep":"")+(i===cur.i?" cur":""));
-    li.appendChild(el("span","t",fmtHour(b[0])));var x=el("span",null,b[2]);if(b[4])x.appendChild(el("small",null,b[4]));li.appendChild(x);sl.appendChild(li);
+    var li=el("li",(b[3]==="dawn"?"deep":"")+(i===curI?" cur":""));
+    li.appendChild(el("span","t",fmtHour(b[0])));var x=el("span",null,b[2]);if(b[4])x.appendChild(el("small",null,b[4]));li.appendChild(x);ul.appendChild(li);
   });
 }
 function renderFixes(){var box=$("fixList");box.innerHTML="";FIXES.forEach(function(f){var d=el("div","fix");d.appendChild(el("div","p",f[0]));d.appendChild(el("div","s",f[1]));box.appendChild(d)})}
@@ -1447,7 +1479,7 @@ $("importFile").addEventListener("change",function(){if(this.files&&this.files[0
 $("coachDayBtn").addEventListener("click",function(){runCoach("day")});
 $("coachWeekBtn").addEventListener("click",function(){runCoach("week")});
 document.querySelectorAll("[data-rmode]").forEach(function(b){b.addEventListener("click",function(){routineMode=b.dataset.rmode;renderRoutine()})});
-setInterval(function(){renderNow();if(!$("v-routine").hidden)drawDial()},60000);
+setInterval(function(){renderNow();renderDayPlan();if(!$("v-routine").hidden)drawDial()},60000);
 initCapabilities();
 function copyText(t){
   if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t).then(function(){return true},function(){return legacyCopy(t)});
