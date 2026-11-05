@@ -197,6 +197,11 @@ nav.tabbar a.checkin span.dot{display:block;width:5px;height:5px;border-radius:5
 .scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .scale button{border:1px solid var(--line);background:var(--surface2);border-radius:10px;padding:8px 0;cursor:pointer;font-size:1.1rem}
 .scale button[aria-pressed="true"]{background:var(--dawn);border-color:var(--dawn);color:var(--on-dawn);font-weight:700}
+.scale.s6{grid-template-columns:repeat(6,1fr)}
+.field.wide{grid-column:1 / -1}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:7px 12px;min-height:38px;cursor:pointer;font-size:0.88rem}
+.chips button[aria-pressed="true"]{background:var(--dawn);border-color:var(--dawn);color:var(--on-dawn);font-weight:700}
 .savebar{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));display:flex;gap:10px;justify-content:space-between;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 12px}
 .savebar span{font-size:0.88rem;color:var(--muted)}
 
@@ -363,9 +368,13 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
         <div class="field"><label for="fStudy">Study hours</label><div class="step"><button type="button" data-step="fStudy" data-by="-0.25" aria-label="Less">−</button><input type="number" id="fStudy" min="0" max="16" step="0.25" inputmode="decimal" value="0"><button type="button" data-step="fStudy" data-by="0.25" aria-label="More">+</button></div></div>
         <div class="field"><label for="fFocus">Focus blocks finished</label><div class="step"><button type="button" data-step="fFocus" data-by="-1" aria-label="Less">−</button><input type="number" id="fFocus" min="0" max="20" step="1" inputmode="numeric" value="0"><button type="button" data-step="fFocus" data-by="1" aria-label="More">+</button></div></div>
         <div class="field"><label for="fApps">Job applications sent</label><div class="step"><button type="button" data-step="fApps" data-by="-1" aria-label="Less">−</button><input type="number" id="fApps" min="0" max="50" step="1" inputmode="numeric" value="0"><button type="button" data-step="fApps" data-by="1" aria-label="More">+</button></div></div>
+        <div class="field"><label for="fDsa">Logic / DSA problems solved</label><div class="step"><button type="button" data-step="fDsa" data-by="-1" aria-label="Less">−</button><input type="number" id="fDsa" min="0" max="50" step="1" inputmode="numeric" value="0"><button type="button" data-step="fDsa" data-by="1" aria-label="More">+</button></div></div>
+        <div class="field"><label for="fSql">SQL queries written</label><div class="step"><button type="button" data-step="fSql" data-by="-1" aria-label="Less">−</button><input type="number" id="fSql" min="0" max="100" step="1" inputmode="numeric" value="0"><button type="button" data-step="fSql" data-by="1" aria-label="More">+</button></div></div>
+        <div class="field wide"><label id="lRecall">Recall: yesterday’s 5 points, written without looking</label><div class="scale s6" id="sRecall" role="group" aria-labelledby="lRecall"></div></div>
       </div>
       <div class="switches">
         <label class="sw"><span>2-minute talk practice done</span><input type="checkbox" id="fTalk"></label>
+        <label class="sw"><span>Mock interview done</span><input type="checkbox" id="fMock"></label>
       </div>
     </div>
 
@@ -395,10 +404,12 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
       <div class="fields">
         <div class="field"><label id="lMood">Mood</label><div class="scale" id="sMood" role="group" aria-labelledby="lMood"></div></div>
         <div class="field"><label id="lEnergy">Energy</label><div class="scale" id="sEnergy" role="group" aria-labelledby="lEnergy"></div></div>
+        <div class="field wide"><label id="lWarn">Today’s warning light</label><div class="chips" id="sWarn" role="group" aria-labelledby="lWarn"></div></div>
       </div>
       <div class="switches">
         <label class="sw"><span>Brain dump written</span><input type="checkbox" id="fDump"></label>
         <label class="sw"><span>Phone away from the bed tonight</span><input type="checkbox" id="fPhoneOff"></label>
+        <label class="sw"><span>Worry slot done at 9 pm</span><input type="checkbox" id="fWorry"></label>
       </div>
     </div>
 
@@ -611,7 +622,9 @@ var HABITS=[
   {id:"dump",n:"Brain dump",f:function(e){return !!e.brainDump}},
   {id:"phone",n:"Phone off bed",f:function(e){return !!e.phoneOff}},
   {id:"chai",n:"No late chai",f:function(e){return !!e.noChai}},
-  {id:"work",n:"Workout",f:function(e){return !!e.workout}}
+  {id:"work",n:"Workout",f:function(e){return !!e.workout}},
+  /* null = day saved before this field existed, shown as no data */
+  {id:"worry",n:"Worry slot",f:function(e){return e.worry==null?null:!!e.worry}}
 ];
 
 /* ============ routine data ============ */
@@ -930,10 +943,10 @@ function renderHeat(){
   HABITS.forEach(function(h){
     box.appendChild(el("div","hl",h.n));
     dates.forEach(function(d){
-      var e=S.data.days[d],c=el("div","hc");
-      if(e){c.classList.add(h.f(e,targetsFor(d))?"y":"n")}
+      var e=S.data.days[d],c=el("div","hc"),v=e?h.f(e,targetsFor(d)):null;
+      if(v!=null){c.classList.add(v?"y":"n")}
       if(d===today())c.classList.add("today");
-      c.title=dayName(d)+" "+parseYmd(d).getDate()+": "+h.n+(e?(c.classList.contains("y")?" done":" missed"):" no check-in");
+      c.title=dayName(d)+" "+parseYmd(d).getDate()+": "+h.n+(e?(v==null?" not tracked yet":v?" done":" missed"):" no check-in");
       box.appendChild(c);
     });
   });
@@ -943,31 +956,43 @@ function renderHeat(){
 
 /* ============ check-in form ============ */
 var MOODS=["😞","😕","😐","🙂","😄"];
-var formState={mood:null,energy:null};
+var WARNS=[["none","None"],["frustration","Frustration"],["aggressiveness","Aggressiveness"],["insecurity","Insecurity"],["loneliness","Loneliness"],["uncertainty","Uncertainty"],["resentment","Resentment"],["emptiness","Emptiness"]];
+function warnLabel(v){for(var i=0;i<WARNS.length;i++)if(WARNS[i][0]===v)return WARNS[i][1];return v}
+var formState={mood:null,energy:null,recall:null,warn:null};
+/* [box id, field, labels, value of the first button] */
+var SCALES=[["sMood","mood",MOODS,1],["sEnergy","energy",["1","2","3","4","5"],1],["sRecall","recall",["0","1","2","3","4","5"],0]];
 function buildScales(){
-  [["sMood","mood",MOODS],["sEnergy","energy",["1","2","3","4","5"]]].forEach(function(cfg){
+  SCALES.forEach(function(cfg){
     var box=$(cfg[0]);box.innerHTML="";
     cfg[2].forEach(function(lab,i){
-      var b=el("button",null,lab);b.type="button";b.setAttribute("aria-pressed","false");b.setAttribute("aria-label",cfg[1]+" "+(i+1)+" of 5");
-      b.addEventListener("click",function(){formState[cfg[1]]=(formState[cfg[1]]===i+1)?null:i+1;paintScales();preview()});
+      var v=i+cfg[3],b=el("button",null,lab);b.type="button";b.setAttribute("aria-pressed","false");b.setAttribute("aria-label",cfg[1]+" "+v+" of 5");
+      b.addEventListener("click",function(){formState[cfg[1]]=(formState[cfg[1]]===v)?null:v;paintScales();preview()});
       box.appendChild(b);
     });
   });
-}
-function paintScales(){
-  [["sMood","mood"],["sEnergy","energy"]].forEach(function(cfg){
-    Array.prototype.forEach.call($(cfg[0]).children,function(b,i){b.setAttribute("aria-pressed",formState[cfg[1]]===i+1?"true":"false")});
+  var wb=$("sWarn");wb.innerHTML="";
+  WARNS.forEach(function(w){
+    var b=el("button",null,w[1]);b.type="button";b.dataset.v=w[0];b.setAttribute("aria-pressed","false");
+    b.addEventListener("click",function(){formState.warn=formState.warn===w[0]?null:w[0];paintScales()});
+    wb.appendChild(b);
   });
 }
-var F={asleep:"fAsleep",wake:"fWake",study:"fStudy",focus:"fFocus",apps:"fApps",insta:"fInsta",steps:"fSteps",goal:"fGoal",distraction:"fDistract",win:"fWin",fail:"fFail",top3:"fTop3"};
-var B={talk:"fTalk",walk:"fWalk",workout:"fWorkout",protein:"fProtein",noChai:"fNoChai",brainDump:"fDump",phoneOff:"fPhoneOff"};
+function paintScales(){
+  SCALES.forEach(function(cfg){
+    Array.prototype.forEach.call($(cfg[0]).children,function(b,i){b.setAttribute("aria-pressed",formState[cfg[1]]===i+cfg[3]?"true":"false")});
+  });
+  Array.prototype.forEach.call($("sWarn").children,function(b){b.setAttribute("aria-pressed",formState.warn===b.dataset.v?"true":"false")});
+}
+var F={asleep:"fAsleep",wake:"fWake",study:"fStudy",focus:"fFocus",apps:"fApps",dsa:"fDsa",sql:"fSql",insta:"fInsta",steps:"fSteps",goal:"fGoal",distraction:"fDistract",win:"fWin",fail:"fFail",top3:"fTop3"};
+var B={talk:"fTalk",mock:"fMock",walk:"fWalk",workout:"fWorkout",protein:"fProtein",noChai:"fNoChai",brainDump:"fDump",phoneOff:"fPhoneOff",worry:"fWorry"};
 function fillForm(date){
   var e=S.data.days[date]||{};
   Object.keys(F).forEach(function(k){var v=e[k];$(F[k]).value=(v==null?"":v)});
-  if(!S.data.days[date]){$("fStudy").value=0;$("fFocus").value=0;$("fApps").value=0}
+  if(!S.data.days[date]){$("fStudy").value=0;$("fFocus").value=0;$("fApps").value=0;$("fDsa").value=0;$("fSql").value=0}
   Object.keys(B).forEach(function(k){$(B[k]).checked=!!e[k]});
   var sm=screenMin(e);$("fScrH").value=sm==null?"":Math.floor(sm/60);$("fScrM").value=sm==null?"":sm%60;
-  formState.mood=e.mood||null;formState.energy=e.energy||null;paintScales();
+  formState.mood=e.mood||null;formState.energy=e.energy||null;
+  formState.recall=typeof e.recall==="number"?e.recall:null;formState.warn=e.warn||null;paintScales();
   var t=targetsFor(date);
   $("fDateNote").textContent=(S.data.days[date]?"Editing the saved check-in. ":"New check-in. ")+modeLabel(t,date)+(e.baseline?". This day is your starting baseline.":".");
   preview();
@@ -975,11 +1000,11 @@ function fillForm(date){
 function readForm(){
   var e={};
   Object.keys(F).forEach(function(k){var v=$(F[k]).value;e[k]=v});
-  ["study","focus","apps","insta","steps"].forEach(function(k){e[k]=num(e[k]);if(e[k]!=null&&e[k]<0)e[k]=0});
+  ["study","focus","apps","dsa","sql","insta","steps"].forEach(function(k){e[k]=num(e[k]);if(e[k]!=null&&e[k]<0)e[k]=0});
   Object.keys(B).forEach(function(k){e[k]=$(B[k]).checked});
   var h=num($("fScrH").value),m=num($("fScrM").value);
   e.screenMin=(h==null&&m==null)?null:Math.max(0,Math.round((h||0)*60+(m||0)));
-  e.mood=formState.mood;e.energy=formState.energy;
+  e.mood=formState.mood;e.energy=formState.energy;e.recall=formState.recall;e.warn=formState.warn;
   return e;
 }
 function preview(){var d=$("fDate").value||today();$("livePreview").textContent="Day score: "+scoreEntry(readForm(),targetsFor(d))+" of 100"}
@@ -1095,8 +1120,22 @@ function windowStats(dates){
     steps:avg(es.map(function(e){return num(e.steps)})),
     workouts:es.filter(function(e){return e.workout}).length,
     apps:sum(es.map(function(e){return num(e.apps)})),
-    talk:es.filter(function(e){return e.talk}).length
+    talk:es.filter(function(e){return e.talk}).length,
+    dsa:sumOpt(es,"dsa"),
+    sql:sumOpt(es,"sql"),
+    recall:avg(es.map(function(e){return typeof e.recall==="number"?e.recall:null})),
+    mocks:es.filter(function(e){return e.mock}).length,
+    worry:es.filter(function(e){return e.worry}).length,
+    warn:topWarn(es)
   };
+}
+/* sum of a field, or null when no day in the window has it (older check-ins) */
+function sumOpt(es,k){var v=es.map(function(e){return num(e[k])}).filter(function(x){return x!=null});return v.length?sum(v):null}
+function topWarn(es){
+  var c={},n=0;
+  es.forEach(function(e){if(e.warn){n++;if(e.warn!=="none")c[e.warn]=(c[e.warn]||0)+1}});
+  var k=Object.keys(c).sort(function(p,q){return c[q]-c[p]})[0];
+  return k?warnLabel(k)+" ×"+c[k]:n?"None":null;
 }
 function renderReview(){
   var a=windowStats(lastN(7)),b=windowStats(lastN(7,addDays(today(),-7))),body=$("scoreBody");body.innerHTML="";
@@ -1111,13 +1150,19 @@ function renderReview(){
     ["Steps per day","steps",function(v){return v==null?"—":Math.round(v).toLocaleString("en-IN")},1],
     ["Workouts","workouts",String,1],
     ["Applications sent","apps",String,1],
-    ["Talk practice days","talk",String,1]
+    ["Talk practice days","talk",String,1],
+    ["Logic / DSA problems","dsa",function(v){return v==null?"—":String(v)},1],
+    ["SQL queries","sql",function(v){return v==null?"—":String(v)},1],
+    ["Recall score (average)","recall",function(v){return v==null?"—":(Math.round(v*10)/10)+" of 5"},1],
+    ["Mock interviews","mocks",String,1],
+    ["Worry slot days","worry",String,1],
+    ["Top warning light","warn",function(v){return v||"—"},0]
   ];
   rows.forEach(function(r){
     var tr=el("tr"),va=a[r[1]],vb=b[r[1]];
     tr.appendChild(el("td","d",r[0]));tr.appendChild(el("td",null,r[2](va)));tr.appendChild(el("td",null,r[2](vb)));
     var ch="—",cls="";
-    if(va!=null&&vb!=null&&!(b.n===0&&r[1]!=="n")){
+    if(r[3]!==0&&va!=null&&vb!=null&&!(b.n===0&&r[1]!=="n")){
       var diff=va-vb;
       if(Math.abs(diff)<0.01)ch="Same";
       else{var better=diff*r[3]>0;cls=better?"t-good":"t-bad";ch=(diff>0?"▲ ":"▼ ")+(better?"Better":"Worse")}
