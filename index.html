@@ -76,7 +76,7 @@ header.top .wrap{display:flex;align-items:center;justify-content:space-between;g
 
 /* bottom tabs */
 nav.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-nav.tabbar .row{max-width:620px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
+nav.tabbar .row{max-width:620px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr)}
 nav.tabbar a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 4px 8px;text-decoration:none;font-size:0.74rem;color:var(--muted)}
 nav.tabbar a svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 nav.tabbar a[aria-current="page"]{color:var(--dawn);font-weight:700}
@@ -280,6 +280,23 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
 .settings{display:grid;gap:14px}
 .settings .row2{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .note{font-size:0.86rem;color:var(--muted)}
+
+/* learn */
+.learn-rule{margin-top:16px;background:var(--dawn-soft);border-color:transparent;font-family:var(--display);font-weight:700;font-size:1.05rem}
+.learn{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px;margin-top:14px}
+.lcard h3{font-size:1.05rem;margin-bottom:8px}
+.src{list-style:none;margin:0;padding:0;font-size:0.93rem}
+.src li{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:6px 0;border-top:1px solid var(--line)}
+.src li:first-child{border-top:0;padding-top:0}
+.src a{text-underline-offset:2px}
+.tag{flex:0 0 auto;font-size:0.72rem;font-weight:700;padding:1px 8px;border-radius:99px;white-space:nowrap}
+.tag.ok{background:var(--grow-soft);color:var(--grow)}
+.tag.no{background:var(--dawn-soft);color:var(--dawn)}
+.much{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:0.9rem}
+.much b{display:block;font-size:0.8rem;color:var(--muted);font-weight:700}
+.linkchips{display:flex;flex-wrap:wrap;gap:8px}
+.linkchips a{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:7px 12px;text-decoration:none;font-size:0.9rem}
+.linkchips a small{color:var(--muted);font-size:0.75rem}
 
 .toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;font-size:0.92rem;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:20;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -525,6 +542,17 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
     <p class="note" id="syncNote"></p>
   </div>
 </section>
+
+<!-- ================= LEARN ================= -->
+<section class="view" id="v-learn" aria-labelledby="lnTitle" hidden>
+  <div class="hello"><h1 id="lnTitle">Learn</h1><p>What to use for each topic, and how much. “Checked” means the link was opened and confirmed.</p></div>
+  <div class="card learn-rule">Ek topic, ek source. Video Learn block ka 40% se zyada nahi.</div>
+  <div class="learn" id="learnList"></div>
+  <h2 class="sec">Practice sites</h2>
+  <div class="card"><div class="linkchips" id="practiceList"></div><p class="note" style="margin-top:10px">Homepages, not checked.</p></div>
+  <h2 class="sec">Job portals</h2>
+  <div class="card"><div class="linkchips" id="jobList"></div><p class="note" style="margin-top:10px">Homepages, not checked. Roz 5 applications.</p></div>
+</section>
 </main>
 
 <nav class="tabbar" aria-label="Main">
@@ -534,6 +562,7 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
     <a href="#routine" data-tab="routine"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>Routine</a>
     <a href="#goals" data-tab="goals"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></svg>Goals</a>
     <a href="#review" data-tab="review"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Review</a>
+    <a href="#learn" data-tab="learn"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Learn</a>
   </div>
 </nav>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -741,6 +770,39 @@ var GOALS=[
    plan:["Now: know your monthly spending and how many months your savings last.","After the offer: settle in for about 3 months, then build one side income from your AI skills."],
    ms:["Monthly spend and runway known","Offer letter received","One side income started"]}
 ];
+
+/* ============ learn data ============ */
+/* Source: [label, url or null, "ok" checked / "no" not checked / null, 1 if the url is a search] */
+function yt(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q)}
+function gs(q){return "https://www.google.com/search?q="+encodeURIComponent(q)}
+var LEARN=[
+  {t:"Python",use:[["Own Python notes, sections 1 to 10",null,null],["CodeWithHarry: Python in Hindi","https://www.classcentral.com/classroom/youtube-python-tutorial-in-hindi-137235","ok"],["Corey Schafer (English)",yt("Corey Schafer Python tutorial"),"no",1],["CS50P (English)",gs("CS50P Harvard Introduction to Programming with Python"),"no",1]],
+   much:"Sections 1 to 9 by 15 Nov. One video per section, only when the note is unclear."},
+  {t:"SQL",use:[["LeetCode SQL 50","https://leetcode.com/studyplan/top-sql-50/","no"],["DataLemur","https://datalemur.com","no"],["Rishabh Mishra (Hindi)",yt("Rishabh Mishra SQL Hindi"),"no",1],["Apna College (Hindi)",yt("Apna College SQL"),"no",1]],
+   much:"SQL 50 by about 25 Nov, then 10 DataLemur mediums, timed sets in Dec."},
+  {t:"Logic and DSA",use:[["Own DSA notes: 60-problem logic ladder",null,null],["NeetCode","https://neetcode.io","no"],["Apna College (concepts)",yt("Apna College DSA"),"no",1],["Love Babbar (concepts)",yt("Love Babbar DSA"),"no",1]],
+   much:"Ladder by 27 Nov (3 a day), then patterns 1 h a day."},
+  {t:"Stats and ML",use:[["Own ML notes, steps 1 to 10",null,null],["StatQuest",yt("StatQuest"),"no",1],["CampusX: 100 Days of ML (playlist)","https://www.youtube.com/playlist?list=PLKnIA16_Rmvbr7zKYQuBfsVkjoLcJgxHH","ok"],["CampusX: 100 Days of ML (notebooks)","https://github.com/campusx-official/100-days-of-machine-learning","ok"]],
+   much:["Watch: days 28–29, 35–38, 49, 51–52, 55–56, 58–60, 65, gradient boosting.","Skim: 24–27, 47, 66.","Skip: 15–18, 22, 30–34, 39–40, 42, 44–45, 53, 57, 68."]},
+  {t:"Transformers",use:[["3Blue1Brown: neural networks",yt("3Blue1Brown neural networks"),"no",1],["The Illustrated Transformer (Jay Alammar)",gs("The Illustrated Transformer Jay Alammar"),"no",1],["CampusX deep learning: attention section",yt("CampusX deep learning attention"),"no",1]],
+   much:"Concept level, about 3 to 4 hours."},
+  {t:"RAG",use:[["Own Advanced RAG course",null,null],["freeCodeCamp: Learn RAG From Scratch (2h33m)","https://www.youtube.com/watch?v=sVcwVQRHIc8","ok"],["Sentence Transformers docs","https://sbert.net","no"]],
+   much:"Course modules 2 to 9 + Production RAG. Skim module 1, skip multimodal."},
+  {t:"Vector DB",use:[["Qdrant Essentials (free)","https://qdrant.tech/course/essentials","ok"],["or pgvector","https://github.com/pgvector/pgvector","no"]],
+   much:"Pick one. Qdrant: days 0 to 2 and day 6."},
+  {t:"Evals",use:[["Ragas docs","https://docs.ragas.io","no"],["Hamel Husain: eval posts",gs("Hamel Husain evals blog"),"no",1],["Chip Huyen: AI Engineering, eval chapters",gs("Chip Huyen AI Engineering book"),"no",1]],
+   much:"Golden set, recall@k, MRR, faithfulness, LLM-as-judge."},
+  {t:"Agents and MCP",use:[["Anthropic: Building effective agents (~30 min)","https://www.anthropic.com/engineering/building-effective-agents","ok"],["LangChain Academy: LangGraph",gs("LangChain Academy LangGraph course"),"no",1],["MCP docs","https://modelcontextprotocol.io","no"],["CampusX LangGraph (Hindi)",yt("CampusX LangGraph"),"no",1]],
+   much:"Anthropic article first. LangGraph: state, edges, persistence. MCP only if time is left."},
+  {t:"Shipping",use:[["FastAPI tutorial","https://fastapi.tiangolo.com/tutorial/","no"],["Docker docs",gs("Docker docs get started"),"no",1],["GitHub Actions quickstart",gs("GitHub Actions quickstart"),"no",1],["CodeWithHarry Docker (Hindi, ~90 min)",yt("CodeWithHarry Docker"),"no",1]],
+   much:"One day, inside the RAG build."},
+  {t:"System design",use:[["Own system design notes",null,null],["Alex Xu: System Design Interview",gs("Alex Xu System Design Interview"),"no",1],["Chip Huyen: Designing Machine Learning Systems",gs("Chip Huyen Designing Machine Learning Systems"),"no",1]],
+   much:"4 case studies answered aloud, 45 min each."},
+  {t:"FDE round",use:[["Exponent: FDE and decomposition guides",gs("Exponent forward deployed engineer interview guide"),"no",1],["HCL GUVI: decomposition article",gs("HCL GUVI problem decomposition interview"),"no",1]],
+   much:"2 timed mocks a week from late Nov."}
+];
+var PRACTICE=[["LeetCode","https://leetcode.com"],["NeetCode","https://neetcode.io"],["DataLemur","https://datalemur.com"],["StrataScratch","https://www.stratascratch.com"],["HackerRank","https://www.hackerrank.com","SQL, Python"],["Kaggle","https://www.kaggle.com","datasets, Pandas"],["Pramp","https://www.pramp.com","peer mocks"]];
+var JOBS=[["LinkedIn","https://www.linkedin.com/jobs/"],["Naukri","https://www.naukri.com"],["Instahyre","https://www.instahyre.com"],["Wellfound","https://wellfound.com"]];
 
 /* ============ sync ============ */
 function setSync(state){
@@ -1279,6 +1341,29 @@ function renderBelief(){
   $("chBelief").innerHTML=out;
 }
 
+/* ============ learn ============ */
+function extLink(text,url){var a=el("a",null,text);a.href=url;a.target="_blank";a.rel="noopener";return a}
+function renderLearn(){
+  var box=$("learnList");box.innerHTML="";
+  LEARN.forEach(function(L){
+    var c=el("div","card lcard"),ul=el("ul","src");c.appendChild(el("h3",null,L.t));
+    L.use.forEach(function(s){
+      var li=el("li");
+      li.appendChild(s[1]?extLink(s[0]+(s[3]?" (search)":""),s[1]):el("span",null,s[0]));
+      if(s[2])li.appendChild(el("span","tag "+s[2],s[2]==="ok"?"checked":"not checked"));
+      ul.appendChild(li);
+    });
+    c.appendChild(ul);
+    var m=el("div","much");m.appendChild(el("b",null,"How much"));
+    (Array.isArray(L.much)?L.much:[L.much]).forEach(function(x){m.appendChild(el("div",null,x))});
+    c.appendChild(m);box.appendChild(c);
+  });
+  [["practiceList",PRACTICE],["jobList",JOBS]].forEach(function(p){
+    var b=$(p[0]);b.innerHTML="";
+    p[1].forEach(function(s){var a=extLink(s[0],s[1]);if(s[2])a.appendChild(el("small",null,s[2]));b.appendChild(a)});
+  });
+}
+
 /* ============ AI coach ============ */
 function compactDays(dates){
   return dates.filter(function(d){return S.data.days[d]}).map(function(d){
@@ -1341,7 +1426,7 @@ function importData(file){
 }
 
 /* ============ routing ============ */
-var VIEWS=["home","checkin","routine","goals","review"];
+var VIEWS=["home","checkin","routine","goals","review","learn"];
 function route(){
   var h=(location.hash||"").replace("#","");if(VIEWS.indexOf(h)<0)h="home";
   VIEWS.forEach(function(v){$("v-"+v).hidden=v!==h});
@@ -1352,7 +1437,7 @@ function route(){
 function renderAll(){renderHome();renderRoutine();renderGoals();renderReview()}
 
 /* ============ init ============ */
-initForm();renderFixes();renderAll();renderCoachAvail();setSync("local");route();
+initForm();renderFixes();renderLearn();renderAll();renderCoachAvail();setSync("local");route();
 window.addEventListener("hashchange",route);
 $("startResetBtn").addEventListener("click",function(){startReset(today());toast("Reset mode started. Level 1, day 1.")});
 $("saveResetDate").addEventListener("click",function(){var v=$("resetDate").value;if(!v){toast("Pick a date first");return}startReset(v);toast("Reset start date saved")});
