@@ -1,0 +1,6 @@
+# Personal data never goes in this public repo
+life-os-backup-*.json
+*backup*.json
+
+# Local tooling
+.claude/
