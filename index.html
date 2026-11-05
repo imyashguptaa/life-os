@@ -554,9 +554,9 @@ saveLocal();
 
 /* ============ targets and scoring ============ */
 var LEVELS=[null,
-  {study:3,steps:5000,wake:540,bed:300,screen:360,focus:25},
-  {study:4.5,steps:7000,wake:510,bed:270,screen:240,focus:40},
-  {study:6,steps:8000,wake:480,bed:240,screen:180,focus:50}];
+  {study:4,steps:5000,wake:540,bed:300,screen:360,focus:25},
+  {study:5.5,steps:7000,wake:510,bed:270,screen:240,focus:40},
+  {study:6.5,steps:8000,wake:480,bed:240,screen:180,focus:50}];
 var DIWALI={study:50/60,steps:4000,wake:570,bed:300,screen:360,focus:50};
 function lvlTargets(l){var t=clone(LEVELS[l]);t.mode="reset";t.level=l;return t}
 function diwaliTargets(){var t=clone(DIWALI);t.mode="diwali";t.level=0;return t}
