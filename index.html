@@ -843,7 +843,7 @@ function initCapabilities(){
         var rs=remote.state,ls=S.data.state;
         if(rs&&(rs.updatedAt||0)>(ls.updatedAt||0)){S.data.state=normalize({days:{},state:clone(rs)}).state;changed=true}
         else if(!rs||(ls.updatedAt||0)>(rs.updatedAt||0))toPush.push(["state",ls]);
-        if(changed){levelCache={};saveLocal();renderAll()}
+        if(changed){levelCache={};routineMode=null;saveLocal();renderAll()}
         toPush.forEach(function(p){pushDoc(p[0],p[1])});
         if(!toPush.length)setSync("ok");
       });
@@ -1419,7 +1419,7 @@ function importData(file){
         if(!l||(x.updatedAt||0)>(l.updatedAt||0)){S.data.days[d]=x;added++;pushDoc("day-"+d,x)}
       });
       if((inc.state.updatedAt||0)>(S.data.state.updatedAt||0)){S.data.state=inc.state;pushDoc("state",S.data.state)}
-      levelCache={};saveLocal();renderAll();toast("Backup imported: "+added+" days updated");
+      levelCache={};routineMode=null;saveLocal();renderAll();toast("Backup imported: "+added+" days updated");
     }catch(e){toast("That file isn’t a Life OS backup")}
   };
   r.readAsText(file);
