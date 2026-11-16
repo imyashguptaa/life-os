@@ -576,7 +576,7 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
   <div class="hello"><h1 id="lnTitle">Learn</h1><p>What to use for each topic, and how much. “Checked” means the link was opened and confirmed.</p></div>
   <div class="card learn-rule">Ek topic, ek source. Video Learn block ka 40% se zyada nahi.</div>
   <h2 class="sec">Din-wise roadmap</h2>
-  <p class="sub">17 Nov se 25 Jan tak, har din kya padhna hai. Hinglish video numbers YouTube pe check kiye (6 Nov 2026). English links search pe khulte hain, check nahi kiye.</p>
+  <p class="sub">17 Nov se 8 Feb tak, har din kya padhna hai. Hinglish video numbers YouTube pe check kiye (6 Nov 2026). English links search pe khulte hain, check nahi kiye.</p>
   <div id="rmList"></div>
   <h2 class="sec">Topic resources</h2>
   <div class="learn" id="learnList"></div>
@@ -784,8 +784,8 @@ var GOALS=[
   /* Ticks are saved by goal id and position ("career:0"), so the new list uses a new id.
      Old "career:N" ticks stay in the data and never land on these new items. */
   {id:"career2",t:"Career: AI Engineer",c:"dawn",why:"The main goal. Projects you can show and explain beat certificates.",
-   plan:["17 Nov to 3 Dec: Python, SQL, logic ladder, P0, RAG project.","8 to 29 Dec: text-to-SQL, evals, system design, mocks.","12 to 25 Jan: application surge, decision on 23 Jan.","Roz 5 applications. Padhai kaato, applications nahi."],
-   ms:["Defense notes written for every resume bullet (cut or reword what can’t be explained)","Both resume versions + LinkedIn and Naukri live","Logic ladder level 1 checkpoint","Logic ladder level 2 checkpoint","P0 on GitHub, CI green","Python notes sections 1 to 9 done","Gate 29 Nov: about 30 applications sent","LeetCode SQL 50 done","Logic ladder 60 done","P3 hybrid RAG: first recall@5 number","Gate 3 Dec: P3 golden set, ablation table, Docker, CI, README","About 70 applications, 2 recruiter calls","P5 text-to-SQL with benchmark (14 Dec)","P6 eval harness in CI (21 Dec)","4 system design case studies answered aloud","Gate 3 Jan: 3+ live interview processes","Offer decision on 23 Jan"]},
+   plan:["17 Nov to 3 Dec: Python, SQL, logic ladder, P0, RAG project.","8 to 29 Dec: text-to-SQL, evals, system design, mocks.","12 to 25 Jan: production AI: structured output, context, caching, cost, agent evals, multimodal, local models.","26 Jan to 8 Feb: application surge, decision on 6 Feb.","Roz 5 applications. Padhai kaato, applications nahi."],
+   ms:["Defense notes written for every resume bullet (cut or reword what can’t be explained)","Both resume versions + LinkedIn and Naukri live","Logic ladder level 1 checkpoint","Logic ladder level 2 checkpoint","P0 on GitHub, CI green","Python notes sections 1 to 9 done","Gate 29 Nov: about 30 applications sent","LeetCode SQL 50 done","Logic ladder 60 done","P3 hybrid RAG: first recall@5 number","Gate 3 Dec: P3 golden set, ablation table, Docker, CI, README","About 70 applications, 2 recruiter calls","P5 text-to-SQL with benchmark (14 Dec)","P6 eval harness in CI (21 Dec)","4 system design case studies answered aloud","Gate 3 Jan: 3+ live interview processes","Offer decision on 6 Feb","Production checklist done: caching, retries, agent evals, monitoring, demo live"]},
   {id:"exit",t:"Old job exit checklist",c:"meal",why:"Paperwork you’ll need for PF, background checks and the next offer. Get it in writing now.",
    plan:["Ask HR in writing for anything still pending, with a date.","Keep copies in your own Drive, never in this repo."],
    ms:["Relieving and experience letters","Last 3 payslips and Form 16","Full and final settlement amount and date in writing","UAN for PF transfer","Handover email sent, laptop and ID returned","1 to 2 references","Own-words notes of what you built (never company code or documents)"]},
@@ -831,7 +831,9 @@ var LEARN=[
   {t:"System design",use:[["Own system design notes",null,null],["Alex Xu: System Design Interview",gs("Alex Xu System Design Interview"),"no",1],["Chip Huyen: Designing Machine Learning Systems",gs("Chip Huyen Designing Machine Learning Systems"),"no",1]],
    much:"4 case studies answered aloud, 45 min each."},
   {t:"FDE round",use:[["Exponent: FDE and decomposition guides",gs("Exponent forward deployed engineer interview guide"),"no",1],["HCL GUVI: decomposition article",gs("HCL GUVI problem decomposition interview"),"no",1]],
-   much:"2 timed mocks a week from early Dec."}
+   much:"2 timed mocks a week from early Dec."},
+  {t:"Production AI",use:[["CampusX: Agentic Coding using Claude Code","https://www.youtube.com/playlist?list=PLKnIA16_RmvaYH3poI0oJvbDF4zEvpq8W","ok"],["Krish Naik: Multimodal RAG (PDF + images)","https://www.youtube.com/watch?v=BV0YUeam4y8","ok"],["Anthropic docs: prompt caching, vision, PDF, tool use",gs("Anthropic docs prompt caching vision PDF tool use"),"no",1],["Ollama docs","https://ollama.com","no"],["Chip Huyen: AI Engineering, inference optimization",gs("Chip Huyen AI Engineering inference optimization chapter"),"no",1]],
+   much:"12 days, 12 to 25 Jan. Day-wise plan is in the roadmap above."}
 ];
 var PRACTICE=[["LeetCode","https://leetcode.com"],["NeetCode","https://neetcode.io"],["DataLemur","https://datalemur.com"],["StrataScratch","https://www.stratascratch.com"],["HackerRank","https://www.hackerrank.com","SQL, Python"],["Kaggle","https://www.kaggle.com","datasets, Pandas"],["Pramp","https://www.pramp.com","peer mocks"]];
 var JOBS=[["LinkedIn","https://www.linkedin.com/jobs/"],["Naukri","https://www.naukri.com"],["Instahyre","https://www.instahyre.com"],["Wellfound","https://wellfound.com"]];
@@ -849,7 +851,9 @@ var RSRC={
   CXL:["CampusX LangChain","CampusX: Generative AI using LangChain","https://www.youtube.com/playlist?list=PLKnIA16_RmvaTbihpo4MtzVm4XOQa0ER0"],
   CXLG:["CampusX LangGraph","CampusX: Agentic AI using LangGraph","https://www.youtube.com/playlist?list=PLKnIA16_RmvYsvB8qkUQuJmJNuiCUJFPL"],
   CXF:["CampusX FastAPI","CampusX: FastAPI for Machine Learning","https://www.youtube.com/playlist?list=PLKnIA16_RmvZ41tjbKB2ZnwchfniNsMuQ"],
-  FCC:["freeCodeCamp RAG","freeCodeCamp: Learn RAG From Scratch","https://www.youtube.com/watch?v=sVcwVQRHIc8"]
+  FCC:["freeCodeCamp RAG","freeCodeCamp: Learn RAG From Scratch","https://www.youtube.com/watch?v=sVcwVQRHIc8"],
+  CXCC:["CampusX Claude Code","CampusX: Agentic Coding using Claude Code","https://www.youtube.com/playlist?list=PLKnIA16_RmvaYH3poI0oJvbDF4zEvpq8W"],
+  KN:["Krish Naik","Krish Naik: Multimodal RAG with LangChain (PDF + images)","https://www.youtube.com/watch?v=BV0YUeam4y8"]
 };
 /* RM_SEQ is the ordered list of study days. Dates are given at load time: from RM_START,
    Mon to Sat take the next study day, every Sunday is a review day that lists the gates
@@ -906,7 +910,19 @@ var RM_SEQ=[
   {l:"Deploy on AWS",hi:[["CXF","#12"]],no:"Your own notes",d:MIX,b:"Deploy P3 or P5"},
   {l:"LLM security: prompt injection",en:["OWASP Top 10 for LLM Applications"],no:"Your own notes",d:MIX,b:"P3: prompt injection tests",x:"FDE timed mock"},
   {l:"Fine-tuning concepts (LoRA)",en:["Chip Huyen AI Engineering finetuning chapter"],no:"Your own notes",d:MIX,b:"Write interview stories (STAR)"},
-  {gate:"Company list ready for the surge?",l:"Revision: weakest topic of the month",no:"Your own notes",d:MIX,s:TSQL,b:"Mock interview"}
+  {l:"Revision: weakest topic of the month",no:"Your own notes",d:MIX,s:TSQL,b:"Mock interview"},
+  {ph:"Production AI engineering",l:"Structured output + tool calling",hi:[["CXL","#7, #19"]],en:["Anthropic tool use docs","OpenAI structured outputs docs"],no:"Your own notes",d:MIX,s:TSQL,b:"P3: answers as validated JSON (Pydantic) + one tool"},
+  {l:"Context engineering: what goes into the context window, in what order, how much",hi:[["CXLG","#23"],["CXCC","#5"]],en:["Anthropic Effective context engineering for AI agents"],no:"Your own notes",d:MIX,b:"P3: context budget: trim, summarise and order the retrieved chunks"},
+  {l:"Prompt caching, token counting, prompt versioning",en:["Anthropic prompt caching docs","OpenAI prompt caching guide"],no:"Your own notes",d:MIX,s:TSQL,b:"P3: add prompt caching; cost per query before vs after"},
+  {l:"Cost + latency: model routing, streaming, batching, semantic cache",hi:[["CXLG","#13"]],en:["Chip Huyen AI Engineering inference optimization chapter"],no:"Your own notes",d:MIX,b:"Load test P3: p50/p95 latency + cost per 100 queries"},
+  {l:"Reliability: retries with backoff, timeouts, rate limits, fallback model, async calls, secrets in env vars",hi:[["CWH","#96"]],en:["Python tenacity retry library docs","Python asyncio docs"],no:"Your own notes",d:MIX,s:TSQL,b:"P3: retries + timeout + fallback model; keys only in env vars",x:"FDE timed mock"},
+  {l:"Agent memory: short-term and long-term",hi:[["CXLG","#24, #25"]],no:"Your own notes",d:MIX,b:"Agent: short-term memory per thread + one long-term fact store"},
+  {l:"Human-in-the-loop, guardrails, PII redaction",hi:[["CXLG","#21"]],en:["Guardrails AI docs","Microsoft Presidio PII redaction"],no:"Your own notes",d:MIX,s:TSQL,b:"Agent: approval before risky tool calls + output checks + PII masking"},
+  {l:"Agent evals: task success, tool-call accuracy, trajectory, cost per task",hi:[["CXLG","#16 (first 60 min)"]],en:["LangSmith evaluation docs","Hamel Husain LLM evals"],no:"Your own notes",d:MIX,b:"Agent eval set: 20 tasks, scored in CI"},
+  {l:"Multimodal: image + PDF input (tables, charts, scanned pages)",hi:[["KN","full video"]],en:["Anthropic vision docs","Anthropic PDF support docs"],no:"Your own notes",d:MIX,s:TSQL,b:"P3: ingest PDFs with tables and images; ask about a chart",x:"FDE timed mock"},
+  {l:"Local models with Ollama: when to use them, quantization basics",hi:[["CXL","#21 (first 60 min)"]],en:["Ollama docs quickstart"],no:"Your own notes",d:MIX,b:"Run P3 on a local model; compare quality, speed and cost with the API model"},
+  {l:"AI coding tools: plan first, CLAUDE.md, review every diff (no vibe coding)",hi:[["CXCC","#1, #2, #6"]],en:["Claude Code docs","Cursor docs"],no:"Your own notes",d:MIX,s:TSQL,b:"Build one P3 feature with an AI coding tool: tests first, review each diff"},
+  {l:"Demo + production checklist",hi:[["CXLG","#12"]],en:["Streamlit docs build a chat app"],no:"Your own notes",d:MIX,b:"Streamlit demo + README: architecture, evals, cost, latency, limits",gate:"Production checklist: caching, retries, agent evals, monitoring, demo live · Company list ready for the surge?"}
 ];
 /* 12 days of application surge after the study days */
 for(var si=1;si<=12;si++)RM_SEQ.push({surge:1,ph:si===1?"Application surge":"",l:"Application surge: the Learn block goes to applications and referrals",d:MIX,s:TSQL,
