@@ -773,31 +773,39 @@ var GOALS=[
 function yt(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q)}
 function gs(q){return "https://www.google.com/search?q="+encodeURIComponent(q)}
 var LEARN=[
-  {t:"Python",use:[["Own Python notes, sections 1 to 10",null,null],["CodeWithHarry: Python in Hindi","https://www.classcentral.com/classroom/youtube-python-tutorial-in-hindi-137235","ok"],["Corey Schafer (English)",yt("Corey Schafer Python tutorial"),"no",1],["CS50P (English)",gs("CS50P Harvard Introduction to Programming with Python"),"no",1]],
-   much:"Sections 1 to 9 by 23 Nov. Day-wise videos are in the roadmap above."},
+  {t:"Python",use:[["Own Python notes, sections 1 to 10",null,null],["CodeWithHarry: Python in Hindi","https://www.classcentral.com/classroom/youtube-python-tutorial-in-hindi-137235","ok"],["Corey Schafer (English)",yt("Corey Schafer Python tutorial"),"no",1],["CS50P (English)",gs("CS50P Harvard Introduction to Programming with Python"),"no",1],["Apna College Python (Hindi)",yt("Apna College Python"),"no",1]],
+   much:"Sections 1 to 9 by 23 Nov. You have ~2 years of experience: watch at 1.5x and skip what you already know. Day-wise videos are in the roadmap above."},
   {t:"SQL",use:[["LeetCode SQL 50","https://leetcode.com/studyplan/top-sql-50/","no"],["DataLemur","https://datalemur.com","no"],["Rishabh Mishra (Hindi)",yt("Rishabh Mishra SQL Hindi"),"no",1],["Apna College (Hindi)",yt("Apna College SQL"),"no",1]],
    much:"SQL 50 by about 4 Dec, then 10 DataLemur mediums, then timed sets."},
   {t:"Logic and DSA",use:[["Own DSA notes: 60-problem logic ladder",null,null],["NeetCode","https://neetcode.io","no"],["Apna College (concepts)",yt("Apna College DSA"),"no",1],["Love Babbar (concepts)",yt("Love Babbar DSA"),"no",1]],
    much:"Ladder by 7 Dec (about 4 a day), then patterns 1 h a day."},
-  {t:"Stats and ML",use:[["Own ML notes, steps 1 to 10",null,null],["StatQuest",yt("StatQuest"),"no",1],["CampusX: 100 Days of ML (playlist)","https://www.youtube.com/playlist?list=PLKnIA16_Rmvbr7zKYQuBfsVkjoLcJgxHH","ok"],["CampusX: 100 Days of ML (notebooks)","https://github.com/campusx-official/100-days-of-machine-learning","ok"]],
+  {t:"Stats and ML",use:[["Own ML notes, steps 1 to 10",null,null],["StatQuest",yt("StatQuest"),"no",1],["CampusX: 100 Days of ML (playlist)","https://www.youtube.com/playlist?list=PLKnIA16_Rmvbr7zKYQuBfsVkjoLcJgxHH","ok"],["CampusX: 100 Days of ML (notebooks)","https://github.com/campusx-official/100-days-of-machine-learning","ok"],["Krish Naik Hindi: ML (Hindi)",yt("Krish Naik Hindi machine learning"),"no",1]],
    much:["Watch: days 28–29, 35–38, 49, 51–52, 55–56, 58–60, 65, gradient boosting.","Skim: 24–27, 47, 66.","Skip: 15–18, 22, 30–34, 39–40, 42, 44–45, 53, 57, 68."]},
-  {t:"Transformers",use:[["3Blue1Brown: neural networks",yt("3Blue1Brown neural networks"),"no",1],["The Illustrated Transformer (Jay Alammar)",gs("The Illustrated Transformer Jay Alammar"),"no",1],["CampusX deep learning: attention section",yt("CampusX deep learning attention"),"no",1]],
+  {t:"Transformers",use:[["3Blue1Brown: neural networks",yt("3Blue1Brown neural networks"),"no",1],["The Illustrated Transformer (Jay Alammar)",gs("The Illustrated Transformer Jay Alammar"),"no",1],["CampusX deep learning: attention section (Hindi)",yt("CampusX deep learning attention"),"no",1],["Krish Naik Hindi: Transformers (Hindi)",yt("Krish Naik Hindi transformers"),"no",1]],
    much:"Concept level, about 3 to 4 hours."},
-  {t:"RAG",use:[["Own Advanced RAG course",null,null],["freeCodeCamp: Learn RAG From Scratch (2h33m)","https://www.youtube.com/watch?v=sVcwVQRHIc8","ok"],["Sentence Transformers docs","https://sbert.net","no"]],
-   much:"Course modules 2 to 9 + Production RAG. Skim module 1, skip multimodal."},
-  {t:"Vector DB",use:[["Qdrant Essentials (free)","https://qdrant.tech/course/essentials","ok"],["or pgvector","https://github.com/pgvector/pgvector","no"]],
+  {t:"DS interview: stats, A/B, ML theory, cases",use:[["Own ML notes, steps 1 to 10",null,null],["StatQuest: statistics fundamentals",yt("StatQuest statistics fundamentals"),"no",1],["Ace the Data Science Interview (book)",gs("Ace the Data Science Interview Kevin Huo Nick Singh"),"no",1],["Trustworthy Online Controlled Experiments (A/B testing)",gs("Trustworthy Online Controlled Experiments Kohavi"),"no",1],["CampusX: statistics (Hindi)",yt("CampusX statistics for data science"),"no",1],["Krish Naik Hindi: A/B testing and statistics (Hindi)",yt("Krish Naik Hindi A/B testing statistics"),"no",1]],
+   much:["1 h a day on top of the AI plan, as small extras inside the roadmap days.","Stats: probability, Bayes, hypothesis tests, p-value, power, sample size, confidence intervals.","ML: regression assumptions, regularisation, ROC-AUC vs PR, imbalance, bagging vs boosting, cross-validation.","Cases: one each in retail, fintech, healthcare. Always say metric, data, model, rollout, risk."]},
+  {t:"Project stories",use:[["Own resume defense notes",null,null],["STAR method (Result needs a number)",gs("STAR method interview answer examples data science"),"no",1],["Tell me about yourself: 90-second template",gs("tell me about yourself template data scientist 2 years experience"),"no",1]],
+   much:["Pick 3 stories: retail (9-10 months), fintech (7 months), healthcare internship (6 months).","Each one: problem, your role, one decision you made, the number, what you would change.","Say each aloud twice, then record yourself. Done in the Revision day, ready by the surge."]},
+  {t:"Project interview prep (RAG + Retail)",use:[["Study plan: Desktop/INTERVIEW_STUDY_PLAN.md",null,null],["RAG: docs/INTERVIEW_GUIDE.md + INTERVIEW_ADDENDUM.md",null,null],["Retail: docs/INTERVIEW_GUIDE.md + PROJECT_LOG.md",null,null]],
+   much:["6 days, about 3 h each, as extras in the roadmap (see Extra lines).","Day 1 to 3 RAG: flow, code in order, run the eval, 10 questions aloud.","Day 4 to 5 Retail: features, leakage test (break it on purpose), metrics by hand.","Day 6: both 60-second pitches, 10 random questions each, recorded.","Rule: if you cannot explain a number or a file, do not say it. State the limits first."]},
+  {t:"Prompt Engineering",use:[["Own Prompt Engineering course, modules 1 to 7",null,null],["Anthropic: prompt engineering docs",gs("Anthropic docs prompt engineering overview"),"no",1],["DeepEval docs","https://deepeval.com","no"],["CampusX: prompt engineering (Hindi)",yt("CampusX prompt engineering"),"no",1],["Krish Naik Hindi: prompt engineering (Hindi)",yt("Krish Naik Hindi prompt engineering"),"no",1]],
+   much:["Do fully: module 1 (temperature, top-p, tokens), 2 (few-shot, system, delimiters), 3 (CoT, self-consistency), 7 (versioning, DeepEval).","Do: module 4 prompt chaining + meta prompting, module 6 injection and defences.","Skim: CoD, S2A, image and video prompting."]},
+  {t:"RAG",use:[["Own Advanced RAG course",null,null],["freeCodeCamp: Learn RAG From Scratch (2h33m)","https://www.youtube.com/watch?v=sVcwVQRHIc8","ok"],["Sentence Transformers docs","https://sbert.net","no"],["CampusX: RAG with LangChain (Hindi)",yt("CampusX RAG LangChain"),"no",1],["Krish Naik Hindi: RAG (Hindi)",yt("Krish Naik Hindi RAG"),"no",1]],
+   much:["Course modules 2 to 9 + Production RAG (module 10). Skim module 1, skip multimodal.","Order: 2 chunking, 3 embeddings, 4 vector stores, 5 retrieval, 6 advanced retrieval, 7 patterns (RRF, HyDE, CRAG), 8 LangGraph, 9 RAGAS."]},
+  {t:"Vector DB",use:[["Qdrant Essentials (free)","https://qdrant.tech/course/essentials","ok"],["or pgvector","https://github.com/pgvector/pgvector","no"],["CampusX: vector database (Hindi)",yt("CampusX vector database"),"no",1],["Krish Naik Hindi: vector DB (Hindi)",yt("Krish Naik Hindi vector database"),"no",1]],
    much:"Pick one. Qdrant: days 0 to 2 and day 6."},
-  {t:"Evals",use:[["Ragas docs","https://docs.ragas.io","no"],["Hamel Husain: eval posts",gs("Hamel Husain evals blog"),"no",1],["Chip Huyen: AI Engineering, eval chapters",gs("Chip Huyen AI Engineering book"),"no",1]],
+  {t:"Evals",use:[["Ragas docs","https://docs.ragas.io","no"],["Hamel Husain: eval posts",gs("Hamel Husain evals blog"),"no",1],["Chip Huyen: AI Engineering, eval chapters",gs("Chip Huyen AI Engineering book"),"no",1],["CampusX: RAG evaluation (Hindi)",yt("CampusX RAG evaluation"),"no",1],["Krish Naik Hindi: RAGAS (Hindi)",yt("Krish Naik Hindi RAGAS evaluation"),"no",1]],
    much:"Golden set, recall@k, MRR, faithfulness, LLM-as-judge."},
-  {t:"Agents and MCP",use:[["Anthropic: Building effective agents (~30 min)","https://www.anthropic.com/engineering/building-effective-agents","ok"],["LangChain Academy: LangGraph",gs("LangChain Academy LangGraph course"),"no",1],["MCP docs","https://modelcontextprotocol.io","no"],["CampusX LangGraph (Hindi)",yt("CampusX LangGraph"),"no",1]],
+  {t:"Agents and MCP",use:[["Anthropic: Building effective agents (~30 min)","https://www.anthropic.com/engineering/building-effective-agents","ok"],["LangChain Academy: LangGraph",gs("LangChain Academy LangGraph course"),"no",1],["MCP docs","https://modelcontextprotocol.io","no"],["CampusX LangGraph (Hindi)",yt("CampusX LangGraph"),"no",1],["Krish Naik Hindi: agentic AI (Hindi)",yt("Krish Naik Hindi agentic AI"),"no",1]],
    much:"Anthropic article first. LangGraph: state, edges, persistence. MCP only if time is left."},
-  {t:"Shipping",use:[["FastAPI tutorial","https://fastapi.tiangolo.com/tutorial/","no"],["Docker docs",gs("Docker docs get started"),"no",1],["GitHub Actions quickstart",gs("GitHub Actions quickstart"),"no",1],["CodeWithHarry Docker (Hindi, ~90 min)",yt("CodeWithHarry Docker"),"no",1]],
+  {t:"Shipping",use:[["FastAPI tutorial","https://fastapi.tiangolo.com/tutorial/","no"],["Docker docs",gs("Docker docs get started"),"no",1],["GitHub Actions quickstart",gs("GitHub Actions quickstart"),"no",1],["CodeWithHarry Docker (Hindi, ~90 min)",yt("CodeWithHarry Docker"),"no",1],["CampusX: FastAPI (Hindi)",yt("CampusX FastAPI"),"no",1]],
    much:"One day, inside the RAG build."},
-  {t:"System design",use:[["Own system design notes",null,null],["Alex Xu: System Design Interview",gs("Alex Xu System Design Interview"),"no",1],["Chip Huyen: Designing Machine Learning Systems",gs("Chip Huyen Designing Machine Learning Systems"),"no",1]],
+  {t:"System design",use:[["Own system design notes",null,null],["Alex Xu: System Design Interview",gs("Alex Xu System Design Interview"),"no",1],["Chip Huyen: Designing Machine Learning Systems",gs("Chip Huyen Designing Machine Learning Systems"),"no",1],["Apna College System Design (Hindi)",yt("Apna College system design"),"no",1],["Piyush Garg System Design (Hindi)",yt("Piyush Garg system design"),"no",1]],
    much:"4 case studies answered aloud, 45 min each."},
   {t:"FDE round",use:[["Exponent: FDE and decomposition guides",gs("Exponent forward deployed engineer interview guide"),"no",1],["HCL GUVI: decomposition article",gs("HCL GUVI problem decomposition interview"),"no",1]],
    much:"2 timed mocks a week from early Dec."},
-  {t:"Production AI",use:[["CampusX: Agentic Coding using Claude Code","https://www.youtube.com/playlist?list=PLKnIA16_RmvaYH3poI0oJvbDF4zEvpq8W","ok"],["Krish Naik: Multimodal RAG (PDF + images)","https://www.youtube.com/watch?v=BV0YUeam4y8","ok"],["Anthropic docs: prompt caching, vision, PDF, tool use",gs("Anthropic docs prompt caching vision PDF tool use"),"no",1],["Ollama docs","https://ollama.com","no"],["Chip Huyen: AI Engineering, inference optimization",gs("Chip Huyen AI Engineering inference optimization chapter"),"no",1]],
+  {t:"Production AI",use:[["CampusX: Agentic Coding using Claude Code","https://www.youtube.com/playlist?list=PLKnIA16_RmvaYH3poI0oJvbDF4zEvpq8W","ok"],["Krish Naik: Multimodal RAG (PDF + images)","https://www.youtube.com/watch?v=BV0YUeam4y8","ok"],["Anthropic docs: prompt caching, vision, PDF, tool use",gs("Anthropic docs prompt caching vision PDF tool use"),"no",1],["Ollama docs","https://ollama.com","no"],["Chip Huyen: AI Engineering, inference optimization",gs("Chip Huyen AI Engineering inference optimization chapter"),"no",1],["Krish Naik Hindi: GenAI (Hindi)",yt("Krish Naik Hindi generative AI"),"no",1]],
    much:"12 days, 12 to 25 Jan. Day-wise plan is in the roadmap above."}
 ];
 var PRACTICE=[["LeetCode","https://leetcode.com"],["NeetCode","https://neetcode.io"],["DataLemur","https://datalemur.com"],["StrataScratch","https://www.stratascratch.com"],["HackerRank","https://www.hackerrank.com","SQL, Python"],["Kaggle","https://www.kaggle.com","datasets, Pandas"],["Pramp","https://www.pramp.com","peer mocks"]];
@@ -889,6 +897,28 @@ var RM_SEQ=[
   {l:"AI coding tools: plan first, CLAUDE.md, review every diff (no vibe coding)",hi:[["CXCC","#1, #2, #6"]],en:["Claude Code docs","Cursor docs"],no:"Your own notes",d:MIX,s:TSQL,b:"Build one P3 feature with an AI coding tool: tests first, review each diff"},
   {l:"Demo + production checklist",hi:[["CXLG","#12"]],en:["Streamlit docs build a chat app"],no:"Your own notes",d:MIX,b:"Streamlit demo + README: architecture, evals, cost, latency, limits",gate:"Production checklist: caching, retries, agent evals, monitoring, demo live · Company list ready for the surge?"}
 ];
+/* Extras for ~2 years of experience: DS interview track and project stories. x is the "Extra" line of a day. */
+function addX(lp,t){for(var i=0;i<RM_SEQ.length;i++){var e=RM_SEQ[i];if(e.l&&e.l.indexOf(lp)===0){e.x=e.x?e.x+" · "+t:t;return}}throw new Error("addX: no day "+lp)}
+addX("Python 3 + 4","Story 1 (retail, 9-10 months): write problem, your role, decision, number");
+addX("Python 7","Story 2 (fintech, 7 months): write it the same way");
+addX("Python 9","Story 3 (healthcare internship, 6 months): write it the same way");
+addX("Probability basics","DS track (1 h): conditional probability, Bayes, common distributions");
+addX("ML intro","DS track (1 h): A/B testing: hypothesis, p-value, power, sample size");
+addX("Feature engineering","DS track (1 h): confidence intervals, t-test, multiple testing");
+addX("Linear regression","DS track (1 h): regression assumptions, R², L1 and L2");
+addX("Logistic regression","DS track (1 h): ROC-AUC vs PR curve, class imbalance, picking a threshold");
+addX("Evals deep","DS case 1 (retail): churn or demand forecast. Say metric, data, model, rollout, risk");
+addX("Decision trees","DS track (1 h): bagging vs boosting, cross-validation, overfitting");
+addX("Neural network basics","DS case 2 (fintech): fraud or credit risk. Watch imbalance and false positives");
+addX("Forward propagation","DS case 3 (healthcare): readmission risk. Watch leakage and fairness");
+addX("Revision: weakest","Say all 3 project stories aloud twice and record yourself");
+addX("Demo + production checklist","Final 'tell me about yourself' (90 s), then a mock using all 3 stories");
+addX("Embeddings + chunking","Project prep day 1 (RAG): read INTERVIEW_GUIDE sections 1 to 4, run docqa.answer, draw the flow from memory");
+addX("Vector DB","Project prep day 2 (RAG): read code in order, run eval_run, explain 3 missed questions");
+addX("Retrieval: BM25","Project prep day 3 (RAG): guide sections 5 to 8, answer 10 questions aloud, state the 4 limits first");
+addX("The full RAG pipeline","Project prep day 4 (Retail): features.py, metrics.py, models.py, backtest.py");
+addX("Evals: golden set","Project prep day 5 (Retail): intervals, inventory, break the leakage test on purpose, metrics by hand");
+addX("FastAPI basics","Project prep day 6: both 60-second pitches + 10 random questions each, recorded");
 /* 12 days of application surge after the study days */
 for(var si=1;si<=12;si++)RM_SEQ.push({surge:1,ph:si===1?"Application surge":"",l:"Application surge: the Learn block goes to applications and referrals",d:MIX,s:TSQL,
   b:si===11?"Offer decision: decide today":si===12?"Surge done: plan what comes next":"Company research + interview prep",gate:si===6?"Interview status check":""});
