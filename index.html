@@ -556,7 +556,7 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
 <!-- ================= LEARN ================= -->
 <section class="view" id="v-learn" aria-labelledby="lnTitle" hidden>
   <div class="hello"><h1 id="lnTitle">Learn</h1><p>What to use for each topic, and how much. “Checked” means the link was opened and confirmed.</p></div>
-  <div class="card learn-rule">Ek topic, ek source. Video Learn block ka 40% se zyada nahi.</div>
+  <div class="card learn-rule">Ek theme, ek source. Learn aur Build same theme pe. DSA aur SQL ek din chhod ke. Video Learn block ka 40% se zyada nahi.</div>
   <h2 class="sec">Din-wise roadmap</h2>
   <p class="sub">17 Nov se 8 Feb tak, har din kya padhna hai. Hinglish video numbers YouTube pe check kiye (6 Nov 2026). English links search pe khulte hain, check nahi kiye.</p>
   <div id="rmList"></div>
@@ -702,7 +702,7 @@ function dayBlocks(t,date){
     add(3,"Sunday 3 hours: review, scorecard, one mock","dawn","3 hours only. Rest of the day off.");
     until(EVE.dinner,"Rest of the day off","people","Sunday. No study after the 3 hours.");
   }else{
-    add(1.5,"Logic / DSA hour","dawn","Phone in another room.");
+    add(1.5,"Logic / DSA hour","dawn","One subject: DSA and SQL take turns, day by day. Phone in another room.");
     add(0.25,"Break","people");
     add(2.5,"Learn block","dawn","Read notes, type code from a blank file. Video at most 1 h (40% of the block).");
     add(1,"Lunch + quiet room","meal","Includes 5 minutes eyes closed, counting breaths, no phone.");
@@ -773,18 +773,18 @@ var GOALS=[
 function yt(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q)}
 function gs(q){return "https://www.google.com/search?q="+encodeURIComponent(q)}
 var LEARN=[
-  {t:"Python",use:[["Own Python notes, sections 1 to 10",null,null],["CodeWithHarry: Python in Hindi","https://www.classcentral.com/classroom/youtube-python-tutorial-in-hindi-137235","ok"],["Corey Schafer (English)",yt("Corey Schafer Python tutorial"),"no",1],["CS50P (English)",gs("CS50P Harvard Introduction to Programming with Python"),"no",1],["Apna College Python (Hindi)",yt("Apna College Python"),"no",1]],
-   much:"Sections 1 to 9 by 23 Nov. You have ~2 years of experience: watch at 1.5x and skip what you already know. Day-wise videos are in the roadmap above."},
+  {t:"Python",use:[["Own Python notes, sections 1 to 10",null,null],["CodeWithHarry: Python in Hindi","https://www.classcentral.com/classroom/youtube-python-tutorial-in-hindi-137235","ok"],["CampusX DSMP 2022-23: OOP, modules, decorators, iterators, generators, NumPy, Pandas (Hindi)","https://www.youtube.com/playlist?list=PLKnIA16_RmvbAlyx4_rdtR66B7EHX5k3z","ok"],["ArjanCodes: type hints, dataclasses, clean code (English)",yt("ArjanCodes"),"no",1],["Real Python: async IO, pytest (English)",gs("Real Python Async IO complete walkthrough"),"no",1],["Fluent Python, 2nd ed. (look things up, do not read it cover to cover)",gs("Fluent Python 2nd edition Luciano Ramalho"),"no",1],["Corey Schafer (English)",yt("Corey Schafer Python tutorial"),"no",1],["CS50P (English)",gs("CS50P Harvard Introduction to Programming with Python"),"no",1],["Apna College Python (Hindi)",yt("Apna College Python"),"no",1]],
+   much:["Python 1 to 10 by 24 Nov. You have ~2 years of experience: watch at 1.5x and skip what you already know. Day-wise videos are in the roadmap above.","Best source per topic: basics CodeWithHarry, OOP + modules + decorators CampusX DSMP, context managers + decorators + logging + regex Corey Schafer, type hints + dataclasses ArjanCodes, async + pytest Real Python.","Learned inside other days: pytest (P0, 21 Nov), async (P3, 25 Nov), Pydantic + streaming (FastAPI, 2 Dec), regex (P5, 5 Dec), collections + functools + heapq (DSA days).","Interview checklist, 2 minutes aloud each: mutable vs immutable, is vs ==, shallow vs deep copy, mutable default argument bug, list vs tuple vs set, how a dict works, generator vs list, write a decorator, *args/**kwargs, GIL and threading vs multiprocessing vs async, staticmethod vs classmethod, how with works."]},
   {t:"SQL",use:[["LeetCode SQL 50","https://leetcode.com/studyplan/top-sql-50/","no"],["DataLemur","https://datalemur.com","no"],["Rishabh Mishra (Hindi)",yt("Rishabh Mishra SQL Hindi"),"no",1],["Apna College (Hindi)",yt("Apna College SQL"),"no",1]],
-   much:"SQL 50 by about 4 Dec, then 10 DataLemur mediums, then timed sets."},
+   much:"SQL days alternate with DSA days, two topics each. SQL 50 by about 5 Dec, then 10 DataLemur mediums, then timed sets."},
   {t:"Logic and DSA",use:[["Own DSA notes: 60-problem logic ladder",null,null],["NeetCode","https://neetcode.io","no"],["Apna College (concepts)",yt("Apna College DSA"),"no",1],["Love Babbar (concepts)",yt("Love Babbar DSA"),"no",1]],
-   much:"Ladder by 7 Dec (about 4 a day), then patterns 1 h a day."},
+   much:"DSA days alternate with SQL days, two topics each. Ladder by about 7 Dec, then patterns. Use collections (Counter, defaultdict, deque), heapq and functools.lru_cache in your solutions."},
   {t:"Stats and ML",use:[["Own ML notes, steps 1 to 10",null,null],["StatQuest",yt("StatQuest"),"no",1],["CampusX: 100 Days of ML (playlist)","https://www.youtube.com/playlist?list=PLKnIA16_Rmvbr7zKYQuBfsVkjoLcJgxHH","ok"],["CampusX: 100 Days of ML (notebooks)","https://github.com/campusx-official/100-days-of-machine-learning","ok"],["Krish Naik Hindi: ML (Hindi)",yt("Krish Naik Hindi machine learning"),"no",1]],
    much:["Watch: days 28–29, 35–38, 49, 51–52, 55–56, 58–60, 65, gradient boosting.","Skim: 24–27, 47, 66.","Skip: 15–18, 22, 30–34, 39–40, 42, 44–45, 53, 57, 68."]},
   {t:"Transformers",use:[["3Blue1Brown: neural networks",yt("3Blue1Brown neural networks"),"no",1],["The Illustrated Transformer (Jay Alammar)",gs("The Illustrated Transformer Jay Alammar"),"no",1],["CampusX deep learning: attention section (Hindi)",yt("CampusX deep learning attention"),"no",1],["Krish Naik Hindi: Transformers (Hindi)",yt("Krish Naik Hindi transformers"),"no",1]],
    much:"Concept level, about 3 to 4 hours."},
   {t:"DS interview: stats, A/B, ML theory, cases",use:[["Own ML notes, steps 1 to 10",null,null],["StatQuest: statistics fundamentals",yt("StatQuest statistics fundamentals"),"no",1],["Ace the Data Science Interview (book)",gs("Ace the Data Science Interview Kevin Huo Nick Singh"),"no",1],["Trustworthy Online Controlled Experiments (A/B testing)",gs("Trustworthy Online Controlled Experiments Kohavi"),"no",1],["CampusX: statistics (Hindi)",yt("CampusX statistics for data science"),"no",1],["Krish Naik Hindi: A/B testing and statistics (Hindi)",yt("Krish Naik Hindi A/B testing statistics"),"no",1]],
-   much:["1 h a day on top of the AI plan, as small extras inside the roadmap days.","Stats: probability, Bayes, hypothesis tests, p-value, power, sample size, confidence intervals.","ML: regression assumptions, regularisation, ROC-AUC vs PR, imbalance, bagging vs boosting, cross-validation.","Cases: one each in retail, fintech, healthcare. Always say metric, data, model, rollout, risk."]},
+   much:["Built into the ML theme days: learn the topic, then code it in a notebook the same day. Plus 3 case drills as extras.","Stats: probability, Bayes, hypothesis tests, p-value, power, sample size, confidence intervals.","ML: regression assumptions, regularisation, ROC-AUC vs PR, imbalance, bagging vs boosting, cross-validation.","Cases: one each in retail, fintech, healthcare. Always say metric, data, model, rollout, risk."]},
   {t:"Project stories",use:[["Own resume defense notes",null,null],["STAR method (Result needs a number)",gs("STAR method interview answer examples data science"),"no",1],["Tell me about yourself: 90-second template",gs("tell me about yourself template data scientist 2 years experience"),"no",1]],
    much:["Pick 3 stories: retail (9-10 months), fintech (7 months), healthcare internship (6 months).","Each one: problem, your role, one decision you made, the number, what you would change.","Say each aloud twice, then record yourself. Done in the Revision day, ready by the surge."]},
   {t:"Project interview prep (RAG + Retail)",use:[["Study plan: Desktop/INTERVIEW_STUDY_PLAN.md",null,null],["RAG: docs/INTERVIEW_GUIDE.md + INTERVIEW_ADDENDUM.md",null,null],["Retail: docs/INTERVIEW_GUIDE.md + PROJECT_LOG.md",null,null]],
@@ -826,6 +826,7 @@ var RSRC={
   CXF:["CampusX FastAPI","CampusX: FastAPI for Machine Learning","https://www.youtube.com/playlist?list=PLKnIA16_RmvZ41tjbKB2ZnwchfniNsMuQ"],
   FCC:["freeCodeCamp RAG","freeCodeCamp: Learn RAG From Scratch","https://www.youtube.com/watch?v=sVcwVQRHIc8"],
   CXCC:["CampusX Claude Code","CampusX: Agentic Coding using Claude Code","https://www.youtube.com/playlist?list=PLKnIA16_RmvaYH3poI0oJvbDF4zEvpq8W"],
+  DSMP:["CampusX DSMP","CampusX: Data Science Mentorship Program 2022-23","https://www.youtube.com/playlist?list=PLKnIA16_RmvbAlyx4_rdtR66B7EHX5k3z"],
   KN:["Krish Naik","Krish Naik: Multimodal RAG with LangChain (PDF + images)","https://www.youtube.com/watch?v=BV0YUeam4y8"]
 };
 /* RM_SEQ is the ordered list of study days. Dates are given at load time: from RM_START,
@@ -841,48 +842,48 @@ var RM_SEQ=[
   {ph:"Start: Python basics + resume",noApps:1,l:"Python 1 + 2: variables, data types, input, typecasting, strings",hi:[["CWH","#6, #9, #10, #11, #12, #13, #28"]],en:["CS50P Lecture 0"],no:"Python notes §1–2",d:["Python practice: calculator exercise","CWH","#7, #8"],b:"Resume: defense notes for every bullet (cut what you can’t explain)"},
   {noApps:1,l:"Python 3 + 4: if/else, for, while, lists, tuples",hi:[["CWH","#14, #17, #18, #19, #22–25"]],en:["CS50P Lecture 1","CS50P Lecture 2"],no:"Python notes §3–4",d:["Python practice: Good Morning Sir exercise","CWH","#15"],b:"Both resume versions final"},
   {noApps:1,l:"Python 5 + 6: dictionaries, sets, functions, scope, lambda",hi:[["CWH","#31–34, #20, #21, #48, #52"]],en:["Corey Schafer Python Dictionaries","CS50P Lecture 0"],no:"Python notes §5–6",d:["Python practice: KBC exercise","CWH","#27"],b:"LinkedIn + Naukri live"},
-  {ph:"Python, SQL, logic, LLM and RAG",l:"Python 7: exceptions + files",hi:[["CWH","#36–38, #49, #50"]],en:["CS50P Lecture 3","CS50P Lecture 6"],no:"Python notes §7",d:["Complexity, digit problems","CD","Part 2, 5–9"],s:["What SQL is, keys, CREATE TABLE","RM","1–3"],b:"Git basics (init, commit, push) + P0: plan and first code"},
-  {l:"Python 8: OOP (class, object, inheritance, dunder methods)",hi:[["CWH","#56–58, #61, #73"]],en:["CS50P Lecture 8"],no:"Python notes §8",d:["Frequency, hashing","CD","Part 10–11"],s:["INSERT/UPDATE, SELECT/WHERE","RM","4–5","Select"],b:"P0: tests (pytest)"},
-  {gate:"Python 1–9 done, P0 CI green, ~30 applications",l:"Python 9: modules, pip, venv, decorators, generators",hi:[["CWH","#3, #43–45, #59, #91"]],en:["CS50P Lecture 4"],no:"Python notes §9",d:["Recursion","CD","Part 12–18"],s:["Aggregates: COUNT, SUM, AVG, MIN, MAX","RM","8","Basic Aggregate Functions"],b:"P0: README + CI green"},
-  {l:"Python 10: requests, async, type hints, dataclasses, logging",hi:[["CWH","#89, #96"]],en:["CS50P Lecture 9","Python docs dataclasses logging"],no:"Python notes §10",d:["Selection, bubble, insertion sort","CD","Part 19–21"],s:["GROUP BY, HAVING","RM","9","Sorting and Grouping"],b:"P3 start: repo + data"},
-  {l:"LLM basics: tokens, prompts, temperature",hi:[["CXL","#3, #6 (first 30 min)"]],en:["Andrej Karpathy Intro to Large Language Models"],no:"Your own notes",d:["Merge sort, quick sort","CD","Part 22–23"],s:["JOINS","RM","11","Basic Joins"],b:"P3: first LLM API script"},
+  {ph:"Python, SQL, logic, LLM and RAG",l:"Python 7: exceptions + files + JSON, pathlib, context managers (with)",hi:[["CWH","#36–38, #49, #50"]],en:["Corey Schafer Python Context Managers","Python docs pathlib","CS50P Lecture 3"],no:"Python notes §7",d:["Complexity, digit problems","CD","Part 2, 5–9"],s:["What SQL is, keys, CREATE TABLE","RM","1–3"],b:"Git basics (init, commit, push) + P0: plan and first code"},
+  {l:"Python 8: OOP (class, object, encapsulation, inheritance, polymorphism, abstraction, dunder methods, @property, classmethod, staticmethod)",hi:[["DSMP","OOP Part 1, Part 2, Part 3 + What is Abstraction"]],en:["Corey Schafer Python OOP Special Magic Dunder Methods","Corey Schafer Python OOP Property Decorators"],no:"Python notes §8",d:["Frequency, hashing","CD","Part 10–11"],s:["INSERT/UPDATE, SELECT/WHERE","RM","4–5","Select"],b:"P0: tests (pytest)",x:"pytest: fixtures + mocking an API call (Real Python: Effective Python Testing with pytest)"},
+  {gate:"Python 1–9 done, P0 CI green, ~30 applications",l:"Python 9: comprehensions, *args/**kwargs, modules + packages, venv/pip/uv, iterators, generators, decorators",hi:[["DSMP","Session 11 (modules + packages), Session 12 (decorators), Iterators, Generators"],["CWH","#91 (venv)"]],en:["Corey Schafer Python Decorators","Corey Schafer List Comprehensions","uv docs getting started"],no:"Python notes §9",d:["Recursion","CD","Part 12–18"],s:["Aggregates: COUNT, SUM, AVG, MIN, MAX","RM","8","Basic Aggregate Functions"],b:"P0: README + CI green"},
+  {l:"Python 10: type hints, dataclasses, requests/httpx, logging, async/asyncio",hi:[["CWH","#89, #96"]],en:["ArjanCodes Python type hints","ArjanCodes dataclasses","Corey Schafer Python Logging Basics","Real Python Async IO in Python A Complete Walkthrough"],no:"Python notes §10",d:["Selection, bubble, insertion sort","CD","Part 19–21"],s:["GROUP BY, HAVING","RM","9","Sorting and Grouping"],b:"P3 start: repo + data"},
+  {l:"LLM basics: tokens, prompts, temperature",hi:[["CXL","#3, #6 (first 30 min)"]],en:["Andrej Karpathy Intro to Large Language Models"],no:"Your own notes",d:["Merge sort, quick sort","CD","Part 22–23"],s:["JOINS","RM","11","Basic Joins"],b:"P3: first LLM API script, then 10 calls in parallel with asyncio.gather"},
   {l:"Embeddings + chunking",hi:[["CXL","#13"]],en:[["FCC","0:05:53–0:10:40"],"sbert.net quickstart"],no:"RAG course module 2",d:["Easy arrays","CD","Part 24–28"],s:["Self join, UNION","RM","12","Basic Joins"],b:"P3: chunking + embeddings"},
   {l:"Vector DB: Qdrant (collection, upsert, search, filter)",hi:[["CXL","#14"]],en:["Qdrant Essentials course days 0-2"],no:"RAG course module 3",d:["Rotate, move zeros, missing number","CD","Part 29–34"],s:["Subqueries","RM","13","Subqueries"],b:"P3: store in Qdrant + search"},
   {gate:"P3: first recall@5 number",l:"Retrieval: BM25, hybrid search, reranking",hi:[["CXL","#15"]],en:[["FCC","0:10:40–0:15:52"]],no:"RAG course module 4",d:["Two sum, Kadane, stock","CD","Part 35–39"],s:["CASE WHEN","RM","15","Advanced Select and Joins"],b:"P3: BM25 + hybrid"},
   {l:"The full RAG pipeline: retrieve, prompt, answer, citations",hi:[["CXL","#16"]],en:[["FCC","0:00:00–0:22:14"]],no:"RAG course module 5",d:["Matrix (2D lists)","CD","Part 40–43"],s:["Date functions, CSV import","RM","10, 6"],b:"P3: full RAG answer"},
   {l:"Evals: golden set, recall@k, MRR, faithfulness",en:["Ragas docs metrics","Hamel Husain Your AI Product Needs Evals"],no:"RAG course module 6",d:["3Sum, 4Sum (two pointers)","CD","Part 44–45"],s:["CTE (WITH)","RM","16"],b:"P3: golden set + first recall@5"},
-  {l:"FastAPI basics",hi:[["CXF","#2, #4"]],en:["FastAPI tutorial First Steps Path Query Parameters"],no:"Your own notes",d:["Binary search","CD","Part 46–51"],s:["Window functions","RM","14","Advanced Select and Joins"],b:"P3: FastAPI + ablation table"},
+  {l:"FastAPI basics + Pydantic models + streaming responses with a generator",hi:[["CXF","#2, #4, #5 (first 60 min)"]],en:["FastAPI tutorial First Steps Path Query Parameters","Pydantic docs models","FastAPI StreamingResponse"],no:"Your own notes",d:["Binary search","CD","Part 46–51"],s:["Window functions","RM","14","Advanced Select and Joins"],b:"P3: FastAPI with Pydantic request/response models + a streaming endpoint + ablation table"},
   {gate:"P3 gate: golden set, ablation table, Docker, CI, README",l:"Docker + CI",hi:[["CXF","#10 (first 60 min), #11"]],en:["Docker docs get started","GitHub Actions quickstart"],no:"Your own notes",d:["Rotated sorted array","CD","Part 52–54"],s:["Recursive CTE","RM","17"],b:"P3: Docker + CI + README (P3 gate)"},
-  {l:"NumPy: arrays, shape, broadcasting",en:["freeCodeCamp NumPy tutorial for beginners"],no:"Your own notes",d:["Linked list basics","CD","Part 55–58"],s:["String functions","RM","7","Advanced String Functions (SQL 50 done)"],b:"P3 leftovers + LinkedIn post"},
-  {l:"Pandas: read_csv, filter, groupby, merge",en:["Corey Schafer Pandas tutorial series"],no:"Your own notes",d:["Linked list cycle, two pointers","CD","Part 59–63"],s:["SQL revision"],b:"P5 setup: SQLite DB + 20 test questions"},
-  {l:"Probability basics",hi:[["CXM","#82–85"]],en:["StatQuest statistics fundamentals"],no:"ML notes step 1",d:["Easy strings (logic ladder done)","CD","Part 217–223"],b:"P5: baseline text-to-SQL"},
-  {ph:"ML, transformers, agents, system design",l:"Text-to-SQL: schema in prompt, few-shot, execution accuracy",en:["LangChain SQL question answering tutorial"],no:"Your own notes",d:["Stack and queue","CD","Part 82–88"],b:"P5: few-shot"},
-  {l:"ML intro: types of ML, ML life cycle",hi:[["CXM","#1, #3, #9"]],en:["StatQuest A Gentle Introduction to Machine Learning"],no:"ML notes step 2",d:["Monotonic stack","CD","Part 89–93"],s:DLM(1),b:"P5: schema retrieval"},
-  {l:"Feature engineering: scaling, encoding",hi:[["CXM","#24, #27 (skim #25, #26)"]],no:"ML notes step 3",d:["Sliding window","CD","Part 94–97"],s:DLM(2),b:"P5: benchmark runner",x:"FDE timed mock"},
-  {l:"Linear regression + regression metrics",hi:[["CXM","#50, #52"]],en:["StatQuest Linear Regression Clearly Explained"],no:"ML notes step 4",d:["Greedy","CD","Part 98–105"],s:DLM(3),b:"P5: results + error analysis"},
-  {l:"Gradient descent",hi:[["CXM","#57 (first 60 min)"]],en:["StatQuest Gradient Descent Step-by-Step"],no:"ML notes step 5",d:["Binary tree basics","CD","Part 106–109"],s:DLM(4),b:"P5: README"},
-  {gate:"P5 text-to-SQL benchmark",l:"Logistic regression + precision, recall, F1",hi:[["CXM","#72, #77"]],en:["StatQuest Logistic Regression","StatQuest ROC and AUC"],no:"ML notes step 6",d:["Tree problems","CD","Part 110–116"],s:DLM(5),b:"P5: final push"},
-  {l:"Evals deep: LLM-as-judge, eval design",en:["Hamel Husain LLM evals","Chip Huyen AI Engineering evaluation chapters"],no:"Your own notes",d:["Binary search tree","CD","Part 168–174"],s:DLM(6),b:"P6: plan (reuse the P3 golden set)"},
-  {l:"Decision trees, gradient boosting, bias-variance",hi:[["CXM","#97, #120, #62"]],en:["StatQuest Decision Trees","StatQuest Gradient Boost Part 1"],no:"ML notes steps 7–8",d:["Heap","CD","Part 180–189"],s:DLM(7),b:"P6: metrics"},
-  {l:"Neural network basics: perceptron, MLP",hi:[["CXDL","#4, #9"]],en:["3Blue1Brown neural networks chapter 1"],no:"Your own notes",d:["Graph BFS/DFS","CD","Part 117–121"],s:DLM(8),b:"P6: LLM-as-judge",x:"FDE timed mock"},
-  {l:"Forward propagation + backpropagation",hi:[["CXDL","#10, #15"]],en:["3Blue1Brown backpropagation"],no:"Your own notes",d:["Grid graphs","CD","Part 122–131"],s:["DataLemur medium 9–10 (done)"],b:"P6: runner + report"},
-  {l:"Transformers intro",hi:[["CXDL","#71"]],en:["3Blue1Brown Transformers explained visually"],no:"Your own notes",d:["Topological sort","CD","Part 134–138"],s:TSQL,b:"P6: CI with thresholds"},
-  {gate:"P6 eval harness in CI",l:"Self-attention + multi-head attention",hi:[["CXDL","#72, #77"]],en:["3Blue1Brown Attention in transformers","The Illustrated Transformer Jay Alammar"],no:"Your own notes",d:["Dijkstra","CD","Part 142–147"],s:TSQL,b:"P6: README"},
-  {l:"Agentic AI: what agents are, workflows vs agents",hi:[["CXLG","#2"]],en:["Anthropic Building effective agents"],no:"Your own notes",d:["DP intro","CD","Part 190–194"],s:TSQL,b:"P3 walkthrough aloud"},
-  {l:"LangGraph core concepts: state, nodes, edges",hi:[["CXLG","#5"]],en:["LangChain Academy Introduction to LangGraph"],no:"Your own notes",d:["Grid DP","CD","Part 196–198"],s:TSQL,b:"P5 / P6 walkthrough aloud"},
-  {l:"Tools + persistence in LangGraph",hi:[["CXLG","#18, #11"]],no:"Your own notes",d:["Knapsack DP","CD","Part 202–207"],s:TSQL,b:"Small LangGraph agent",x:"FDE timed mock"},
+  {ph:"Theme blocks: P5, P6, ML and transformers, then agents and system design",l:"Text-to-SQL: schema in prompt, few-shot, execution accuracy",en:["LangChain SQL question answering tutorial"],no:"Your own notes",d:["Linked list basics","CD","Part 55–58"],s:["String functions","RM","7","Advanced String Functions (SQL 50 done)"],b:"P5 setup: SQLite DB + 20 test questions, then a baseline text-to-SQL",x:"LinkedIn post about P3"},
+  {l:"Text-to-SQL: few-shot examples + schema retrieval (send only the tables the question needs)",en:["LangChain SQL question answering tutorial"],no:"Your own notes",d:["Linked list cycle, two pointers","CD","Part 59–63"],s:["SQL revision"],b:"P5: few-shot + schema retrieval",x:"Regex (Corey Schafer: Regular Expressions, one video): pull the SQL out of the LLM answer with re"},
+  {l:"Pandas for results: read_csv, filter, groupby, merge (refresh, you used it at work)",en:["Corey Schafer Pandas tutorial series"],no:"Your own notes",d:["Easy strings (logic ladder done)","CD","Part 217–223"],b:"P5: benchmark runner, results table in Pandas, error analysis"},
+  {gate:"P5 text-to-SQL benchmark",l:"P5 finish (Learn block goes to the project): group the failures, fix the biggest group, measure again",no:"Your own notes",d:["Stack and queue","CD","Part 82–88"],b:"P5: README + final push (P5 gate)"},
+  {l:"Evals deep: LLM-as-judge, eval design",en:["Hamel Husain LLM evals","Chip Huyen AI Engineering evaluation chapters"],no:"Your own notes",d:["Monotonic stack","CD","Part 89–93"],s:DLM(1),b:"P6: plan (reuse the P3 golden set) + metrics"},
+  {l:"LLM-as-judge in practice: rubric, judge prompt, check the judge against your own labels",en:["Hamel Husain LLM evals"],no:"Your own notes",d:["Sliding window","CD","Part 94–97"],s:DLM(2),b:"P6: LLM-as-judge + runner + report",x:"FDE timed mock"},
+  {gate:"P6 eval harness in CI",l:"Evals in CI: thresholds, fail the build when a score drops",en:["GitHub Actions quickstart"],no:"Your own notes",d:["Greedy","CD","Part 98–105"],s:DLM(3),b:"P6: CI with thresholds + README (P6 gate)"},
+  {l:"Probability + statistics: conditional probability, Bayes, distributions, confidence intervals, t-test",hi:[["CXM","#82–85"]],en:["StatQuest statistics fundamentals","freeCodeCamp NumPy tutorial for beginners"],no:"ML notes step 1",d:["Binary tree basics","CD","Part 106–109"],s:DLM(4),b:"Notebook: simulate an A/B test in NumPy: p-value, power, sample size, confidence interval"},
+  {l:"ML intro + feature engineering: types of ML, life cycle, scaling, encoding",hi:[["CXM","#1, #3, #9, #24, #27 (skim #25, #26)"]],en:["StatQuest A Gentle Introduction to Machine Learning"],no:"ML notes steps 2–3",d:["Tree problems","CD","Part 110–116"],s:DLM(5),b:"Notebook: one sklearn pipeline (scaler + encoder + model) on a Kaggle dataset",x:"DS case 1 (retail): churn or demand forecast. Say metric, data, model, rollout, risk"},
+  {l:"Linear regression + gradient descent: metrics, assumptions, R², L1 and L2",hi:[["CXM","#50, #52, #57 (first 60 min)"]],en:["StatQuest Linear Regression Clearly Explained","StatQuest Gradient Descent Step-by-Step"],no:"ML notes steps 4–5",d:["Binary search tree","CD","Part 168–174"],s:DLM(6),b:"Notebook: linear regression with gradient descent from scratch in NumPy, checked against sklearn"},
+  {l:"Logistic regression + classification metrics: precision, recall, F1, ROC-AUC vs PR, imbalance, threshold",hi:[["CXM","#72, #77"]],en:["StatQuest Logistic Regression","StatQuest ROC and AUC"],no:"ML notes step 6",d:["Heap","CD","Part 180–189"],s:DLM(7),b:"Notebook: logistic regression on an imbalanced dataset, threshold picked from the PR curve",x:"DS case 2 (fintech): fraud or credit risk. Watch imbalance and false positives"},
+  {l:"Decision trees, gradient boosting, bias-variance, bagging vs boosting, cross-validation",hi:[["CXM","#97, #120, #62"]],en:["StatQuest Decision Trees","StatQuest Gradient Boost Part 1"],no:"ML notes steps 7–8",d:["Graph BFS/DFS","CD","Part 117–121"],s:DLM(8),b:"Notebook: tree vs random forest vs gradient boosting with 5-fold CV, explain the gap",x:"DS case 3 (healthcare): readmission risk. Watch leakage and fairness"},
+  {l:"Neural network basics: perceptron, MLP, forward propagation",hi:[["CXDL","#4, #9, #10"]],en:["3Blue1Brown neural networks chapter 1"],no:"Your own notes",d:["Grid graphs","CD","Part 122–131"],s:["DataLemur medium 9–10 (done)"],b:"Notebook: forward pass of a 2-layer MLP in NumPy, shapes written out"},
+  {l:"Backpropagation",hi:[["CXDL","#15"]],en:["3Blue1Brown backpropagation"],no:"Your own notes",d:["Topological sort","CD","Part 134–138"],s:TSQL,b:"Notebook: add backprop to yesterday's MLP and train it on XOR"},
+  {l:"Transformers: self-attention + multi-head attention",hi:[["CXDL","#71, #72, #77"]],en:["3Blue1Brown Transformers explained visually","3Blue1Brown Attention in transformers","The Illustrated Transformer Jay Alammar"],no:"Your own notes",d:["Dijkstra","CD","Part 142–147"],s:TSQL,b:"Notebook: scaled dot-product attention in NumPy for 4 tokens"},
+  {l:"Agentic AI: what agents are, workflows vs agents",hi:[["CXLG","#2"]],en:["Anthropic Building effective agents"],no:"Your own notes",d:["DP intro","CD","Part 190–194"],s:TSQL,b:"Agent plan: write one P3 task as a workflow and as an agent, list its tools",x:"P3 walkthrough aloud (speaking drill)"},
+  {l:"LangGraph core concepts: state, nodes, edges",hi:[["CXLG","#5"]],en:["LangChain Academy Introduction to LangGraph"],no:"Your own notes",d:["Grid DP","CD","Part 196–198"],s:TSQL,b:"Small LangGraph agent: state, nodes, edges",x:"P5 / P6 walkthrough aloud (speaking drill)"},
+  {l:"Tools + persistence in LangGraph",hi:[["CXLG","#18, #11"]],no:"Your own notes",d:["Knapsack DP","CD","Part 202–207"],s:TSQL,b:"Small LangGraph agent: add tools + persistence",x:"FDE timed mock"},
   {l:"System design basics: load balancer, cache, DB, queue",en:["Alex Xu System Design Interview chapter 1 and 3"],no:"System design notes",d:["LCS (DP on strings)","CD","Part 208–211"],s:TSQL,b:"Case 1 aloud: RAG chatbot design (45 min, record)"},
   {l:"ML system design: data, training, serving, monitoring",en:["Chip Huyen Designing Machine Learning Systems"],no:"System design notes",d:["Backtracking","CD","Part 69–75"],s:TSQL,b:"Case 2 aloud: search / recommendation system"},
   {gate:"3+ live interview processes?",l:"FDE round: problem decomposition",en:["Exponent forward deployed engineer interview guide"],no:"Your own notes",d:["Bits + Trie","CD","Part 64–68, 227"],s:TSQL,b:"Case 3 aloud: text-to-SQL / eval platform"},
-  {ph:"Gaps: advanced RAG, MCP, deploy, security",gate:"4 system design case studies done",l:"Advanced RAG: query translation",en:[["FCC","0:22:14–0:52:07"]],no:"RAG course: advanced",d:MIX,s:TSQL,b:"Case 4 aloud (4 case studies done)"},
-  {l:"Advanced RAG: routing, query construction, indexing",en:[["FCC","0:52:07–1:26:32"]],no:"RAG course: advanced",d:MIX,b:"P3: try query translation"},
-  {l:"Corrective RAG (CRAG)",hi:[["CXLG","#27 (optional)"]],en:[["FCC","1:26:32–1:44:09"]],no:"RAG course: advanced",d:MIX,b:"Portfolio: polish all READMEs",x:"FDE timed mock"},
-  {l:"Pydantic: data validation",hi:[["CXF","#5 (first 60 min)"]],no:"Your own notes",d:MIX,s:TSQL,b:"P5: Pydantic models"},
+  {ph:"Gaps: advanced RAG, MCP, deploy, security",gate:"4 system design case studies done",l:"Advanced RAG: query translation",en:[["FCC","0:22:14–0:52:07"]],no:"RAG course: advanced",d:MIX,s:TSQL,b:"P3: add query translation (multi-query), compare recall@5",x:"System design case 4 aloud (45 min, record)"},
+  {l:"Advanced RAG: routing, query construction, indexing",en:[["FCC","0:52:07–1:26:32"]],no:"RAG course: advanced",d:MIX,b:"P3: try routing or a better index, compare recall@5"},
+  {l:"Corrective RAG (CRAG)",hi:[["CXLG","#27 (optional)"]],en:[["FCC","1:26:32–1:44:09"]],no:"RAG course: advanced",d:MIX,b:"P3: add a CRAG step: grade the retrieved chunks, search again when they are weak",x:"FDE timed mock"},
+  {l:"Pydantic deep: validators, nested models, settings from env vars",en:["Pydantic docs validators","Pydantic settings docs"],no:"Your own notes",d:MIX,s:TSQL,b:"P5: Pydantic models"},
   {l:"Observability: LangSmith tracing",hi:[["CXLG","#17, #16 (first 40 min)"]],no:"Your own notes",d:MIX,b:"P3: add tracing"},
   {l:"MCP: Model Context Protocol",hi:[["CXLG","#19"]],en:["modelcontextprotocol.io introduction"],no:"Your own notes",d:MIX,s:TSQL,b:"A small MCP tool"},
-  {l:"Deploy on AWS",hi:[["CXF","#12"]],no:"Your own notes",d:MIX,b:"Deploy P3 or P5"},
+  {l:"Deploy on AWS",hi:[["CXF","#12"]],no:"Your own notes",d:MIX,b:"Deploy P3 or P5",x:"Portfolio: polish all READMEs"},
   {l:"LLM security: prompt injection",en:["OWASP Top 10 for LLM Applications"],no:"Your own notes",d:MIX,b:"P3: prompt injection tests",x:"FDE timed mock"},
-  {l:"Fine-tuning concepts (LoRA)",en:["Chip Huyen AI Engineering finetuning chapter"],no:"Your own notes",d:MIX,b:"Write interview stories (STAR)"},
+  {l:"Fine-tuning concepts (LoRA)",en:["Chip Huyen AI Engineering finetuning chapter"],no:"Your own notes",d:MIX,b:"Decision note: prompting vs RAG vs fine-tuning for P3, P5 and P6 (one page, then say it aloud)"},
   {l:"Revision: weakest topic of the month",no:"Your own notes",d:MIX,s:TSQL,b:"Mock interview"},
   {ph:"Production AI engineering",l:"Structured output + tool calling",hi:[["CXL","#7, #19"]],en:["Anthropic tool use docs","OpenAI structured outputs docs"],no:"Your own notes",d:MIX,s:TSQL,b:"P3: answers as validated JSON (Pydantic) + one tool"},
   {l:"Context engineering: what goes into the context window, in what order, how much",hi:[["CXLG","#23"],["CXCC","#5"]],en:["Anthropic Effective context engineering for AI agents"],no:"Your own notes",d:MIX,b:"P3: context budget: trim, summarise and order the retrieved chunks"},
@@ -902,15 +903,6 @@ function addX(lp,t){for(var i=0;i<RM_SEQ.length;i++){var e=RM_SEQ[i];if(e.l&&e.l
 addX("Python 3 + 4","Story 1 (retail, 9-10 months): write problem, your role, decision, number");
 addX("Python 7","Story 2 (fintech, 7 months): write it the same way");
 addX("Python 9","Story 3 (healthcare internship, 6 months): write it the same way");
-addX("Probability basics","DS track (1 h): conditional probability, Bayes, common distributions");
-addX("ML intro","DS track (1 h): A/B testing: hypothesis, p-value, power, sample size");
-addX("Feature engineering","DS track (1 h): confidence intervals, t-test, multiple testing");
-addX("Linear regression","DS track (1 h): regression assumptions, R², L1 and L2");
-addX("Logistic regression","DS track (1 h): ROC-AUC vs PR curve, class imbalance, picking a threshold");
-addX("Evals deep","DS case 1 (retail): churn or demand forecast. Say metric, data, model, rollout, risk");
-addX("Decision trees","DS track (1 h): bagging vs boosting, cross-validation, overfitting");
-addX("Neural network basics","DS case 2 (fintech): fraud or credit risk. Watch imbalance and false positives");
-addX("Forward propagation","DS case 3 (healthcare): readmission risk. Watch leakage and fairness");
 addX("Revision: weakest","Say all 3 project stories aloud twice and record yourself");
 addX("Demo + production checklist","Final 'tell me about yourself' (90 s), then a mock using all 3 stories");
 addX("Embeddings + chunking","Project prep day 1 (RAG): read INTERVIEW_GUIDE sections 1 to 4, run docqa.answer, draw the flow from memory");
@@ -922,6 +914,25 @@ addX("FastAPI basics","Project prep day 6: both 60-second pitches + 10 random qu
 /* 12 days of application surge after the study days */
 for(var si=1;si<=12;si++)RM_SEQ.push({surge:1,ph:si===1?"Application surge":"",l:"Application surge: the Learn block goes to applications and referrals",d:MIX,s:TSQL,
   b:si===11?"Offer decision: decide today":si===12?"Surge done: plan what comes next":"Company research + interview prep",gate:si===6?"Interview status check":""});
+/* Practice block: one subject a day. From day ALT_FROM (21 Nov) DSA and SQL take turns,
+   and each day does the next two topics of its subject, so the total pace stays the same.
+   When SQL topics run out, SQL days become a timed SQL set plus a short mixed DSA set. */
+var ALT_FROM=4,MIX2=["Mixed timed set (2 problems, 45 min)"];
+(function(){
+  var dq=[],sq=[],i,e,k=0;
+  function pair(a,b){
+    if(!b)return a;
+    var src=a[1]||b[1],ref=a[1]&&b[1]===a[1]?a[2]+", "+b[2]:(a[1]?a[2]:b[2]),sec=[a[3],b[3]].filter(Boolean).join(", ");
+    var r=[a[0]+" + "+b[0]];if(src){r.push(src,ref);if(sec)r.push(sec)}return r;
+  }
+  for(i=ALT_FROM;i<RM_SEQ.length;i++){e=RM_SEQ[i];if(e.d&&e.d!==MIX)dq.push(e.d);if(e.s&&e.s!==TSQL)sq.push(e.s)}
+  for(i=ALT_FROM;i<RM_SEQ.length;i++){
+    e=RM_SEQ[i];
+    if(k++%2===0){e.d=dq.length?pair(dq.shift(),dq.shift()):MIX;delete e.s}
+    else if(sq.length){e.s=pair(sq.shift(),sq.shift());delete e.d}
+    else{e.s=TSQL;e.d=MIX2}
+  }
+})();
 var RD={},RM_PHASES=[];
 (function(){
   var dt=RM_START,i=0,gates=[],cur=null;
@@ -1053,7 +1064,7 @@ function rmTop3(date){
     var ds=[];
     if(e.d)ds.push(e.d[0]+(e.d[1]?" ("+srcText([e.d[1],e.d[2]])+")":""));
     if(e.s)ds.push("SQL: "+e.s[0]+(e.s[1]?" ("+srcText([e.s[1],e.s[2]])+")":""));
-    if(ds.length)lines.push("DSA + SQL: "+ds.join(" · "));
+    if(ds.length)lines.push((e.d&&e.s?"DSA + SQL":e.d?"DSA":"SQL")+": "+ds.join(" · ").replace(/^SQL: /,""));
     if(e.b)lines.push("Build: "+e.b);
     if(e.x)lines.push(e.x);
   }
@@ -1080,7 +1091,7 @@ function rmRich(box,date,e){
       if(e.no)sub(c,"Notes",function(s){s.appendChild(document.createTextNode(e.no))});
     });
     {
-      if(e.d||e.s)item("DSA + SQL",e.d?e.d[0]:e.s[0],function(c){
+      if(e.d||e.s)item(e.d&&e.s?"DSA + SQL":e.d?"DSA":"SQL",e.d?e.d[0]:e.s[0],function(c){
         if(e.d&&e.d[1])sub(c,"Logic",function(s){s.appendChild(srcLink([e.d[1],e.d[2]]))});
         if(e.s)sub(c,"SQL",function(s){
           if(e.d)s.appendChild(document.createTextNode(e.s[0]+(e.s[1]?": ":"")));
