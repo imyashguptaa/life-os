@@ -134,6 +134,47 @@ details.rmphase summary small{display:block;font-family:var(--body);font-weight:
 .rmday{border-top:1px solid var(--line);padding:12px 16px}
 .rmday.today{background:var(--dawn-soft)}
 .rmday h4{font-family:var(--display);font-size:0.95rem;margin:0}
+/* big picture (learn tab) */
+.pl-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+@media (min-width:620px){.pl-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.pl-kpi{background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.pl-kpi span{display:block;font-size:0.8rem;color:var(--muted)}
+.pl-kpi b{display:block;font-family:var(--display);font-size:1.45rem;font-weight:800;letter-spacing:-0.01em}
+.pl-card{margin-bottom:12px}
+.pl-h{font-family:var(--display);font-size:1.05rem;font-weight:800;margin:0 0 12px}
+.pl-h small{display:block;font-family:var(--body);font-weight:400;font-size:0.82rem;color:var(--muted);margin-top:2px}
+.pl-ph{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:10px 0;color:var(--ink);font:inherit;cursor:pointer}
+.pl-ph:first-child{border-top:0;padding-top:0}
+.pl-ph .t{display:flex;justify-content:space-between;gap:10px;font-weight:700;font-size:0.92rem;line-height:1.3}
+.pl-ph .t small{color:var(--muted);font-weight:400;white-space:nowrap}
+.pl-ph .bar{height:10px;border-radius:6px;background:var(--surface2);border:1px solid var(--line);margin-top:6px;overflow:hidden}
+.pl-ph .bar i{display:block;height:100%;background:var(--dawn)}
+.pl-ph.pl-cur .t span::after{content:" · abhi";color:var(--dawn)}
+.pl-ph .d{font-size:0.8rem;color:var(--muted);margin-top:4px}
+.pl-row{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr) 3.2em;gap:8px;align-items:center;font-size:0.88rem;margin:7px 0}
+.pl-row .lb{overflow-wrap:anywhere}
+.pl-row .tr{height:16px;background:var(--surface2);border-radius:5px;overflow:hidden;display:flex}
+.pl-row .tr i{display:block;height:100%}
+.pl-row .v{text-align:right;font-weight:700}
+.pl-day{display:flex;height:34px;border-radius:10px;overflow:hidden;gap:2px}
+.pl-day button{border:0;padding:0;min-width:3px;cursor:pointer;color:transparent;font-size:0}
+.pl-day button[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:-2px}
+.pl-lg{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:0.82rem;color:var(--muted)}
+.pl-lg span{display:inline-flex;align-items:center;gap:5px}
+.pl-lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.pl-pick{margin-top:10px;font-size:0.9rem;min-height:2.6em}
+.pl-pick b{display:block}
+details.pl-m{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+details.pl-m summary{cursor:pointer;list-style:none;padding:14px 16px;font-family:var(--display);font-weight:700}
+details.pl-m summary::-webkit-details-marker{display:none}
+details.pl-m summary small{display:block;font-family:var(--body);font-weight:400;color:var(--muted);font-size:0.84rem}
+.pl-mb{padding:0 16px 16px;font-size:0.92rem;line-height:1.5}
+.pl-mb ol,.pl-mb ul{margin:6px 0 0;padding-left:20px}
+.pl-mb li{margin:4px 0}
+.pl-mb h4{font-family:var(--display);font-size:0.95rem;margin:14px 0 2px}
+.pl-mb pre{white-space:pre-wrap;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:10px;font-size:0.82rem;overflow-wrap:anywhere}
+.pl-chk label{display:flex;gap:10px;align-items:flex-start;padding:6px 0;cursor:pointer}
+.pl-chk input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--grow)}
 
 /* aaj ka plan */
 .dayplan{margin-top:14px}
@@ -535,7 +576,7 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
   <h2 class="sec">Data and settings</h2>
   <div class="card settings">
     <div>
-      <h3 style="font-size:1rem">Plan start date</h3><p class="note">Levels go up in 7-day blocks from this date. Default: Monday 16 Nov 2026.</p>
+      <h3 style="font-size:1rem">Plan start date</h3><p class="note">Levels go up in 7-day blocks from this date, and the din-wise roadmap restarts from it (Day 1). Default: Saturday 21 Nov 2026.</p>
       <div class="row2" style="margin-top:8px">
         <div class="field" style="min-width:170px"><input type="date" id="resetDate" aria-label="Plan start date"></div>
         <button class="btn small" type="button" id="saveResetDate">Save date</button>
@@ -557,8 +598,27 @@ details.goal summary small{grid-column:1 / -1;color:var(--muted);font-size:0.85r
 <section class="view" id="v-learn" aria-labelledby="lnTitle" hidden>
   <div class="hello"><h1 id="lnTitle">Learn</h1><p>What to use for each topic, and how much. “Checked” means the link was opened and confirmed.</p></div>
   <div class="card learn-rule">Ek theme, ek source. Learn aur Build same theme pe. DSA aur SQL ek din chhod ke. Video Learn block ka 40% se zyada nahi.</div>
+  <h2 class="sec">Big picture</h2>
+  <p class="sub">Your din-wise roadmap, seen from above: phases, hours and today's timing. Method cards from the 16-week plan are below. The roadmap stays the one plan.</p>
+  <div class="pl-kpis" id="plKpis"></div>
+  <div class="card pl-card">
+    <h3 class="pl-h">Phases <small id="plPhaseNote"></small></h3>
+    <div id="plPhases"></div>
+    <p class="note" style="margin-top:10px">Tap a phase to open its days in the roadmap below.</p>
+  </div>
+  <div class="card pl-card">
+    <h3 class="pl-h">Where your hours go <small id="plHoursNote">From your routine</small></h3>
+    <div id="plHours"></div>
+  </div>
+  <div class="card pl-card">
+    <h3 class="pl-h">Today's timing <small id="plDayNote"></small></h3>
+    <div class="pl-day" id="plDay"></div>
+    <div class="pl-lg" id="plDayLg"></div>
+    <div class="pl-pick" id="plPick" aria-live="polite"></div>
+  </div>
+  <div id="plMethods"></div>
   <h2 class="sec">Din-wise roadmap</h2>
-  <p class="sub">17 Nov se 8 Feb tak, har din kya padhna hai. Hinglish video numbers YouTube pe check kiye (6 Nov 2026). English links search pe khulte hain, check nahi kiye.</p>
+  <p class="sub" id="rmSub">Day 1 se aakhri din tak, har din kya padhna hai. Hinglish video numbers YouTube pe check kiye (6 Nov 2026). English links search pe khulte hain, check nahi kiye.</p>
   <div id="rmList"></div>
   <h2 class="sec">Topic resources</h2>
   <div class="learn" id="learnList"></div>
@@ -628,15 +688,16 @@ function normalize(d){
 function loadLocal(){try{var v=localStorage.getItem(KEY);if(v)return normalize(JSON.parse(v))}catch(e){}return seed()}
 function saveLocal(){try{localStorage.setItem(KEY,JSON.stringify(S.data))}catch(e){}}
 var S={data:loadLocal(),db:null,uid:null,sample:null,dl:null};
+if(S.data.state.planV!==2){S.data.state.resetStart="2026-11-21";S.data.state.planV=2;S.data.state.updatedAt=Date.now()}
 saveLocal();
 
 /* ============ targets and scoring ============ */
 var LEVELS=[null,
-  {study:4,steps:5000,wake:540,bed:300,screen:360,focus:25},
-  {study:5.5,steps:7000,wake:510,bed:270,screen:240,focus:40},
-  {study:6.5,steps:8000,wake:480,bed:240,screen:180,focus:50}];
+  {study:9,steps:5000,wake:420,bed:180,screen:240,focus:50},
+  {study:9,steps:7000,wake:420,bed:180,screen:180,focus:50},
+  {study:9,steps:8000,wake:420,bed:180,screen:150,focus:50}];
 /* Full time from PLAN_START unless Yash saved another start date. Days before the start count as level 1. */
-var PLAN_START="2026-11-16";
+var PLAN_START="2026-11-21",PLAN_V=2;
 function planStart(){return S.data.state.resetStart||PLAN_START}
 function lvlTargets(l){var t=clone(LEVELS[l]);t.level=l;return t}
 function screenMin(e){return (e&&typeof e.screenMin==="number")?e.screenMin:null}
@@ -690,27 +751,30 @@ var HABITS=[
    Each block is [start hour, end hour, name, colour, note]. Hours run from wake (W) to W+24,
    so 25 means 1:00 am the next night. */
 var GYM_DAYS=[1,3,5]; /* Mon, Wed, Fri */
-var EVE={dinner:19.5,walk:20,worry:21};
+var EVE={dinner:20,walk:20.5,worry:21.25};
 function dayBlocks(t,date){
   var W=t.wake/60,bed=20+t.bed/60,dow=parseYmd(date).getDay(),sun=dow===0,gym=GYM_DAYS.indexOf(dow)>=0;
   var out=[],h=W;
   function add(len,name,col,note){if(len<=0.001)return;out.push([h,h+len,name,col,note||""]);h+=len}
   function until(end,name,col,note){add(end-h,name,col,note)}
-  add(0.25,"Wake up","meal","Water, phone across the room, 5 minutes of daylight.");
-  add(0.75,"Breakfast + today’s card","meal","Read today’s card. 5-minute process rehearsal: picture starting the first task, not the reward.");
+  add(0.5,"Wake up + walk","grow","Water, then a 20-minute walk with no phone. Replay yesterday’s 3 main ideas in your head.");
+  add(0.5,"Breakfast + Anki","dawn","Anki: due cards only, no new cards here. Then read today’s card.");
   if(sun){
     add(3,"Sunday 3 hours: review, scorecard, one mock","dawn","3 hours only. Rest of the day off.");
     until(EVE.dinner,"Rest of the day off","people","Sunday. No study after the 3 hours.");
   }else{
-    add(1.5,"Logic / DSA hour","dawn","One subject: DSA and SQL take turns, day by day. Phone in another room.");
+    var sat=dow===6;
+    add(1.5,"Logic / DSA hour","dawn",sat?"Saturday: weekly test first. 25 mixed written questions from past weeks + 3 timed DSA problems.":"2 problems with the 7-step method. DSA and SQL take turns, day by day. Phone in another room.");
     add(0.25,"Break","people");
-    add(2.5,"Learn block","dawn","Read notes, type code from a blank file. Video at most 1 h (40% of the block).");
+    add(3,"Learn block","dawn","Three 50-minute blocks with 10-minute breaks. Close-the-tab recall after every video. Video at most 40% of the block.");
     add(1,"Lunch + quiet room","meal","Includes 5 minutes eyes closed, counting breaths, no phone.");
-    add(1.5,"Build block","dawn","Project work. AI assistant off for the core logic.");
-    add(0.25,"Break","people");
-    add(1,"Job search + speaking drill","dawn","Applications, then a 2-minute recorded speaking drill. Never skipped.");
+    add(3,"Build block","dawn","Project work, typed by hand. AI assistant off for the core logic.");
+    add(0.5,"Break + walk","grow","Short walk outside, no phone.");
+    add(0.75,"Drills","dawn","SQL until the SQL 50 is done, then Python and ML-coding drills (Learn tab, Methods).");
+    add(0.5,"Explain + Anki cards","dawn","Explain today’s 2 concepts out loud, record a 2-minute voice note, write 10–15 Anki cards.");
+    add(0.5,"Job search","dawn","5 tailored applications + 2 referral messages.");
     /* gym or free time; it shrinks first if the day runs into dinner */
-    add(Math.min(1.5,EVE.dinner-h),gym?"Gym (light)":"Free time",gym?"grow":"people",gym?"Treadmill or light weights, 30 minutes. Rest of the block is free.":"");
+    add(Math.min(0.75,EVE.dinner-h),gym?"Gym (light)":"Free time",gym?"grow":"people",gym?"Treadmill or light weights, 30 minutes.":"");
     until(EVE.dinner,"Free time","people");
   }
   add(EVE.walk-h,"Dinner","meal","");
@@ -741,16 +805,16 @@ var FIXES=[
 /* ============ goals data ============ */
 var GOALS=[
   {id:"mind",t:"Mind and sleep",c:"mind",why:"Fixed wake time and a nightly brain dump calm the overthinking and pull sleep earlier.",
-   plan:["Week 1: wake 9:00 every day, brain dump at 11:30 pm, no chai after 5:30.","Week 2: wake 8:30. Not asleep in 20 minutes? Get up and read on paper.","Week 3+: wake 8:00, lights off by midnight.","Still overthinking most nights after 2 weeks? Talk to a doctor or counsellor. It’s treatable."],
-   ms:["7 days in a row with the wake target","Brain dump on 14 nights","Asleep by 12:30 am for 7 days","Wake at 8:00 am for 7 days"]},
+   plan:["From Day 1: wake 7:00 every day, brain dump at 10:15 pm, asleep by 11:00 pm, no chai after 5:30.","Not asleep in 20 minutes? Get up and read on paper. Don't nap longer than 20 minutes.","Missed the wake time? Do the next block anyway. Never move the wake time later.","Still overthinking most nights after 2 weeks? Talk to a doctor or counsellor. It’s treatable."],
+   ms:["7 days in a row with the wake target","Brain dump on 14 nights","Asleep by 11:00 pm for 7 days","Wake at 7:00 am for 7 days"]},
   {id:"phone",t:"Phone and focus",c:"danger",why:"Instagram and WhatsApp took 8.5 hours a day. Distance beats willpower.",
    plan:["Day 1: delete Instagram for 30 days. WhatsApp notifications off except family and your girlfriend.","Week 1: 25-minute focus blocks, phone in another spot. Cap 6 h.","Week 2: 40-minute blocks. Cap 4 h.","Week 3+: 50-minute blocks. Cap 3 h."],
    ms:["Instagram deleted from phone","WhatsApp notifications off","Screen time under 6 h for 7 days","Under 4 h for 7 days","Under 3 h for 7 days"]},
   /* Ticks are saved by goal id and position ("career:0"), so the new list uses a new id.
      Old "career:N" ticks stay in the data and never land on these new items. */
   {id:"career2",t:"Career: AI Engineer",c:"dawn",why:"The main goal. Projects you can show and explain beat certificates.",
-   plan:["17 Nov to 3 Dec: Python, SQL, logic ladder, P0, RAG project.","8 to 29 Dec: text-to-SQL, evals, system design, mocks.","12 to 25 Jan: production AI: structured output, context, caching, cost, agent evals, multimodal, local models.","26 Jan to 8 Feb: application surge, decision on 6 Feb.","Roz 5 applications. Padhai kaato, applications nahi."],
-   ms:["Defense notes written for every resume bullet (cut or reword what can’t be explained)","Both resume versions + LinkedIn and Naukri live","Logic ladder level 1 checkpoint","Logic ladder level 2 checkpoint","P0 on GitHub, CI green","Python notes sections 1 to 9 done","Gate 29 Nov: about 30 applications sent","LeetCode SQL 50 done","Logic ladder 60 done","P3 hybrid RAG: first recall@5 number","Gate 3 Dec: P3 golden set, ablation table, Docker, CI, README","About 70 applications, 2 recruiter calls","P5 text-to-SQL with benchmark (14 Dec)","P6 eval harness in CI (21 Dec)","4 system design case studies answered aloud","Gate 3 Jan: 3+ live interview processes","Offer decision on 6 Feb","Production checklist done: caching, retries, agent evals, monitoring, demo live"]},
+   plan:["Day 1 is 21 Nov. Dates for every phase are in Learn, Big picture.","Phase order: Python, SQL, logic, P0, RAG project → text-to-SQL, evals, system design, mocks → production AI → application surge.","Daily: 9.25 h of study + 30 min of job search.","Roz 5 applications. Padhai kaato, applications nahi."],
+   ms:["Defense notes written for every resume bullet (cut or reword what can’t be explained)","Both resume versions + LinkedIn and Naukri live","Logic ladder level 1 checkpoint","Logic ladder level 2 checkpoint","P0 on GitHub, CI green","Python notes sections 1 to 9 done","Gate 29 Nov: about 30 applications sent","LeetCode SQL 50 done","Logic ladder 60 done","P3 hybrid RAG: first recall@5 number","Gate 13 Dec: P3 golden set, ablation table, Docker, CI, README","About 70 applications, 2 recruiter calls","P5 text-to-SQL with benchmark (13 Dec)","P6 eval harness in CI (20 Dec)","4 system design case studies answered aloud","Gate 10 Jan: 3+ live interview processes","Offer decision by 12 Feb","Production checklist done: caching, retries, agent evals, monitoring, demo live"]},
   {id:"exit",t:"Old job exit checklist",c:"meal",why:"Paperwork you’ll need for PF, background checks and the next offer. Get it in writing now.",
    plan:["Ask HR in writing for anything still pending, with a date.","Keep copies in your own Drive, never in this repo."],
    ms:["Relieving and experience letters","Last 3 payslips and Form 16","Full and final settlement amount and date in writing","UAN for PF transfer","Handover email sent, laptop and ID returned","1 to 2 references","Own-words notes of what you built (never company code or documents)"]},
@@ -774,7 +838,7 @@ function yt(q){return "https://www.youtube.com/results?search_query="+encodeURIC
 function gs(q){return "https://www.google.com/search?q="+encodeURIComponent(q)}
 var LEARN=[
   {t:"Python",use:[["Own Python notes, sections 1 to 10",null,null],["CodeWithHarry: Python in Hindi","https://www.classcentral.com/classroom/youtube-python-tutorial-in-hindi-137235","ok"],["CampusX DSMP 2022-23: OOP, modules, decorators, iterators, generators, NumPy, Pandas (Hindi)","https://www.youtube.com/playlist?list=PLKnIA16_RmvbAlyx4_rdtR66B7EHX5k3z","ok"],["ArjanCodes: type hints, dataclasses, clean code (English)",yt("ArjanCodes"),"no",1],["Real Python: async IO, pytest (English)",gs("Real Python Async IO complete walkthrough"),"no",1],["Fluent Python, 2nd ed. (look things up, do not read it cover to cover)",gs("Fluent Python 2nd edition Luciano Ramalho"),"no",1],["Corey Schafer (English)",yt("Corey Schafer Python tutorial"),"no",1],["CS50P (English)",gs("CS50P Harvard Introduction to Programming with Python"),"no",1],["Apna College Python (Hindi)",yt("Apna College Python"),"no",1]],
-   much:["Python 1 to 10 by 24 Nov. You have ~2 years of experience: watch at 1.5x and skip what you already know. Day-wise videos are in the roadmap above.","Best source per topic: basics CodeWithHarry, OOP + modules + decorators CampusX DSMP, context managers + decorators + logging + regex Corey Schafer, type hints + dataclasses ArjanCodes, async + pytest Real Python.","Learned inside other days: pytest (P0, 21 Nov), async (P3, 25 Nov), Pydantic + streaming (FastAPI, 2 Dec), regex (P5, 5 Dec), collections + functools + heapq (DSA days).","Interview checklist, 2 minutes aloud each: mutable vs immutable, is vs ==, shallow vs deep copy, mutable default argument bug, list vs tuple vs set, how a dict works, generator vs list, write a decorator, *args/**kwargs, GIL and threading vs multiprocessing vs async, staticmethod vs classmethod, how with works."]},
+   much:["Python 1 to 10 in the first 8 days. You have ~2 years of experience: watch at 1.5x and skip what you already know. Day-wise videos are in the roadmap above.","Best source per topic: basics CodeWithHarry, OOP + modules + decorators CampusX DSMP, context managers + decorators + logging + regex Corey Schafer, type hints + dataclasses ArjanCodes, async + pytest Real Python.","Learned inside other days: pytest (P0, 21 Nov), async (P3, 25 Nov), Pydantic + streaming (FastAPI, 2 Dec), regex (P5, 5 Dec), collections + functools + heapq (DSA days).","Interview checklist, 2 minutes aloud each: mutable vs immutable, is vs ==, shallow vs deep copy, mutable default argument bug, list vs tuple vs set, how a dict works, generator vs list, write a decorator, *args/**kwargs, GIL and threading vs multiprocessing vs async, staticmethod vs classmethod, how with works."]},
   {t:"SQL",use:[["LeetCode SQL 50","https://leetcode.com/studyplan/top-sql-50/","no"],["DataLemur","https://datalemur.com","no"],["Rishabh Mishra (Hindi)",yt("Rishabh Mishra SQL Hindi"),"no",1],["Apna College (Hindi)",yt("Apna College SQL"),"no",1]],
    much:"SQL days alternate with DSA days, two topics each. SQL 50 by about 5 Dec, then 10 DataLemur mediums, then timed sets."},
   {t:"Logic and DSA",use:[["Own DSA notes: 60-problem logic ladder",null,null],["NeetCode","https://neetcode.io","no"],["Apna College (concepts)",yt("Apna College DSA"),"no",1],["Love Babbar (concepts)",yt("Love Babbar DSA"),"no",1]],
@@ -837,7 +901,7 @@ var RSRC={
    ph = a new phase starts here, gate = checked at the next Sunday review, noApps = before the daily applications start. */
 var MIX=["Mixed timed set (3 problems, 60 min)"],TSQL=["Timed SQL set (3 questions, 30 min)"];
 function DLM(n){return ["DataLemur medium "+n]}
-var RM_START="2026-11-17",RM_LIGHT=["12-25","01-01"];
+var RM_START=planStart(),RM_LIGHT=["12-25","01-01"];
 var RM_SEQ=[
   {ph:"Start: Python basics + resume",noApps:1,l:"Python 1 + 2: variables, data types, input, typecasting, strings",hi:[["CWH","#6, #9, #10, #11, #12, #13, #28"]],en:["CS50P Lecture 0"],no:"Python notes §1–2",d:["Python practice: calculator exercise","CWH","#7, #8"],b:"Resume: defense notes for every bullet (cut what you can’t explain)"},
   {noApps:1,l:"Python 3 + 4: if/else, for, while, lists, tuples",hi:[["CWH","#14, #17, #18, #19, #22–25"]],en:["CS50P Lecture 1","CS50P Lecture 2"],no:"Python notes §3–4",d:["Python practice: Good Morning Sir exercise","CWH","#15"],b:"Both resume versions final"},
@@ -1593,14 +1657,108 @@ function renderLearn(){
     p[1].forEach(function(s){var a=extLink(s[0],s[1]);if(s[2])a.appendChild(el("small",null,s[2]));b.appendChild(a)});
   });
   renderRoadmap();
+  renderPlan();
+}
+/* ============ big picture (learn tab) ============ */
+/* Study hours per roadmap day, taken from the routine's blocks (dayBlocks). */
+var PL_CAT=[["dsa","DSA / SQL hour","var(--dawn)"],["learn","Learn block","var(--mind)"],["build","Build block","var(--grow)"],["drills","Drills","var(--dawn)"],["anki","Anki","var(--mind)"],["explain","Explain + cards","var(--grow)"],["jobs","Job search","var(--people)"],["review","Sunday review + mock","var(--meal)"],["easy","Easy days","var(--line)"]];
+function plDayHrs(e){
+  if(!e)return {};
+  if(e.sun)return {review:3};
+  if(e.light)return {easy:1};
+  if(e.surge)return {dsa:1.5,jobs:3.5,build:3,drills:0.75,anki:0.5,explain:0.5};
+  return {dsa:1.5,learn:3,build:3,drills:0.75,anki:0.5,explain:0.5,jobs:0.5};
+}
+function plSum(h){var s=0;for(var k in h)s+=h[k];return s}
+var PL_COLS={dawn:"Study",mind:"Sleep + night routine",grow:"Movement",people:"Breaks + free time",meal:"Meals"};
+var PL_METHODS=[
+  {t:"DSA problem method",s:"7 steps for every problem, 25-minute rule",html:"<ol><li><b>Understand (5 min):</b> restate it, write 2 examples and 2 edge cases (empty, one element, duplicates, negatives).</li><li><b>Brute force in words (5 min):</b> say the slow way out loud before any code.</li><li><b>Pattern:</b> which pattern fits, and why?</li><li><b>Code</b> with clear names.</li><li><b>Dry-run</b> one example line by line.</li><li><b>Complexity:</b> time and space, out loud.</li><li><b>25-minute rule:</b> stuck 25 min? Read only the hint or first third of the solution, close it, code it yourself. Redo it after 3 days and after 7 days.</li></ol><h4>Python drills (timed, then again a week later)</h4><ul><li>@retry decorator with backoff</li><li>Generator: text chunks of N with overlap M</li><li>LRU cache class</li><li>Async fetch of 20 URLs, semaphore of 5</li><li>Parse messy LLM JSON with Pydantic, retry once</li><li>Cosine top-k in NumPy</li><li>BM25 from scratch</li><li>Mini RAG in 45 min</li><li>FastAPI streaming endpoint</li><li>Trim chat history to a token budget</li></ul><p class='note' style='margin-top:8px'>No AI autocomplete while practising. AI only as a tutor after you try: hint, not solution.</p>"},
+  {t:"Recall system",s:"How to stop forgetting: 5 habits",html:"<ol><li><b>Close-the-tab recall (3 min):</b> after every video, close it and write 5 bullets from memory. Then fix the gaps.</li><li><b>Anki (30 min):</b> 10–15 new cards a day, one idea per card, ask why/when. Example: <i>When would you pick IVF over HNSW?</i></li><li><b>Feynman voice note (10 min):</b> 2 concepts a day, 2 minutes each, Hinglish then English. Every “basically… umm” is a gap.</li><li><b>Build to remember:</b> every concept gets a tiny piece of code.</li><li><b>One page per concept</b> (template below).</li></ol><pre>What: one-line definition\nWhy: what breaks without it\nWhen: use it when… / not when…\nWho / where: systems that use it\nHow it works: 3–5 steps + a tiny example with numbers\nTypes / variants:\nHow to measure: metric + how to read it\nIf it fails: symptom → cause → fix\nInterview one-liner (20 s):\nMy code: link</pre><p class='note'>Saturday: 25 mixed questions from all past weeks. Ask Claude: “Quiz me on X, one question at a time, grade me strictly.”</p>"},
+  {t:"How to answer in interviews",s:"5 answer shapes + the 7-step system design",html:"<h4>1. What is X?</h4>Define in one line → how it works in 3 steps → your example → trade-off.<h4>2. X vs Y?</h4>One line each → compare on 3 criteria → when you'd pick which.<h4>3. Debugging scenario</h4>Clarify → hypotheses, most likely first → how you'd check → fix → prevent (add to eval set).<h4>4. AI system design (45 min)</h4><ol><li>Requirements: users, scale, latency, cost, accuracy, safety (5 min)</li><li>High-level diagram, 5–7 boxes (5)</li><li>Data + ingestion: parsing, chunking, metadata (7)</li><li>Retrieval + model choice and why (8)</li><li>Generation + guardrails: citations, refusals, PII, injection (7)</li><li>Evaluation + monitoring: golden set, traces, cost/latency alerts (8)</li><li>Trade-offs + scaling: caching, smaller models, half budget (5)</li></ol><h4>5. Behavioral</h4>STAR with a number. Action uses “I”, not “we”.<h4>Delivery</h4>First sentence answers the question. Say “first, second, third”. 60–90 seconds, then: “Should I go deeper on any part?” When you don't know: “I haven't used X directly; here's how I'd reason…”"},
+  {t:"Project grill",s:"12 questions your projects must survive",html:"<ol><li>Why this chunk size and overlap? What changed when you changed them?</li><li>Why this embedding model? Cost per 1,000 documents?</li><li>Why hybrid search? One query where BM25 beat dense.</li><li>How do you know answers are correct? How was the eval set built?</li><li>Right document exists, answer is wrong. How do you debug?</li><li>10× documents or 100 users at once?</li><li>Prompt injection from a document: how do you stop it?</li><li>Cost per query, and how to halve it?</li><li>Why WAPE over MAPE? What does MAPE do near zero sales?</li><li>Why not a random train/test split for time series?</li><li>How did you handle festivals and promotions?</li><li>When would you choose fine-tuning over RAG here?</li></ol><p class='note' style='margin-top:8px'>Can't answer one? That project isn't done yet. 2-minute pitch order: problem → architecture → 3 decisions → numbers → what broke → next.</p>"}
+];
+var PL_READY=["LeetCode medium in 30 min, talking through it, 2 times out of 3","Design a RAG or agent system in 45 min with the 7 steps","40 of 50 random GenAI questions answered in under 90 s each","Every project and resume line has a number and a decision you can defend","5 real interviews done, with a debrief written for each"];
+var PL_KEY="life-os-ready-checks",plSel=null;
+function plGetChecks(){try{return JSON.parse(localStorage.getItem(PL_KEY)||"{}")}catch(e){return {}}}
+function renderPlan(){
+  var d=today(),dates=Object.keys(RD).sort(),last=dates[dates.length-1];
+  /* totals */
+  var tot={},done=0,plan=0,logged=0;
+  dates.forEach(function(dt){var h=plDayHrs(RD[dt]);for(var k in h)tot[k]=(tot[k]||0)+h[k];if(dt<d){plan+=plSum(h);var x=S.data.days[dt];if(x)logged+=num(x.study)}});
+  var all=plSum(tot),left=Math.max(0,Math.round((parseYmd(last)-parseYmd(d))/864e5)+1);
+  var pi=-1;RM_PHASES.forEach(function(p,i){if(d>=p[0]&&d<=p[1])pi=i});
+  var k=$("plKpis");k.innerHTML="";
+  [["Days left",String(left)],["Planned hours",Math.round(all)+" h"],["Logged so far",Math.round(logged)+" / "+Math.round(plan)+" h"],["Phase",(pi>=0?(pi+1):"–")+" of "+RM_PHASES.length]].forEach(function(x){var c=el("div","pl-kpi");c.appendChild(el("span",null,x[0]));c.appendChild(el("b",null,x[1]));k.appendChild(c)});
+  /* phases */
+  var box=$("plPhases");box.innerHTML="";
+  $("plPhaseNote").textContent="Ends "+longDate(last);
+  RM_PHASES.forEach(function(p,i){
+    var n=0,el_=0,hrs=0;
+    for(var dt=p[0];dt<=p[1];dt=addDays(dt,1)){n++;if(dt<d)el_++;hrs+=plSum(plDayHrs(RD[dt]))}
+    var b=el("button","pl-ph"+(i===pi?" pl-cur":""));b.type="button";
+    var t=el("div","t");t.appendChild(el("span",null,(i+1)+". "+p[2]));t.appendChild(el("small",null,Math.round(hrs)+" h"));b.appendChild(t);
+    var bar=el("div","bar"),fill=el("i");fill.style.width=Math.round(100*el_/n)+"%";bar.appendChild(fill);b.appendChild(bar);
+    b.appendChild(el("div","d",shortDate(p[0])+" – "+shortDate(p[1])+" · "+n+" days"+(el_>=n?" · done":el_>0?" · "+Math.round(100*el_/n)+"% through":"")));
+    b.addEventListener("click",function(){rmOpen[i]=true;renderRoadmap();var t2=$("rmph-"+i);if(t2)t2.scrollIntoView({behavior:"smooth",block:"start"})});
+    box.appendChild(b);
+  });
+  /* hours by block */
+  $("plHoursNote").textContent=shortDate(dates[0])+" – "+shortDate(last)+", from your routine";
+  var hb=$("plHours");hb.innerHTML="";var mx=0;PL_CAT.forEach(function(c){mx=Math.max(mx,tot[c[0]]||0)});
+  PL_CAT.forEach(function(c){
+    var v=tot[c[0]]||0;if(!v)return;
+    var r=el("div","pl-row");r.appendChild(el("span","lb",c[1]));
+    var tr=el("div","tr"),i=el("i");i.style.width=(100*v/mx)+"%";i.style.background=c[2];tr.appendChild(i);r.appendChild(tr);
+    r.appendChild(el("span","v",Math.round(v)+" h"));hb.appendChild(r);
+  });
+  hb.appendChild(el("p","note","Total "+Math.round(all)+" h. Mon–Sat: 9.25 h of study + 30 min job search. Sunday: 3 h review + mock."));
+  /* today's timing */
+  var blocks=withRoadmap(dayBlocks(targetsFor(d),d),d),bar2=$("plDay"),lg=$("plDayLg"),seen={};
+  bar2.innerHTML="";lg.innerHTML="";
+  var st=blocks.length?blocks[0][0]:0,en=blocks.length?blocks[blocks.length-1][1]:1;
+  $("plDayNote").textContent="Your full 24 hours from "+fmtHour(st)+" wake-up · tap a block";
+  if(plSel==null||plSel>=blocks.length){try{plSel=currentBlock(blocks).i}catch(e){plSel=0}}
+  blocks.forEach(function(b,i){
+    var s=el("button");s.type="button";s.style.flex=String(b[1]-b[0]);s.style.background="var(--"+b[3]+")";
+    s.setAttribute("aria-label",b[2]+", "+fmtHour(b[0])+" to "+fmtHour(b[1]));s.setAttribute("aria-pressed",i===plSel?"true":"false");
+    s.addEventListener("click",function(){plSel=i;renderPlanPick(blocks);bar2.querySelectorAll("button").forEach(function(x,j){x.setAttribute("aria-pressed",j===i?"true":"false")})});
+    bar2.appendChild(s);
+    if(!seen[b[3]]){seen[b[3]]=0}seen[b[3]]+=b[1]-b[0];
+  });
+  Object.keys(seen).forEach(function(c){var sp=el("span"),i=el("i");i.style.background="var(--"+c+")";sp.appendChild(i);sp.appendChild(document.createTextNode((PL_COLS[c]||c)+" "+fmtH(seen[c])));lg.appendChild(sp)});
+  renderPlanPick(blocks);
+  /* method cards + ready check */
+  var mb=$("plMethods");mb.innerHTML="";
+  var h2=el("h2","sec","Methods");mb.appendChild(h2);
+  mb.appendChild(el("p","sub","How to practise, remember and answer. Full write-up: AI Engineer Roadmap doc."));
+  PL_METHODS.forEach(function(m){
+    var det=el("details","pl-m"),sum=el("summary",null,m.t);sum.appendChild(el("small",null,m.s));det.appendChild(sum);
+    var body=el("div","pl-mb");body.innerHTML=m.html;det.appendChild(body);mb.appendChild(det);
+  });
+  var rd=el("details","pl-m"),rs=el("summary",null,"Ready check");rs.appendChild(el("small",null,"Tick these off before the application surge"));rd.appendChild(rs);
+  var rbody=el("div","pl-mb pl-chk"),chk=plGetChecks();
+  PL_READY.forEach(function(t,i){
+    var lab=el("label"),cb=el("input");cb.type="checkbox";cb.checked=!!chk[i];
+    cb.addEventListener("change",function(){var c=plGetChecks();c[i]=cb.checked;try{localStorage.setItem(PL_KEY,JSON.stringify(c))}catch(e){}});
+    lab.appendChild(cb);lab.appendChild(el("span",null,t));rbody.appendChild(lab);
+  });
+  var a=extLink("Open the full AI Engineer Roadmap doc","https://claude.ai/artifact/DfWfkvo4ffQPgYKq3Pr2MF");
+  var p=el("p","note");p.style.marginTop="10px";p.appendChild(a);rbody.appendChild(p);
+  rd.appendChild(rbody);mb.appendChild(rd);
+}
+function renderPlanPick(blocks){
+  var b=blocks[plSel],box=$("plPick");box.innerHTML="";if(!b)return;
+  box.appendChild(el("b",null,b[2]+" · "+fmtHour(b[0])+" – "+fmtHour(b[1])));
+  if(b[4])box.appendChild(el("span","note",b[4]));
 }
 /* Learn tab: the whole roadmap by phase. The phase with today opens by default;
    a phase's days are built only when it is opened. */
 var rmOpen={};
 function renderRoadmap(){
   var box=$("rmList"),d=today();box.innerHTML="";
+  var ks=Object.keys(RD).sort();$("rmSub").firstChild.textContent="Day 1 ("+shortDate(ks[0])+") se "+shortDate(ks[ks.length-1])+" tak, har din kya padhna hai. Hinglish video numbers YouTube pe check kiye (6 Nov 2026). English links search pe khulte hain, check nahi kiye.";
   RM_PHASES.forEach(function(p,pi){
-    var det=el("details","rmphase"),sum=el("summary",null,p[2]),filled=false;
+    var det=el("details","rmphase"),sum=el("summary",null,p[2]),filled=false;det.id="rmph-"+pi;
     sum.appendChild(el("small",null,shortDate(p[0])+" – "+shortDate(p[1])));det.appendChild(sum);
     det.open=rmOpen[pi]!=null?rmOpen[pi]:(d>=p[0]&&d<=p[1]);
     function fill(){
